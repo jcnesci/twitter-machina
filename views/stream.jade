@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+	head
+		title= "Soso Twitter App"
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+		script(src="socket.io/socket.io.js")
+		script(src="js/main.js")
+		script
+			console.log('-enter script');
+
+			  var socket = io.connect('http://localhost:3000');
+			  socket.on('news', function(data) {
+			    console.log('Received news: '+ data);
+			    $('ul.tweet_list').append('data.text');
+			  });
+
+			  socket.on('big_news', function(data){
+			    console.log('Received BIG NEWS!');
+			  });
+	body
+		div.container
+			header
+				h1 Twitter Stream page.
+			ul.tweet_list
+		
+		

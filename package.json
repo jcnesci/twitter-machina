@@ -1,0 +1,21 @@
+{
+  "name": "twitter-machina",
+  "description": "Soso's Twitter API client for node (REST & Streaming)",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "Soso"
+  },
+  "dependencies": {
+    "oauth": "0.9.9",
+    "express": "3.x",
+    "socket.io": "*",
+    "jade": "*",
+    "stylus": "*",
+    "twit": "*",
+    "sentiment": "1.0.0-alpha"
+  },
+  "engines": {
+    "node": ">=0.6.0"
+  }
+}
