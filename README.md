@@ -6,7 +6,10 @@ Setup
 -----
 
 1. Clone this repo.
-2. Install Node.js and NPM (Node Package Manager).
+2. Check if you have Node.js already.
+   * in Terminal, try ```node -v``` and it will give you the version if Node is installed.
+   * if it isn't, go to the next step; otherwise, skip it.
+3. Install Node.js and NPM (Node Package Manager).
    * if you have brew: ```brew install node```
    * if not: http://nodejs.org/#download
 3. Install all dependencies, by going in /twitter-machina/ and doing:
