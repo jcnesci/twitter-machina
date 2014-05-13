@@ -10,13 +10,13 @@ Setup
    * in Terminal, try ```node -v``` and it will give you the version if Node is installed.
    * if it isn't, go to the next step; otherwise, skip it.
 3. Install Node.js and NPM (Node Package Manager).
-   * if you have brew: ```brew install node```
-   * if not: http://nodejs.org/#download
-3. Install all dependencies, by going in /twitter-machina/ and doing:
+   * get Homebrew if you don't have it already: http://brew.sh/
+   * install Node with Homebrew: ```brew install node```
+4. Install all dependencies, by going in /twitter-machina/ and doing:
    * ```npm install```
-4. All should be ready to run:
+5. All should be ready to run:
    * ```node app.js```
-5. See it work in your browser at:
+6. See it work in your browser at:
    * http://localhost:3000/
 
 That's all folks.
