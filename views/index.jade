@@ -1,11 +1,20 @@
 doctype html
 html(lang='en')
 	head
-		title= "Soso Twitter App"
-		link(rel='stylesheet', href='/stylesheets/style.css')
+		title #{title}
+		link(rel='stylesheet', href='stylesheets/style.css')
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
-        script(src="/socket.io/socket.io.js")
-        script(src="js/main.js")
+		script(type='text/javascript', src="/socket.io/socket.io.js")
+		script(type='text/javascript', src='javascripts/client.js')
 	body
-		p= message
-		
+		header
+			h1 Twitter Stream page
+		.container
+			hr
+			h2 Twitter Search about: #{twitter_search_phrase}
+			div#tweet_search
+			hr
+			h2 Twitter Stream about: #{twitter_stream_phrase}
+			ul.tweet_list
+		footer
+			p Running on Node with Express, Jade, Stylus, Socket.io, Twit.
