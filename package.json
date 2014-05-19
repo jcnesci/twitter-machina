@@ -17,5 +17,9 @@
   },
   "engines": {
     "node": ">=0.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcnesci/twitter-machina.git"
   }
 }
