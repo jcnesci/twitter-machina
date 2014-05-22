@@ -8,7 +8,7 @@ var app = express();
 var server = app.listen(3000);
 var io = require('socket.io').listen(server); // this tells socket.io to use our express server
 var stream_phrase = "bieber";
-var search_phrase = "doorknob butter";
+var search_phrase = "obama";
 
 // Setup stuff.
 app.configure(function(){
@@ -49,15 +49,20 @@ io.sockets.on('connection', function (socket) {
     console.log('A new user connected!');
     // socket.emit('info', { msg: 'The world is round, there is no up or down.' });
 
-    // Everytime there's a new tweet, emit a event passing the tweet.
-    var stream = T.stream('statuses/filter', { track: stream_phrase });
-    stream.on('tweet', function (tweet) {
-      socket.emit('twitter_stream', tweet);
-    });
+    // --- STREAM OFF FOR NOW ---
+    // // Everytime there's a new tweet, emit a event passing the tweet.
+    // var stream = T.stream('statuses/filter', { track: stream_phrase });
+    // stream.on('tweet', function (tweet) {
+    //   socket.emit('twitter_stream', tweet);
+    // });
 
     //
-    T.get('search/tweets', { q: "doorknob butter", count: 1 }, function(err, data, response) {
-        data = JSON.stringify(data, null, 4);
+    T.get('statuses/user_timeline', { screen_name: "BarackObama", count: 1 }, function(err, data, response) {
+        if (err) {
+          console.log("ERROR- app.js- T.get()");
+          console.error(err.stack);
+        }
+        // data = JSON.stringify(data, null, 4);
         socket.emit('twitter_search', data);
     });
 });
@@ -69,3 +74,12 @@ var T = new Twit({
   , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
   , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
 })
+
+
+// Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// Handle uncaughtException errors, to prevent app from crashing when one happens.
+process.on('uncaughtException', function(err) {
+  console.error("ERROR- uncaughtException- "+ err.stack);
+});

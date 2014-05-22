@@ -9,12 +9,15 @@ html(lang='en')
 	body
 		header
 			h1 Twitter Stream page
-		.container
 			hr
+		.container
 			h2 Twitter Search about: #{twitter_search_phrase}
 			div#tweet_search
-			hr
-			h2 Twitter Stream about: #{twitter_stream_phrase}
-			ul.tweet_list
+			
+			//- --- STREAMING OFF FOR NOW ---
+			//- hr
+			//- h2 Twitter Stream about: #{twitter_stream_phrase}
+			//- ul.tweet_list
 		footer
+			hr
 			p Running on Node with Express, Jade, Stylus, Socket.io, Twit.
