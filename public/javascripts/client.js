@@ -1,5 +1,24 @@
 $(function(){
 
+
+	// Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+	function cleanTweet(tweet) {		
+		// NB: we're not doing it now, but it's possible to store the regex matches in arrays for later use. We would need to use .
+		tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
+		tweet = tweet.replace(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g, "");	// remove http links.
+		tweet = tweet.replace(/: /, " ");		// remove colons at the end of a word.
+		$.trim(tweet);	// Remove leading and trailing whitespace.
+			// return this.replace(/^\s+|\s+$/g,"");		// regex for trim fct.
+
+		return tweet;
+	}
+
+
+	// Main - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
 	// connect to the socket server
 	var socket = io.connect(); 
 
@@ -7,6 +26,29 @@ $(function(){
 	socket.on('info', function (data) {
 	    console.log(data);
 	});
+
+	// Twitter REST Search
+	socket.on('eTwitterGetResult_1', function (data) {
+		// Turn tweet data into JSON format.
+		JSON.stringify(data, null, 4);
+		
+		// Append each tweet's text to the HTML.
+		$.each(data, function(key, value){
+			var tweetText = value.text;
+			$('#twitter_results_1 ul').append('<li>'+ cleanTweet(tweetText) +'</li>');
+		});
+	});
+	socket.on('eTwitterGetResult_2', function (data) {
+		// Turn tweet data into JSON format.
+		JSON.stringify(data, null, 4);
+		
+		// Append each tweet's text to the HTML.
+		$.each(data, function(key, value){
+			var tweetText = value.text;
+			$('#twitter_results_2 ul').append('<li>'+ cleanTweet(tweetText) +'</li>');
+		});
+	});
+
 
 	// --- STREAM OFF FOR NOW ---
 	// // On "twitter" event, append the tweet's text to the ul.
@@ -18,20 +60,6 @@ $(function(){
 	//     	$('ul.tweet_list li').first().remove();
 	//     	console.log("delete!");
 	//     }
- //    	$('ul.tweet_list').append('<li>'+ data.text +'</li>');
+ 	// 	 $('ul.tweet_list').append('<li>'+ data.text +'</li>');
 	// });
-
-	// Twitter REST Search
-	socket.on('twitter_search', function (data) {
-		
-		// Turn tweet data into JSON format.
-		JSON.stringify(data, null, 4);
-		
-		// Append each tweet's text to the HTML.
-		$.each(data, function(key, value){
-			$('#tweet_search').append(value.text);
-		});
-
-	});
-
 });
