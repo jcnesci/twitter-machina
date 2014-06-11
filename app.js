@@ -1,11 +1,12 @@
 var express = require('express')
   , http = require('http')
   , stylus = require('stylus')
-  , Twit = require('twit');
+  , Twit = require('twit'),
+  Paper = require('paper');
 
 // 
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(4000);
 var io = require('socket.io').listen(server); // this tells socket.io to use our express server
 var stream_phrase = "bieber";
 var search_phrase = "doorknob butter";
@@ -22,11 +23,15 @@ app.configure(function(){
     , compile: compile
     }
   ));
+
+
   app.use(express.static(__dirname + '/public'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
 });
+
+
 function compile(str, path) {
   return stylus(str).set('filename', path)
 }
@@ -42,7 +47,7 @@ app.get('/', function (req, res) {
 });
 
 //
-console.log("Express server listening on port 3000");
+console.log("Express server listening on port 4000");
 
 // Open a socket to stream results continuously to our webpage.
 io.sockets.on('connection', function (socket) {
@@ -63,9 +68,13 @@ io.sockets.on('connection', function (socket) {
 });
 
 // Twitter credentials.
+// Replace these with your own!
+
+console.log("Using Alex's keys");
+//Alex's keys
 var T = new Twit({
-    consumer_key: 'kEwsveRmFIRibVAIq43NAIjCt'
-  , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
-  , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
-  , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
+    consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
+  , consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
+  , access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
+  , access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
 })

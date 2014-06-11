@@ -3,12 +3,21 @@ html(lang='en')
 	head
 		title #{title}
 		link(rel='stylesheet', href='stylesheets/style.css')
+		script(type='text/javascript', src="http://d3js.org/d3.v3.min.js")
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+		script(type='text/javascript', src='/javascripts/paper-full.min.js')
+		script(type='text/javascript', src='jquery.textillate.js')
+		script(type='text/javascript', src='assets/jquery.lettering.js')
+		script(type='text/javascript', src='assets/jquery.fittext.js')
+		script(type='text/css', src='assets/animate.css')
+		script(type ='text/paperscript', src='graphics.js')
 		script(type='text/javascript', src="/socket.io/socket.io.js")
 		script(type='text/javascript', src='javascripts/client.js')
-	body
+
+	body 
+		canvas(id="myCanvas") resize
 		header
-			h1 Twitter Stream page
+			h1(id="tlt") Twitter Stream page
 		.container
 			hr
 			h2 Twitter Search about: #{twitter_search_phrase}
