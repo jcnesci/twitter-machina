@@ -163,20 +163,15 @@ $(function(){
 
 	//
 	socket.on('twitter_search', function (data) {
-
-		var tweet = jQuery.parseJSON( data);
-
-		var status = tweet.statuses[0].text;
-		//console.log(data.text)
-	
-		//$('#tweet_search').append(data);
-		$('#tweet_search').append(status);
-		$('#tweet_search').textillate();
-		/*{ 
-    in: { effect: 'flip' },
-    out: { effect: 'noneOut', sync: true }, 
-    loop: true 
-});*/
+		
+		JSON.stringify(data, null, 4);
+		console.log("- - - - - - - ");
+		console.log(data);
+		// Append each tweet's text to the HTML.
+		// $.each(data, function(key, value){
+		// 	// $('#tweet_search').append(value.text);
+		// 	console.log(data.text);
+		// });
 
 		//data.textillate();
 	});

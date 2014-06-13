@@ -1,0 +1,56 @@
+doctype html
+html(lang='en')
+	head
+		title #{title}
+		link(rel='stylesheet', href='stylesheets/style.css')
+		script(type='text/javascript', src="http://d3js.org/d3.v3.min.js")
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+		script(type='text/javascript', src='/javascripts/paper-full.min.js')
+		script(type='text/javascript', src='jquery.textillate.js')
+		script(type='text/javascript', src='assets/jquery.lettering.js')
+		script(type='text/javascript', src='assets/jquery.fittext.js')
+		script(type='text/css', src='assets/animate.css')
+		script(type ='text/paperscript', src='graphics.js')
+		script(type='text/javascript', src="/socket.io/socket.io.js")
+		script(type='text/javascript', src='javascripts/client.js')
+
+	body 
+		canvas(id="myCanvas") resize
+		header
+			h1(id="tlt") Twitter Stream Comparison
+		.container
+			hr
+			h2 Search:
+			form(id="searchCriteria", action="findTweets", method="get")
+				span(class="errors")
+				fieldset
+					div
+						label(for="searchString") Search String:
+						input(id="searchString", name="searchString", type="text", value="")
+					div
+						label(for="pageSize") Maximum results:
+						select(id="pageSize")
+			div#tweet_search
+			hr
+			h2 Twitter Stream about: #{twitter_stream_phrase}
+			ul.tweet_list
+		footer
+			p Running on Node with Express, Jade, Stylus, Socket.io, Twit.
+
+			h1 Search Hotels
+ form(id="searchCriteria", action="hotels", method="get")
+  span(class="errors")
+  fieldset
+   div
+    label(for="searchString") Search String:
+    input(id="searchString",name="searchString",type="text",value="")
+   div
+    label(for="pageSize") Maximum results:
+    select(id="pageSize",name="pageSize")
+     option(value="5") 5
+     option(value="10") 10
+     option(value="20") 20
+    div
+     button(type="submit") Find Hotels
+ 
+div(id="bookings")

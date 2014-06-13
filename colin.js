@@ -46,25 +46,30 @@ app.get('/', function (req, res) {
     );
 });
 
+app.get('/compare', function (req, res) {
+    res.render('compare.jade',
+      {title: 'Twitter Compare'}
+    );
+});
+
 //
 console.log("Express server listening on port 4000");
-
+console.log("Colin's System!!!");
 // Open a socket to stream results continuously to our webpage.
 io.sockets.on('connection', function (socket) {
     console.log('A new user connected!');
     // socket.emit('info', { msg: 'The world is round, there is no up or down.' });
 
     // Everytime there's a new tweet, emit a event passing the tweet.
-    // var stream = T.stream('statuses/filter', { track: stream_phrase });
-    // stream.on('tweet', function (tweet) {
-    //   socket.emit('twitter_stream', tweet);
-    // });
+    var stream = T.stream('statuses/filter', { track: stream_phrase });
+    stream.on('tweet', function (tweet) {
+      socket.emit('twitter_stream', tweet);
+    });
 
     //
-    T.get('search/user_timeline', { screen_name: "BarackObama", count: 10 }, function(err, data, response) {
-        // data = JSON.stringify(data, null, 4);
+    T.get('search/tweets', { q: "doorknob butter", count: 1 }, function(err, data, response) {
+        data = JSON.stringify(data, null, 4);
         socket.emit('twitter_search', data);
-        console.log(data);
     });
 });
 
