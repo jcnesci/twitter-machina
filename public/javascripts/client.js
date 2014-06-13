@@ -1,3 +1,31 @@
+var words = [];
+
+function Word(theWord, refSet) {
+	this.value = theWord;
+	this.ref = [refSet];
+};
+
+function Tweet(tweet, refSet) {
+	this.fullTweet = tweet;
+	this.ref = [refSet];
+	var tmpWords = tweet.split(" ")
+	this.words = tmpWords;
+
+	for (i = 0; i < tmpWords.length; i++) {
+    words.push(new Word(tmpWords[i], refSet));
+	}
+
+};
+
+var tweet1 = new Tweet("Add your name The burden of student loan debt is too great. It's time to take action.", 1);
+
+console.log(words[2].value);
+
+
+
+
+
+// Previously Created Javascript --------------------------------
 
 console.log('client');
 
