@@ -1,7 +1,8 @@
-var express = require('express')
-  , http = require('http')
-  , stylus = require('stylus')
-  , Twit = require('twit');
+var express = require('express')    // HTML template engine.
+  , http = require('http')          // ?
+  , stylus = require('stylus')      // CSS preprocessor.
+  , Twit = require('twit')          // Twitter API.
+  , _ = require('underscore');      // Underscore.js for extending JS to have funcs like map, reduce, filter...
 
 
 // Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -58,7 +59,6 @@ app.get('/', function (req, res) {
 //
 console.log("Express server listening on port 3000");
 
-
 // Twitter API usage - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -68,7 +68,7 @@ io.sockets.on('connection', function (socket) {
     // socket.emit('info', { msg: 'The world is round, there is no up or down.' });       //DEV
 
     // Do REST search #1.
-    T.get('statuses/user_timeline', { screen_name: twitterQuery_1, count: 1 }, function(err, data, response) {
+    T.get('statuses/user_timeline', { screen_name: twitterQuery_1, count: 2 }, function(err, data, response) {
         if (err) {
           console.log("ERROR- app.js- search #1.");
           console.error(err.stack);

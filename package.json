@@ -13,6 +13,7 @@
     "jade": "*",
     "stylus": "*",
     "twit": "*",
+    "underscore": "*",
     "sentiment": "1.0.0-alpha"
   },
   "engines": {
