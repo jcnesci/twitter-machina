@@ -1,15 +1,18 @@
 var express = require('express')
   , http = require('http')
   , stylus = require('stylus')
-  , Twit = require('twit'),
-  Paper = require('paper');
+  , Twit = require('twit')
+  , Paper = require('paper')
+  , _ = require('underscore');
 
-// 
+// Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 var app = express();
-var server = app.listen(4000);
+var server = app.listen(3000);
 var io = require('socket.io').listen(server); // this tells socket.io to use our express server
 var stream_phrase = "bieber";
-var search_phrase = "doorknob butter";
+var twitterQuery_1 = "BarackObama";
+var twitterQuery_2 = "MichelleObama";
 
 // Setup stuff.
 app.configure(function(){
@@ -39,33 +42,52 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// Web pages & routes - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 // Routes to the various pages.
 app.get('/', function (req, res) {
     res.render('index.jade',
-      {title: 'Twitter Stream - ' + stream_phrase, twitter_search_phrase: search_phrase, twitter_stream_phrase: stream_phrase}
+      {title: 'Twitter Machina - Prototype', twitterQuery_1_msg: twitterQuery_1, twitterQuery_2_msg: twitterQuery_2}
     );
 });
 
 //
-console.log("Express server listening on port 4000");
+console.log("Express server listening on port 3000");
+
+// Twitter API usage - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 
 // Open a socket to stream results continuously to our webpage.
 io.sockets.on('connection', function (socket) {
     console.log('A new user connected!');
-    // socket.emit('info', { msg: 'The world is round, there is no up or down.' });
+    // socket.emit('info', { msg: 'The world is round, there is no up or down.' });       //DEV
 
-    // Everytime there's a new tweet, emit a event passing the tweet.
+    // Do REST search #1.
+    T.get('statuses/user_timeline', { screen_name: twitterQuery_1, count: 10 }, function(err, data, response) {
+        if (err) {
+          console.log("ERROR- app.js- search #1.");
+          console.error(err.stack);
+        }
+        socket.emit('eTwitterGetResult_1', data);
+    });
+
+    // Do REST search #2.
+    T.get('statuses/user_timeline', { screen_name: twitterQuery_2, count: 10 }, function(err, data, response) {
+        if (err) {
+          console.log("ERROR- app.js- search #2.");
+          console.error(err.stack);
+        }
+        socket.emit('eTwitterGetResult_2', data);
+    });
+
+
+    // --- STREAM OFF FOR NOW ---
+    // // Everytime there's a new tweet, emit a event passing the tweet.
     // var stream = T.stream('statuses/filter', { track: stream_phrase });
     // stream.on('tweet', function (tweet) {
     //   socket.emit('twitter_stream', tweet);
     // });
 
-    //
-    T.get('search/user_timeline', { screen_name: "BarackObama", count: 10 }, function(err, data, response) {
-        // data = JSON.stringify(data, null, 4);
-        socket.emit('twitter_search', data);
-        console.log(data);
-    });
 });
 
 // Twitter credentials.
@@ -78,4 +100,12 @@ var T = new Twit({
   , consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
   , access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
   , access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
-})
+});
+
+// Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+// Handle uncaughtException errors, to prevent app from crashing when one happens.
+process.on('uncaughtException', function(err) {
+  console.error("ERROR- uncaughtException- "+ err.stack);
+});

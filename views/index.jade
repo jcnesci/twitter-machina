@@ -17,13 +17,22 @@ html(lang='en')
 	body 
 		canvas(id="myCanvas") resize
 		header
-			h1(id="tlt") Twitter Stream page
+			h1 Twitter Stream page
+			hr
 		.container
+			h2 Search 2: #{twitterQuery_1_msg}
+			div#twitter_results_1
+				ul
+
 			hr
-			h2 Twitter Search about: #{twitter_search_phrase}
-			div#tweet_search
-			hr
-			h2 Twitter Stream about: #{twitter_stream_phrase}
-			ul.tweet_list
+
+			h2 Search 1: #{twitterQuery_2_msg}
+			div#twitter_results_2
+				ul
+			
+			//- --- STREAMING OFF FOR NOW ---
+			//- hr
+			//- h2 Twitter Stream about: #{twitter_stream_phrase}
+			//- ul.tweet_list
 		footer
 			p Running on Node with Express, Jade, Stylus, Socket.io, Twit.
