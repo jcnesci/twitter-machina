@@ -1,5 +1,5 @@
 var words = [];
-var tweets = [];
+var allTweets = [];
 var sets = [];
 
 function Word(theWord, refSet) {
@@ -20,13 +20,15 @@ function Tweet(tweet, refSet) {
 };
 
 function Set(iData, iName) {
+	var testing = iData;
+	//console.log(testing);
 	this.name = iName;
 	//this.tweets = [];
 	//this.words = [];
 
-	for (i = 0; i < iData.length; i++) {
-	tweets.push(new Tweet(iData[i], iName));
-	console.log(iData[i]);
+	for (i = 0; i < testing.length; i++) {
+
+    allTweets.push({i : new Tweet(testing[i], iName)});
 	}
 };
 
@@ -45,13 +47,12 @@ var obamaData = {
 	]
 };
 
-console.log(obamaData.tweets.length);
+// console.log(obamaData.tweets.length);
 var obama = new Set(obamaData.tweets, "Barack Obama");
-console.log(tweets);
-console.log(obama);
-console.log("-----------------");
-console.log(tweets);
-console.log(words);
+//console.log(obama);
+//console.log("-----------------");
+console.log(allTweets);
+//console.log(words);
 
 
 
