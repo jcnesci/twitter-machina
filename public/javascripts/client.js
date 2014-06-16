@@ -7,14 +7,15 @@ function Word(theWord, refSet) {
 	this.ref = [refSet];
 };
 
-function Tweet(tweet, refSet) {
+function Tweet(tweet, refSet, numX) {
+	this.value = numX;
 	this.fullTweet = tweet;
 	this.ref = [refSet];
 	var tmpWords = tweet.split(" ")
 	this.words = tmpWords;
 
 	for (i = 0; i < tmpWords.length; i++) {
-    words.push(new Word(tmpWords[i], refSet));
+    	words.push(new Word(tmpWords[i], refSet));
 	}
 
 };
@@ -22,13 +23,14 @@ function Tweet(tweet, refSet) {
 function Set(iData, iName) {
 	var testing = iData;
 	//console.log(testing);
-	this.name = iName;
+	this.value = iName;
 	//this.tweets = [];
 	//this.words = [];
 
 	for (i = 0; i < testing.length; i++) {
-
-    allTweets.push({i : new Tweet(testing[i], iName)});
+		var obj = testing[i];
+		console.log(obj);
+   		allTweets.push(new Tweet(obj, iName, i));
 	}
 };
 
@@ -49,6 +51,7 @@ var obamaData = {
 
 // console.log(obamaData.tweets.length);
 var obama = new Set(obamaData.tweets, "Barack Obama");
+//var obama = new Tweet(obamaData.tweets[3], "Barack Obama");
 //console.log(obama);
 //console.log("-----------------");
 console.log(allTweets);
