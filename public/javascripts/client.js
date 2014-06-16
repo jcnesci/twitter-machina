@@ -1,4 +1,6 @@
 var words = [];
+var tweets = [];
+var sets = [];
 
 function Word(theWord, refSet) {
 	this.value = theWord;
@@ -17,10 +19,39 @@ function Tweet(tweet, refSet) {
 
 };
 
-var tweet1 = new Tweet("Add your name The burden of student loan debt is too great. It's time to take action.", 1);
+function Set(iData, iName) {
+	this.name = iName;
+	//this.tweets = [];
+	//this.words = [];
 
-console.log(words[2].value);
+	for (i = 0; i < iData.length; i++) {
+	tweets.push(new Tweet(iData[i], iName));
+	console.log(iData[i]);
+	}
+};
 
+var obamaData = {
+	tweets : [
+	"Thanks to the Affordable Care Act, getting covered means a health emergency won't break your bank.",
+	"Hugs for Dad Happy Father's Day.",
+	"College graduates Make sure you know your health care options.  #GetCovered",
+	"Don't miss the opportunity to be an  Summer Fellow",
+	"Watch President Obama's weekly address wishing dads a happy #FathersDay.",
+	"Watch This could be you this summer.  #OFAFellows",
+	"Add your name The burden of student loan debt is too great. It's time to take action.  #DegreesNotDebt",
+	'"Michelle and I were saddened to hear of the passing of actress, author, and activist Ruby Dee." —President Obama',
+	"Retweet if you think it's time to act on the student loan debt crisis. #DegreesNotDebt",
+	"Take this survey What's your top priority for ?"
+	]
+};
+
+console.log(obamaData.tweets.length);
+var obama = new Set(obamaData.tweets, "Barack Obama");
+console.log(tweets);
+console.log(obama);
+console.log("-----------------");
+console.log(tweets);
+console.log(words);
 
 
 
