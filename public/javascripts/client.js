@@ -8,9 +8,7 @@ Contains the code relative to the Model parts of the app (following an MVC appro
 var dataTwitterGetResult_1 = null;		// Results from 1st Twitter GET query.
 var dataTwitterGetResult_2 = null;		// Results from 2nd Twitter GET query.
 var allQueriesReceived = false;
-var words = [];
-var allTweets = [];
-var sets = [];
+var set1;
 
 // Runs at start.
 $(function(){
@@ -20,7 +18,7 @@ $(function(){
 	// connect to the socket server
 	var socket = io.connect(); 
 
-	
+
 	// Event handlers - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 	// Receive Twitter search results.
@@ -43,12 +41,20 @@ $(function(){
 		if(dataTwitterGetResult_1 != null && dataTwitterGetResult_2 != null){
 			// console.log("t- ALL QUERIES RECEIVED");
 			allQueriesReceived = true;			// Currently unused.
-			diagramView();
+			
+			createSet(dataTwitterGetResult_1, "set1");
 		}
 
 	});
 
 });
+
+function createSet(iData, iName) {
+	set1 = new Set(iData, iName);
+	console.log(set1);
+
+	diagramView();
+}
 
 // Common function, to clean a tweet of unwanted features.
 String.prototype.cleanTweet = function() {		
