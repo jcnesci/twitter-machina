@@ -52,7 +52,7 @@ app.get('/', function (req, res) {
 });
 
 //
-console.log("Express server listening on port 3000");
+console.log("Express server listening on port 3000 - MOFO!");
 
 // Twitter API usage - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
