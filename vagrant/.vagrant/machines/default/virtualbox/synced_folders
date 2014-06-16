@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/workspace":{"owner":"vagrant","group":"vagrant","mount_options":["dmode=775"],"guestpath":"/home/vagrant/workspace","hostpath":"/Users/colinwageman/soso/intel/twitter-machina","disabled":false},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/colinwageman/soso/intel/twitter-machina/vagrant","disabled":false}}}
