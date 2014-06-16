@@ -22,19 +22,19 @@ console.log('hi');
 
 		console.log('hello');
 
-	    var $tlt = $viewport.find('.tlt')
-	      .on('start.tlt', log('start.tlt triggered.'))
-	      .on('inAnimationBegin.tlt', log('inAnimationBegin.tlt triggered.'))
-	      .on('inAnimationEnd.tlt', log('inAnimationEnd.tlt triggered.'))
-	      .on('outAnimationBegin.tlt', log('outAnimationBegin.tlt triggered.'))
-	      .on('outAnimationEnd.tlt', log('outAnimationEnd.tlt triggered.'))
-	      .on('end.tlt', log('end.tlt'));
-	    
-	    //$form.on('change', function () {
-	      //var obj = getFormData();
-	      var obj = "fadeInLeftBig";
-	      $tlt.textillate(obj);
-	      //trigger('change');
-	    //}).trigger('change');
+			var $tlt = $viewport.find('.tlt')
+				.on('start.tlt', log('start.tlt triggered.'))
+				.on('inAnimationBegin.tlt', log('inAnimationBegin.tlt triggered.'))
+				.on('inAnimationEnd.tlt', log('inAnimationEnd.tlt triggered.'))
+				.on('outAnimationBegin.tlt', log('outAnimationBegin.tlt triggered.'))
+				.on('outAnimationEnd.tlt', log('outAnimationEnd.tlt triggered.'))
+				.on('end.tlt', log('end.tlt'));
+			
+			//$form.on('change', function () {
+				//var obj = getFormData();
+				var obj = "fadeInLeftBig";
+				$tlt.textillate(obj);
+				//trigger('change');
+			//}).trigger('change');
 
 	}
