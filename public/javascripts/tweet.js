@@ -10,6 +10,8 @@ function Tweet(tweet, refSet) {
 	allTweets.push(tweet);
 	
 	for (var i = 0; i < tmpWords.length; i++) {
+		// $.inArray(value, array)
+
 		words.push(new Word(tmpWords[i], refSet));
 	}
 
