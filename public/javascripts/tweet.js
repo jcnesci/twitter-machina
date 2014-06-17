@@ -1,6 +1,6 @@
 var words = [];	// An array for the collection of all the words.
 var allTweets = [];	// An array to hold all the tweets.
-
+var lookup = {};
 // Creates the individual tweet objects.
 function Tweet(tweet, refSet) {
 	this.fullTweet = tweet;
@@ -10,9 +10,13 @@ function Tweet(tweet, refSet) {
 	allTweets.push(tweet);
 	
 	for (var i = 0; i < tmpWords.length; i++) {
-		// $.inArray(value, array)
-
-		words.push(new Word(tmpWords[i], refSet));
+    	if (lookup[tmpWords[i]] == undefined) {
+    		lookup[tmpWords[i]] = 1;
+    		words.push(new Word(tmpWords[i], refSet, true));
+    	} else {
+    		lookup[tmpWords[i]] = 1 + lookup[tmpWords[i]];
+    		words.push(new Word(tmpWords[i], refSet, false));
+    	}		
 	}
 
 };
