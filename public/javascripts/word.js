@@ -4,5 +4,5 @@ function Word(theWord, refSet, vis) {
 	this.linkedSets = [refSet];
 	this.linkedTweets = [{}];
 	//this.count = 1;
-	this.visible = vis;	
+	this.visible = vis;	//true or false
 };

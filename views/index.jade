@@ -19,18 +19,21 @@ html(lang='en')
 		script(type='text/javascript', src='javascripts/client.js')
 
 	body 
+		div#bubbleContainer
+			div#tweetBubble1
+			div#tweetBubble2
 		canvas(id="myCanvas") resize
 		header
 			h1 Twitter Stream page
 			hr
 		.container
-			h2 Search 2: #{twitterQuery_1_msg}
+			h2 Search 1: #{twitterQuery_1_msg}
 			div#twitter_results_1
 				ul
 
 			hr
 
-			h2 Search 1: #{twitterQuery_2_msg}
+			h2 Search 2: #{twitterQuery_2_msg}
 			div#twitter_results_2
 				ul
 			

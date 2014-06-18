@@ -43,6 +43,11 @@ $(function(){
 			allQueriesReceived = true;			// Currently unused.
 			
 			createSet(dataTwitterGetResult_1, "set1");
+			createSet(dataTwitterGetResult_2, "set2");
+			
+			//Fired to show tweet bubbles, should be changed to tweetView at somepoint.
+			//Placed here to fire after both sets are created.
+			tweetBubbles();
 		}
 
 	});
@@ -50,9 +55,14 @@ $(function(){
 });
 
 function createSet(iData, iName) {
-	set1 = new Set(iData, iName);
-	console.log(set1);
 
+	//Conditional added to consolidate into one createSet function.
+	if(iName == "set1"){
+		set1 = new Set(iData, iName);
+	} else if(iName == "set2"){
+		set2 = new Set(iData, iName);
+	};
+	
 	diagramView();
 }
 

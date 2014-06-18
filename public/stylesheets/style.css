@@ -3,5 +3,35 @@ body {
 	This is the same as using <pre> in our HTML, which formats our JSON in out HTML with linebreaks, indents, etc. to make it legible. Without it, JSON.stringify() is worthless.
 	*/
   white-space: pre;
-  color: #f0f;
+  color: ;
+}
+
+#bubbleContainer {
+	word-wrap: break-word;
+  /*position:justify;*/
+  /*width: 1024px;*/
+  padding: 10px 10px 10px 10px;
+  height: auto;
+  color: #000;
+  overflow: hidden;
+}
+
+#tweetBubble1 {
+  width: 500px;
+  padding: 10px 10px 10px 10px;
+  float: left;
+  /*height: auto;
+  color: #000;*/
+}
+
+#tweetBubble2 {
+  width: 500px;
+  padding: 10px 10px 10px 10px;
+  float: left;
+  /*height: auto;
+  color: #000;*/
+}
+
+.hide {
+  color: red;
 }

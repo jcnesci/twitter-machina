@@ -1,6 +1,7 @@
 var words = [];	// An array for the collection of all the words.
 var allTweets = [];	// An array to hold all the tweets.
-var lookup = {};
+var lookup = {};	// Used to count words and determine duplicates.
+
 // Creates the individual tweet objects.
 function Tweet(tweet, refSet) {
 	this.fullTweet = tweet;

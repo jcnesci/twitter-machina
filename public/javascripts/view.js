@@ -25,6 +25,32 @@ function tweetView(){
 
 }
 
+//---------------------------------------------
+//should be changed to tweetView at some point.
+//---------------------------------------------
+
+function tweetBubbles() {
+	$.each(words, function(key, value){
+		var theWord = value.value;
+		if(value.linkedSets[0] == "set1") {
+			if (value.visible == true) {
+				$("#tweetBubble1").append('<span class="show">'+ theWord +' </span>');
+			} else {
+				$("#tweetBubble1").append('<span class="hide">'+ theWord +' </span>');
+			}
+		} else if(value.linkedSets[0] == "set2") {
+			if (value.visible == true) {
+				$("#tweetBubble2").append('<span class="show">'+ theWord +' </span>');
+			} else {
+				$("#tweetBubble2").append('<span class="hide">'+ theWord +' </span>');
+			}
+		}
+	});
+}
+
+//---------------------------------------------
+
+
 // Print data from Twitter JS object into an html element.
 function printTwitterResults(data, domElementTitle) {
 	$.each(data, function(key, value){
