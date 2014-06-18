@@ -11,11 +11,15 @@ function Tweet(tweet, refSet) {
 	allTweets.push(tweet);
 	
 	for (var i = 0; i < tmpWords.length; i++) {
+			//If the word doesn't exists
     	if (lookup[tmpWords[i]] == undefined) {
-    		lookup[tmpWords[i]] = 1;
+    		lookup[tmpWords[i]] = { "count" : 1, "sets" : refSet};
     		words.push(new Word(tmpWords[i], refSet, true));
     	} else {
-    		lookup[tmpWords[i]] = 1 + lookup[tmpWords[i]];
+    		//If the word was originally in another set.
+    		if (lookup[tmpWords[i]].sets != refSet) {
+    			lookup[tmpWords[i]] = { "count" : 1 + lookup[tmpWords[i]].count, "sets" : "union"};
+    		}
     		words.push(new Word(tmpWords[i], refSet, false));
     	}		
 	}

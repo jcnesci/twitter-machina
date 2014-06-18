@@ -34,15 +34,15 @@ function tweetBubbles() {
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
-				$("#tweetBubble1").append('<span class="show">'+ theWord +' </span>');
+				$("#tweetBubble1").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
 			} else {
-				$("#tweetBubble1").append('<span class="hide">'+ theWord +' </span>');
+				$("#tweetBubble1").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
 			}
 		} else if(value.linkedSets[0] == "set2") {
 			if (value.visible == true) {
-				$("#tweetBubble2").append('<span class="show">'+ theWord +' </span>');
+				$("#tweetBubble2").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
 			} else {
-				$("#tweetBubble2").append('<span class="hide">'+ theWord +' </span>');
+				$("#tweetBubble2").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
 			}
 		}
 	});

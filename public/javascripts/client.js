@@ -54,6 +54,19 @@ $(function(){
 
 });
 
+//Adding a union class and moving union words to another div.
+function union() {
+	for (var i = 0; i < words.length; i++) {
+    	if (lookup[words[i].value].sets == "union") {
+    		var id = "#"+i;
+    		$uSpan = $(id).clone();
+    		$(id).remove();
+    		$("#tweetBubble3").append($uSpan);
+    		$(id).addClass("union");
+    	}		
+	}
+}
+
 function createSet(iData, iName) {
 
 	//Conditional added to consolidate into one createSet function.
