@@ -16,33 +16,21 @@ html(lang='en')
 		script(type='text/javascript', src='javascripts/word.js')
 		script(type='text/javascript', src='javascripts/tweet.js')
 		script(type='text/javascript', src='javascripts/set.js')
-		script(type='text/javascript', src='javascripts/client.js')
+		script(type='text/javascript', src='javascripts/model.js')
 
 	body 
-		div#bubbleContainer
-			div#tweetBubble1
-			div#tweetBubble3
-			div#tweetBubble2
-		div
-			button(class="button" onclick="union()") Union
-		canvas(id="myCanvas") resize
 		header
-			h1 Twitter Stream page
-			hr
+			h1 Common Ground prototype
+			//- h2 Search 1: #{twitterQuery_1_msg}
+		
 		.container
-			h2 Search 1: #{twitterQuery_1_msg}
-			div#twitter_results_1
-				ul
-
-			hr
-
-			h2 Search 2: #{twitterQuery_2_msg}
-			div#twitter_results_2
-				ul
-			
-			//- --- STREAMING OFF FOR NOW ---
-			//- hr
-			//- h2 Twitter Stream about: #{twitter_stream_phrase}
-			//- ul.tweet_list
+			div#bubbleContainer
+				div#tweetBubble1
+				div#tweetBubble3
+				div#tweetBubble2
+			div
+				button(class="button" onclick="union()") Union
+			canvas(id="myCanvas") resize
+		
 		footer
-			p Running on Node with Express, Jade, Stylus, Socket.io, Twit.
+			//- p Sosofun.

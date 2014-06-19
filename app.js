@@ -68,7 +68,7 @@ io.sockets.on('connection', function (socket) {
 					console.log("ERROR- app.js- search #1.");
 					console.error(err.stack);
 				}
-				socket.emit('eReceiveTwitterResult', {iData: data, iQueryNum: 1});
+				socket.emit('eReceiveTwitterResult', {iData: data, iQueryNum: 1, iQueryString: twitterQuery_1});
 		});
 
 		// Do REST search #2.
@@ -77,7 +77,7 @@ io.sockets.on('connection', function (socket) {
 					console.log("ERROR- app.js- search #2.");
 					console.error(err.stack);
 				}
-				socket.emit('eReceiveTwitterResult', {iData: data, iQueryNum: 2});
+				socket.emit('eReceiveTwitterResult', {iData: data, iQueryNum: 2, iQueryString: twitterQuery_2});
 		});
 
 

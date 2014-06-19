@@ -8,7 +8,6 @@ Contains the code relative to the Model parts of the app (following an MVC appro
 var dataTwitterGetResult_1 = null;		// Results from 1st Twitter GET query.
 var dataTwitterGetResult_2 = null;		// Results from 2nd Twitter GET query.
 var allQueriesReceived = false;
-var set1;
 
 // Runs at start.
 $(function(){
@@ -24,12 +23,6 @@ $(function(){
 	// Receive Twitter search results.
 	socket.on('eReceiveTwitterResult', function (iResponse) {
 		
-		console.log("- - - - - - - - - - ");
-		console.log(iResponse.iData);
-		console.log("- ");
-		console.log(iResponse.iQueryNum);
-		console.log("- - - - -");
-
 		// Store query results.
 		if(iResponse.iQueryNum == 1){
 			dataTwitterGetResult_1 = iResponse.iData;
@@ -45,14 +38,25 @@ $(function(){
 			createSet(dataTwitterGetResult_1, "set1");
 			createSet(dataTwitterGetResult_2, "set2");
 			
-			//Fired to show tweet bubbles, should be changed to tweetView at somepoint.
-			//Placed here to fire after both sets are created.
-			tweetBubbles();
+			diagramView();
 		}
+
+		logTwitterResults(iResponse);
 
 	});
 
 });
+
+// Print out the tweet text for each query.
+function logTwitterResults(data) {
+	console.log("-logTwitterResults - - - - - - - - - - - - - - - - - - - - - - - - - ");
+	console.log("query string: "+ data.iQueryString);
+	console.log("query num: "+ data.iQueryNum);
+	$.each(data.iData, function(key, value){
+		var tweetText = value.text;
+		console.log("Tweet #"+ key + ": " + tweetText.cleanTweet() );
+	});
+}
 
 //Adding a union class and moving union words to another div.
 function union() {
@@ -69,14 +73,8 @@ function union() {
 
 function createSet(iData, iName) {
 
-	//Conditional added to consolidate into one createSet function.
-	if(iName == "set1"){
-		set1 = new Set(iData, iName);
-	} else if(iName == "set2"){
-		set2 = new Set(iData, iName);
-	};
-	
-	diagramView();
+	var set = new Set(iData, iName);
+
 }
 
 // Common function, to clean a tweet of unwanted features.

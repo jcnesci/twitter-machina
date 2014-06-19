@@ -6,13 +6,14 @@ Contains the code relative to the View parts of the app (following an MVC approa
 // 
 function diagramView(){
 
+	tweetBubbles();
+	
 	// TODO: set the state of the diagram view.
 	// Each state has descriptive text and a graphical layout of the data associated with it.
 	
-	// For now, print data to webpage just to see it.
-	printTwitterResults(dataTwitterGetResult_1, '#twitter_results_1 ul');
-	printTwitterResults(dataTwitterGetResult_2, '#twitter_results_2 ul');
-	drawD3TestChart();
+	//OLD
+	// drawD3TestChart();
+
 }
 
 // 
@@ -50,14 +51,6 @@ function tweetBubbles() {
 
 //---------------------------------------------
 
-
-// Print data from Twitter JS object into an html element.
-function printTwitterResults(data, domElementTitle) {
-	$.each(data, function(key, value){
-		var tweetText = value.text;
-		$(domElementTitle).append('<li>'+ tweetText.cleanTweet() +'</li>');
-	});
-}
 
 // Alex's D3 code.
 function drawD3TestChart() {
