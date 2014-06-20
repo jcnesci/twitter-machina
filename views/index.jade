@@ -17,6 +17,7 @@ html(lang='en')
 		script(type='text/javascript', src='javascripts/tweet.js')
 		script(type='text/javascript', src='javascripts/set.js')
 		script(type='text/javascript', src='javascripts/model.js')
+		script(type='text/javascript', src='javascripts/controller.js')
 
 	body 
 		header
@@ -24,6 +25,16 @@ html(lang='en')
 			//- h2 Search 1: #{twitterQuery_1_msg}
 		
 		.container
+			//- div.test Bacon ipsum dolor sit amet landjaeger biltong porchetta rump, turducken corned beef fatback. Strip steak prosciutto drumstick meatball ribeye shank jerky shoulder shankle pork pork loin beef ribs biltong. Fatback boudin sirloin pork. Tenderloin ham pork chop sirloin t-bone andouille shank bresaola tongue meatball. Shoulder pork belly salami, tenderloin frankfurter kielbasa meatloaf spare ribs.
+
+			div
+				p Select the query to run:
+				select(id="dd-queries" onchange="ddController()")
+					option(value="query1" selected) BarackObama / MichelleObama
+					option(value="query2") WholeFoods / McDonalds
+			
+			br
+
 			div#bubbleContainer
 				div#tweetBubble1
 				div#tweetBubble3
@@ -31,6 +42,6 @@ html(lang='en')
 			div
 				button(class="button" onclick="union()") Union
 			canvas(id="myCanvas") resize
-		
+
 		footer
 			//- p Sosofun.

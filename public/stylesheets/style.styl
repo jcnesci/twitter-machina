@@ -1,9 +1,22 @@
+@import url('reset.css');
+
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+article, aside, figure, footer, header, hgroup,
+menu, nav, section { display: block; }
+
+// Now we start our CSS - - - - - - - - - - - - - - - -
+
 body
-/*
-  This is the same as using <pre> in our HTML, which formats our JSON in out HTML with linebreaks, indents, etc. to make it legible. Without it, JSON.stringify() is worthless.
-  */
-  white-space pre
+  // white-space pre      // Use this for divs that contain JSON that we want to format nicely.
   color blue
+  font-size 16px
+
+h1
+  font-size 2em
+  margin 20px 0
 
 #bubbleContainer
   word-wrap break-word
@@ -32,3 +45,9 @@ body
 
 .union
   color green
+
+// .test
+//   display table-cell
+//   vertical-align middle
+//   border 1px red solid
+//   width 300px

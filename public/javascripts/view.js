@@ -7,7 +7,7 @@ Contains the code relative to the View parts of the app (following an MVC approa
 function diagramView(){
 
 	tweetBubbles();
-	
+
 	// TODO: set the state of the diagram view.
 	// Each state has descriptive text and a graphical layout of the data associated with it.
 	
@@ -31,6 +31,8 @@ function tweetView(){
 //---------------------------------------------
 
 function tweetBubbles() {
+	console.log(" TWEET BUBBLES  * * *  * * * *");
+
 	$.each(words, function(key, value){
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {

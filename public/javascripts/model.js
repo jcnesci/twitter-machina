@@ -7,7 +7,8 @@ Contains the code relative to the Model parts of the app (following an MVC appro
 
 var dataTwitterGetResult_1 = null;		// Results from 1st Twitter GET query.
 var dataTwitterGetResult_2 = null;		// Results from 2nd Twitter GET query.
-var allQueriesReceived = false;
+var allQueriesReceived = false;				// DEV: Currently unused.
+var socket = null;
 
 // Runs at start.
 $(function(){
@@ -15,7 +16,7 @@ $(function(){
 	// Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 	// connect to the socket server
-	var socket = io.connect(); 
+	socket = io.connect(); 
 
 
 	// Event handlers - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -23,6 +24,8 @@ $(function(){
 	// Receive Twitter search results.
 	socket.on('eReceiveTwitterResult', function (iResponse) {
 		
+		logTwitterResults(iResponse);
+
 		// Store query results.
 		if(iResponse.iQueryNum == 1){
 			dataTwitterGetResult_1 = iResponse.iData;
@@ -35,17 +38,46 @@ $(function(){
 			// console.log("t- ALL QUERIES RECEIVED");
 			allQueriesReceived = true;			// Currently unused.
 			
+			// Clear Model & View items.
+			emptyModelItems();
+			emptyViewItems();
+			// Create sets.
 			createSet(dataTwitterGetResult_1, "set1");
 			createSet(dataTwitterGetResult_2, "set2");
-			
+			emptyResultObjects();
+			// Display diagram.
 			diagramView();
-		}
 
-		logTwitterResults(iResponse);
+
+			console.log(sets);
+		}
 
 	});
 
 });
+
+// 
+function emptyResultObjects(){
+	dataTwitterGetResult_1 = null;
+	dataTwitterGetResult_2 = null;
+}
+
+// Empties the sets array.
+function emptyModelItems(){
+	words.length = 0;
+	allTweets.length = 0;
+	lookup = {};
+	sets.length = 0;
+}
+
+//DEV: should this be in view.js?
+// Empties the tweet bubble divs.
+function emptyViewItems(){
+	console.log("EMPTY BUBBLE DOM * * * * * * ********");
+	$("#tweetBubble1").empty();
+	$("#tweetBubble2").empty();
+	$("#tweetBubble3").empty();
+}
 
 // Print out the tweet text for each query.
 function logTwitterResults(data) {
@@ -72,9 +104,7 @@ function union() {
 }
 
 function createSet(iData, iName) {
-
 	var set = new Set(iData, iName);
-
 }
 
 // Common function, to clean a tweet of unwanted features.
