@@ -2,7 +2,6 @@ var express = require('express')
 	, http = require('http')
 	, stylus = require('stylus')
 	, Twit = require('twit')
-	, Paper = require('paper')
 	, _ = require('underscore');
 
 // Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

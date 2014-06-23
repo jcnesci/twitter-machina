@@ -38,17 +38,13 @@ App Setup
 	* Build and provision the vagrant instance: `vagrant up`
 	* SSH into the instance: `vagrant ssh`
 
-4. In Vagrant, install libraries needed for canvas
-	* ```$ sudo apt-get update ```
-	* ```$ sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++```
-
-5. Install project dependencies 
+4. Install project dependencies 
 	* Navigate to workspace/twitter-machina/ and call: ```npm install```
 
-6. Run app by calling:
+5. Run app by calling:
   * ```node app.js```
 
-7. See it work in your browser at:
+6. See it work in your browser at:
   * http://localhost:3000/
 
 That's all folks.

@@ -14,7 +14,6 @@
     "stylus": "*",
     "twit": "*",
     "sentiment": "1.0.0-alpha",
-    "paper": "0.9.18",
     "underscore": "*"
   },
   "engines": {
