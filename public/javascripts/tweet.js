@@ -6,7 +6,7 @@ var lookup = {};	// Used to count words and determine duplicates.
 function Tweet(tweet, refSet) {
 	this.fullTweet = tweet;
 	this.ref = [refSet];
-	var tmpWords = tweet.split(" ")
+	var tmpWords = tweet.cleanTweet().split(" ")
 	this.words = tmpWords;
 	allTweets.push(tweet);
 	

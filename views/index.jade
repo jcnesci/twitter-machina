@@ -2,6 +2,7 @@ doctype html
 html(lang='en')
 	head
 		title #{title}
+		link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', rel='stylesheet', type='text/css')
 		link(rel='stylesheet', href='stylesheets/style.css')
 		script(type='text/javascript', src="http://d3js.org/d3.v3.min.js")
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
@@ -39,6 +40,9 @@ html(lang='en')
 				div#tweetBubble2
 			div
 				button(class="button" onclick="union()") Union
+			div#listView
+				div#list1(class="tweetlist")
+				div#list2(class="tweetlist")
 			canvas(id="myCanvas") resize
 
 		footer

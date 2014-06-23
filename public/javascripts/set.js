@@ -7,7 +7,7 @@ function Set(iData, iName) {
 
 	for (var i = 0; i < iData.length; i++) {
 		var tweetText = iData[i].text;
-		this.tweets.push(new Tweet(tweetText.cleanTweet(), iName));
+		this.tweets.push(new Tweet(tweetText, iName));
 			
 	}
 };
