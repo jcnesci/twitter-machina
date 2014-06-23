@@ -114,6 +114,7 @@ String.prototype.cleanTweet = function() {
 	tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
 	tweet = tweet.replace(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g, "");	// remove http links.
 	tweet = tweet.replace(/: /, " ");		// remove colons at the end of a word.
+	tweet = tweet.replace("[^\w#]", "");
 	$.trim(tweet);	// Remove leading and trailing whitespace.
 		// return this.replace(/^\s+|\s+$/g,"");		// regex for trim fct.
 

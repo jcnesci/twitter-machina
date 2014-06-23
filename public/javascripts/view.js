@@ -26,6 +26,38 @@ function tweetView(){
 
 }
 
+function listView(){
+
+	$.each(sets, function(key, value) {
+
+		if (key == 0) {
+
+			console.log("--------- Set 1 ----------");
+			$.each(value.tweets, function(jKey, jValue) {
+
+				console.log(jValue.fullTweet);
+
+				$("#list1").append('<p>'+ jValue.fullTweet +' </p><br>');
+
+			});
+
+		} else if (key == 1) {
+
+			console.log("--------- Set 2 ----------");
+			$.each(value.tweets, function(jKey, jValue) {
+
+				console.log(jValue.fullTweet);
+
+				$("#list2").append('<p>'+ jValue.fullTweet +' </p><br>');
+
+			});
+
+		} else { console.log("Error in listView")};
+
+	});
+
+}
+
 //---------------------------------------------
 //should be changed to tweetView at some point.
 //---------------------------------------------

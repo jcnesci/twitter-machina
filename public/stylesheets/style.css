@@ -19,11 +19,14 @@ section {
   display: block;
 }
 body {
-  color: #00f;
+  color: #000;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
   font-size: 16px;
 }
 h1 {
   font-size: 2em;
+  font-weight: 400;
   margin: 20px 0;
 }
 #bubbleContainer {
@@ -47,6 +50,15 @@ h1 {
   width: 300px;
   padding: 10px;
   float: left;
+}
+#listView {
+  width: 1024px;
+  padding: 10px;
+}
+.tweetlist {
+  width: 500px;
+  float: left;
+  padding: 10px;
 }
 .hide {
   color: #f00;
