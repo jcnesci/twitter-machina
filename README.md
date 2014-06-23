@@ -29,31 +29,26 @@ App Setup
 1. Clone this repo.
 
 2. Install Vagrant dependencies
-
-* Install VirtualBox 4.3.2 ([https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads))
-* Install Vagrant 1.3.5 ([http://downloads.vagrantup.com/](http://downloads.vagrantup.com/))
+	* Install VirtualBox 4.3.2 ([https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads))
+	* Install Vagrant 1.3.5 ([http://downloads.vagrantup.com/](http://downloads.vagrantup.com/))
 
 3. Run Vagrant
+	* Add the following line to your /etc/hosts: `192.168.33.10 twittersentiment.local.sosolimited.com` 
+	* `cd vagrant`
+	* Build and provision the vagrant instance: `vagrant up`
+	* SSH into the instance: `vagrant ssh`
 
-* Add the following line to your /etc/hosts:  
-  `192.168.33.10 twittersentiment.local.sosolimited.com` 
-* `cd vagrant`
-* Build and provision the vagrant instance: `vagrant up`
-* SSH into the instance: `vagrant ssh`
+4. In Vagrant, install libraries needed for canvas
+	* ```$ sudo apt-get update ```
+	* ```$ sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++```
 
-3. Install dependencies inside of Vagrant
+5. Install project dependencies 
+	* Navigate to workspace/twitter-machina/ and call: ```npm install```
 
-## Install libraries needed for canvas
-* ```$ sudo apt-get update ```
-* ```$ sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++```
+6. Run app by calling:
+  * ```node app.js```
 
-## Install project dependencies 
-	* Navigate to workspace/twitter-machina/ and call:
-   * ```npm install```
-
-4. Run app by calling:
-   * ```node app.js```
-5. See it work in your browser at:
-   * http://localhost:4000/
+7. See it work in your browser at:
+  * http://localhost:3000/
 
 That's all folks.
