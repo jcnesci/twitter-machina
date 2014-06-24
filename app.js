@@ -90,7 +90,7 @@ function sendQueries(socket, queryIndex) {
 	console.log("app- sendQueries- queryIndex = "+ queryIndex +" | query string #1 = "+ twitterQueries[queryIndex][0] +" | query string #2 = "+ twitterQueries[queryIndex][1]);
 
 	// Do REST search #1.
-	T.get('statuses/user_timeline', { screen_name: twitterQueries[queryIndex][0], count: 10 }, function(err, data, response) {
+	T.get('statuses/user_timeline', { screen_name: twitterQueries[queryIndex][0], exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
 			if (err) {
 				console.log("ERROR- app.js- search #1.");
 				console.error(err.stack);
@@ -99,7 +99,7 @@ function sendQueries(socket, queryIndex) {
 	});
 
 	// Do REST search #2.
-	T.get('statuses/user_timeline', { screen_name: twitterQueries[queryIndex][1], count: 10 }, function(err, data, response) {
+	T.get('statuses/user_timeline', { screen_name: twitterQueries[queryIndex][1], exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
 			if (err) {
 				console.log("ERROR- app.js- search #2.");
 				console.error(err.stack);

@@ -29,6 +29,12 @@ h1 {
   font-weight: 400;
   margin: 20px 0;
 }
+#container {
+  position: relative;
+  top: 0px;
+  margin: 0 auto;
+  width: 900px;
+}
 #bubbleContainer {
   word-wrap: break-word;
   padding: 10;
