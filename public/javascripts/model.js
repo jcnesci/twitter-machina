@@ -46,7 +46,7 @@ $(function(){
 			createSet(dataTwitterGetResult_2, "set2");
 			emptyResultObjects();
 			// Display diagram.
-			diagramView();
+			listView();
 
 
 			console.log(sets);
@@ -77,6 +77,8 @@ function emptyViewItems(){
 	$("#tweetBubble1").empty();
 	$("#tweetBubble2").empty();
 	$("#tweetBubble3").empty();
+	$("#list1").empty();
+	$("#list2").empty();
 }
 
 // Print out the tweet text for each query.
@@ -92,6 +94,7 @@ function logTwitterResults(data) {
 
 //Adding a union class and moving union words to another div.
 function union() {
+	diagramView();
 	for (var i = 0; i < words.length; i++) {
     	if (lookup[words[i].value].sets == "union") {
     		var id = "#"+i;
@@ -114,7 +117,11 @@ String.prototype.cleanTweet = function() {
 	tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
 	tweet = tweet.replace(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g, "");	// remove http links.
 	tweet = tweet.replace(/: /, " ");		// remove colons at the end of a word.
-	tweet = tweet.replace("[^\w#]", "");
+	tweet = tweet.replace(/[\.,-\/"!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g, "");
+	tweet = tweet.replace('\u2014', '');	//em dash
+	tweet = tweet.replace('\u201C', '');	//left double quote
+	tweet = tweet.replace('\u201D', '');	//right double quote
+
 	$.trim(tweet);	// Remove leading and trailing whitespace.
 		// return this.replace(/^\s+|\s+$/g,"");		// regex for trim fct.
 

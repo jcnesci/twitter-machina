@@ -26,33 +26,28 @@ function tweetView(){
 
 }
 
+// A list view of both sets of tweets. Un-cleaned.
 function listView(){
 
 	$.each(sets, function(key, value) {
 
-		if (key == 0) {
+		if (key == 0) {		//if in set 1 place in div list1
 
-			console.log("--------- Set 1 ----------");
 			$.each(value.tweets, function(jKey, jValue) {
-
-				console.log(jValue.fullTweet);
 
 				$("#list1").append('<p>'+ jValue.fullTweet +' </p><br>');
 
 			});
 
-		} else if (key == 1) {
+		} else if (key == 1) {	//if in set 2 place in div list2
 
-			console.log("--------- Set 2 ----------");
 			$.each(value.tweets, function(jKey, jValue) {
-
-				console.log(jValue.fullTweet);
 
 				$("#list2").append('<p>'+ jValue.fullTweet +' </p><br>');
 
 			});
 
-		} else { console.log("Error in listView")};
+		} else { console.log("Error in listView")}; //If not a part of a set...
 
 	});
 
