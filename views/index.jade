@@ -41,8 +41,12 @@ html(lang='en')
 			div
 				button(class="button" onclick="union()") Union
 			div#listView
-				div#list1(class="tweetlist")
-				div#list2(class="tweetlist")
+				div#listContainer
+					h2 List 1
+					div#list1(class="tweetlist")
+				div#listContainer
+					h2 List 2
+					div#list2(class="tweetlist")
 			canvas(id="myCanvas") resize
 
 		footer
