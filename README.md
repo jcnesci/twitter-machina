@@ -42,7 +42,7 @@ App Setup
 	* Navigate to workspace/twitter-machina/ and call: ```npm install```
 
 5. Run app by calling:
-  * ```node app.js```
+  * ```node serverApp.js```
 
 6. See it work in your browser at:
   * http://localhost:3000/
