@@ -12,7 +12,7 @@ function comparison(item1, item2){
 
 	// --- Behavior
 	this.buildStateMachine();
-	this.stateMachine.gotoState("Intro");
+	this.stateMachine.gotoState("intro");
 	// 
 	console.log("* * * * * * * * states = ");
 	console.log(this.stateMachine.states);
@@ -20,18 +20,16 @@ function comparison(item1, item2){
 	console.log(this.stateMachine.transitions);
 	console.log("* * * * * * * * curState = "+ this.stateMachine.curState.name);
 
-
-
-	// DEV:
-		// socket.emit('eReceiveSelectedQuery', selectedQuery);
-		
+	// Show first state view.
+	introView();
 
 	// connect to the socket server
 	socket = io.connect(); 
 
+	// TODO: tell server which twitter handles to search for.
+	// socket.emit('eReceiveSelectedQuery', selectedQuery);
 
-	// Event handlers - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
+	
 	// Receive Twitter search results.
 	socket.on('eReceiveTwitterResult', function (iResponse) {
 		
@@ -57,13 +55,14 @@ function comparison(item1, item2){
 			createSet(dataTwitterGetResult_2, "set2");
 			emptyResultObjects();
 			// Display diagram.
-			listView();
+			// listView();																			//DEV: moved to setState().
 
 
 			console.log(sets);
 		}
 
 	});
+	
 
 }
 comparison.prototype = {
@@ -71,7 +70,20 @@ comparison.prototype = {
 	buildStateMachine: function(){
 		this.stateMachine = new sosoStateMachine();
 
-		this.stateMachine.addTransition("Intro", "TweetList");
-		this.stateMachine.addTransition("TweetList", "VennDiagram");
-	}	
+		this.stateMachine.addTransition("intro", "tweetList");
+		this.stateMachine.addTransition("tweetList", "wordBlocks");
+	},
+	setState: function(iStateName){
+		var stateChangeSuccess = this.stateMachine.gotoState(iStateName);
+		if (stateChangeSuccess) {
+
+			// Clear current content div.
+			$("#content").empty();
+
+			// Fill content div with tweetList content.
+			listView();
+
+		}
+
+	}
 }

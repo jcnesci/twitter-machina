@@ -34,6 +34,7 @@ h1 {
   top: 0px;
   margin: 0 auto;
   width: 900px;
+  border: 1px solid #ccc;
 }
 h2 {
   font-size: 1em;
@@ -77,4 +78,11 @@ h2 {
 }
 .union {
   color: #008000;
+}
+#intro_view {
+  width: 600px;
+  margin: 50px auto;
+}
+#intro_view p {
+  margin: 10px 0;
 }

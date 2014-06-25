@@ -3,6 +3,14 @@ View.js
 Contains the code relative to the View parts of the app (following an MVC approach).
 */
 
+// View for intro/1st state of a comparison.
+function introView(){
+	$("#content").html("<div id='intro_view'>"
+															+ "<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>"
+															+ "<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>"
+														+ "</div>");
+}
+
 // 
 function diagramView(){
 

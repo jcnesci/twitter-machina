@@ -21,6 +21,13 @@ $(function(){
 
 // Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+// Assign button actions here.
+function setupButtons(){
+	$("#state-selector > #next").click(function() { 
+		cgApp.curComparison.setState("tweetList");				//TODO_jc: make this actually go to the next state.
+	});
+}
+
 // 
 function emptyResultObjects(){
 	dataTwitterGetResult_1 = null;
