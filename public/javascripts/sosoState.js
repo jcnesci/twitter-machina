@@ -1,0 +1,8 @@
+function sosoState(){
+
+
+
+}
+sosoState.prototype = {
+	
+}
