@@ -1,8 +1,0 @@
-function sosoTransition(){
-
-
-
-}
-sosoTransition.prototype = {
-	
-}

@@ -15,6 +15,9 @@ $(function(){
 
 	// Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+	var stateMachine = new sosoStateMachine();
+	stateMachine.addTransition("Intro", "TweetList");
+
 	// connect to the socket server
 	socket = io.connect(); 
 
