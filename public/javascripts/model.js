@@ -17,6 +17,14 @@ $(function(){
 
 	var stateMachine = new sosoStateMachine();
 	stateMachine.addTransition("Intro", "TweetList");
+	stateMachine.addTransition("TweetList", "VennDiagram");
+	stateMachine.gotoState("Intro");
+	stateMachine.gotoState("VennDiagram");
+	console.log("* * * * * * * * states = ");
+	console.log(stateMachine.states);
+	console.log("* * * * * * * * transitions = ");
+	console.log(stateMachine.transitions);
+	console.log("* * * * * * * * curState = "+ stateMachine.curState.name);
 
 	// connect to the socket server
 	socket = io.connect(); 
