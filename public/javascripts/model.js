@@ -3,69 +3,23 @@ Client.js
 Contains the code relative to the Model parts of the app (following an MVC approach).
 */
 
-// Globals - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+// Global variables - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+var cgApp;														// the main client-side app, which controls everything.
 var dataTwitterGetResult_1 = null;		// Results from 1st Twitter GET query.
 var dataTwitterGetResult_2 = null;		// Results from 2nd Twitter GET query.
 var allQueriesReceived = false;				// DEV: Currently unused.
-var socket = null;
 
-// Runs at start.
+// Main execution body - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 $(function(){
 
-	// Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+	// --- Setup
 
-	var stateMachine = new sosoStateMachine();
-	stateMachine.addTransition("Intro", "TweetList");
-	stateMachine.addTransition("TweetList", "VennDiagram");
-	stateMachine.gotoState("Intro");
-	stateMachine.gotoState("VennDiagram");
-	console.log("* * * * * * * * states = ");
-	console.log(stateMachine.states);
-	console.log("* * * * * * * * transitions = ");
-	console.log(stateMachine.transitions);
-	console.log("* * * * * * * * curState = "+ stateMachine.curState.name);
-
-	// connect to the socket server
-	socket = io.connect(); 
-
-
-	// Event handlers - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-	// Receive Twitter search results.
-	socket.on('eReceiveTwitterResult', function (iResponse) {
-		
-		logTwitterResults(iResponse);
-
-		// Store query results.
-		if(iResponse.iQueryNum == 1){
-			dataTwitterGetResult_1 = iResponse.iData;
-		} else if(iResponse.iQueryNum == 2){
-			dataTwitterGetResult_2 = iResponse.iData;
-		}
-
-		// When all data received, trigger the views.
-		if(dataTwitterGetResult_1 != null && dataTwitterGetResult_2 != null){
-			// console.log("t- ALL QUERIES RECEIVED");
-			allQueriesReceived = true;			// Currently unused.
-			
-			// Clear Model & View items.
-			emptyModelItems();
-			emptyViewItems();
-			// Create sets.
-			createSet(dataTwitterGetResult_1, "set1");
-			createSet(dataTwitterGetResult_2, "set2");
-			emptyResultObjects();
-			// Display diagram.
-			listView();
-
-
-			console.log(sets);
-		}
-
-	});
+	cgApp = new clientApp();
 
 });
+
+// Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 // 
 function emptyResultObjects(){
