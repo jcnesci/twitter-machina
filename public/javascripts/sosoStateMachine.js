@@ -14,15 +14,6 @@ sosoStateMachine.prototype = {
 	addState: function(iStateName){
 		console.log("sosoStateMachine- addState- iStateName : "+ iStateName);
 		
-		// Check first if it exists already.
-		// if (this.states != undefined){
-		// 	for (var i = 0; i < this.states.length; i++){
-		// 		if (this.states[i].name == iStateName){
-		// 			console.log("sosoStateMachine- addState- state already exists: "+ this.states[i]);
-		// 			return this.states[i];
-		// 		}
-		// 	}
-		// }
 		var state = this.getState(iStateName);
 
 		if (state){
@@ -32,13 +23,12 @@ sosoStateMachine.prototype = {
 			// Otherwise, create it now.
 			var newState = new sosoState(iStateName);
 			this.states.push(newState);
+			// 
+			console.log("sosoStateMachine- addState- states: ");
+			console.log(this.states);
+			// 
 			return newState;
 		}
-		
-		// console.log("sosoStateMachine- addState- new state: ");
-		// console.log(newState);
-		console.log("sosoStateMachine- addState- states: ");
-		console.log(this.states);
 		
 	},
 	addTransition: function(iStartState, iEndState){
@@ -47,8 +37,10 @@ sosoStateMachine.prototype = {
 		var transition = this.getTransition(iStartState, iEndState);
 
 		if (transition){
+			// If transition exists already, return it.
 			return transition;
 		} else {
+			// Otherwise, create it now.
 			var newStartState = this.addState(iStartState);
 			var newEndState = this.addState(iEndState);
 			var newTransition = new sosoStateTransition(newStartState, newEndState);
@@ -60,33 +52,6 @@ sosoStateMachine.prototype = {
 			return newTransition;
 		}
 
-		//  - - - - - - 
-
-		/*
-		var newStartState = this.addState(iStartState);
-		var newEndState = this.addState(iEndState);
-
-		// Check if transition exists already.
-		if (this.transitions != undefined){
-			for (var i = 0; i < this.transitions.length; i++){
-				if (this.transitions[i].startState == newStartState && this.transitions[i].endState == newEndState){
-					console.log("sosoStateMachine- addTransition- transition already exists: "+ transitions[i]);
-					return this.transitions[i];
-				}
-			}
-		}
-		
-		// Otherwise, create it now.
-		var newTransition = new sosoStateTransition(newStartState, newEndState);
-		this.transitions.push(newTransition);
-		//
-		// console.log("sosoStateMachine- addTransition- new transition: ")
-		// console.log(newTransition);
-		console.log("sosoStateMachine- addTransition- transitions: ")
-		console.log(this.transitions);
-		// 
-		return newTransition;
-		*/
 	},
 	/*
 	gotoState: function(iStateName){
