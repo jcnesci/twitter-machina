@@ -7,7 +7,7 @@ Contains the code relative to the Controller parts of the app (following an MVC 
 // General function to assign button actions @start.
 function setupButtons(){
 	// Next btn to go between states within a Query.
-	$("#state-selector > #next").click(function() { 
+	$("#state_selector > #next").click(function() { 
 		cgApp.curComparison.nextState();				//TODO_jc: make this actually go to the next state.
 	});
 }
@@ -23,8 +23,4 @@ function ddController(){
 	socket.emit('eReceiveSelectedQuery', selectedQuery);
 }
 
-// Handles click on Union button.
-function unionController(){
-	
-}
 

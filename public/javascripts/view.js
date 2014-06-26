@@ -5,6 +5,8 @@ Contains the code relative to the View parts of the app (following an MVC approa
 
 // View for intro/1st state of a comparison.
 function introView(){
+	$("#state_title").html("state : intro");
+
 	$("#content").html("<div id='intro_view'>" +
 												"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
 												"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
@@ -13,6 +15,8 @@ function introView(){
 
 // A list view of both sets of tweets. Un-cleaned.
 function listView(){
+	$("#state_title").html("state : tweetList");
+
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='listView'>" +
 												"<div id='listContainer'>" +
@@ -42,12 +46,12 @@ function listView(){
 }
 
 function initialTweetBubblesView() {
+	$("#state_title").html("state : initialTweetBubbles");
 
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='bubbleContainer'>" +
-											"<div id='tweetBubble1'></div>" +
-											"<div id='tweetBubble2'></div>" +
-											"<div id='tweetBubble3'></div>" +
+											"<div id='tweetBubble1' class='tweetBubble'></div>" +
+											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
 
 	// Populate it.
@@ -70,10 +74,10 @@ function initialTweetBubblesView() {
 }
 
 function unionTweetBubblesView(){
-	console.log("view.js- unionTweetBubblesView- ENTER ----------------");
+	$("#state_title").html("state : unionTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("#bubbleContainer").append("<div id='tweetBubble3'></div>");
+	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
 	union();

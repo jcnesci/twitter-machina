@@ -101,7 +101,7 @@ comparison.prototype = {
 			// If the transition is valid, do stuff.
 			if (stateChangeSuccess) {
 
-				// emptyViewItems();						// Don't want to empty things when coming into here, want to keep the initialTweetBubbles.
+				// Don't want to empty things when coming into here, want to keep the initialTweetBubbles, and just add another bubble for Union.
 				unionTweetBubblesView();
 			}
 		}
