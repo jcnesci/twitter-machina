@@ -11,27 +11,6 @@ function introView(){
 											"</div>");
 }
 
-// 
-function diagramView(){
-
-	// TODO: set the state of the diagram view.
-	// Each state has descriptive text and a graphical layout of the data associated with it.
-	
-	//OLD
-	// drawD3TestChart();
-
-}
-
-// 
-function setView(){
-
-}
-
-// 
-function tweetView(){
-
-}
-
 // A list view of both sets of tweets. Un-cleaned.
 function listView(){
 	// Add the HTML structure to be populated.
@@ -63,16 +42,12 @@ function listView(){
 }
 
 function initialTweetBubblesView() {
-	console.log("view.js- tweetBubblesView----------- ENTER");
 
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='bubbleContainer'>" +
 											"<div id='tweetBubble1'></div>" +
 											"<div id='tweetBubble2'></div>" +
 											"<div id='tweetBubble3'></div>" +
-											"<div>" +
-												"<button type='button' class='button' onclick='union()'>Union</button>" +
-											"</div>" +
 										"</div>");
 
 	// Populate it.
@@ -92,6 +67,37 @@ function initialTweetBubblesView() {
 			}
 		}
 	});
+}
+
+function unionTweetBubblesView(){
+	console.log("view.js- unionTweetBubblesView- ENTER ----------------");
+
+	// Add the HTML structure to be populated.
+	$("#bubbleContainer").append("<div id='tweetBubble3'></div>");
+
+	// Populate it.
+	union();
+}
+
+// 
+function diagramView(){
+
+	// TODO: set the state of the diagram view.
+	// Each state has descriptive text and a graphical layout of the data associated with it.
+	
+	//OLD
+	// drawD3TestChart();
+
+}
+
+// 
+function setView(){
+
+}
+
+// 
+function tweetView(){
+
 }
 
 //---------------------------------------------

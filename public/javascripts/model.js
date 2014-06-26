@@ -63,6 +63,8 @@ function logTwitterResults(data) {
 
 //Adding a union class and moving union words to another div.
 function union() {
+	console.log("model.js- union- ENTER --------------------");
+
 	// tweetBubbles();
 	for (var i = 0; i < words.length; i++) {
     	if (lookup[words[i].value].sets == "union") {

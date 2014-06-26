@@ -71,7 +71,8 @@ comparison.prototype = {
 		this.stateMachine = new sosoStateMachine();
 
 		this.stateMachine.addTransition("intro", "tweetList");
-		this.stateMachine.addTransition("tweetList", "wordBlocks");
+		this.stateMachine.addTransition("tweetList", "initialTweetBubbles");
+		this.stateMachine.addTransition("initialTweetBubbles", "unionTweetBubbles");
 	},
 	// TODO: instead of using IF statemtn for each step, make this automatically know what the enxt state is.
 	nextState: function(){
@@ -87,12 +88,21 @@ comparison.prototype = {
 			}
 		} else if (this.stateMachine.curState == this.stateMachine.getState("tweetList")){
 
-			var stateChangeSuccess = this.stateMachine.gotoState("wordBlocks");
+			var stateChangeSuccess = this.stateMachine.gotoState("initialTweetBubbles");
 			// If the transition is valid, do stuff.
 			if (stateChangeSuccess) {
 
 				emptyViewItems();
 				initialTweetBubblesView();
+			}
+		} else if (this.stateMachine.curState == this.stateMachine.getState("initialTweetBubbles")){
+
+			var stateChangeSuccess = this.stateMachine.gotoState("unionTweetBubbles");
+			// If the transition is valid, do stuff.
+			if (stateChangeSuccess) {
+
+				// emptyViewItems();						// Don't want to empty things when coming into here, want to keep the initialTweetBubbles.
+				unionTweetBubblesView();
 			}
 		}
 
