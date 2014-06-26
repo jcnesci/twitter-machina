@@ -1,61 +1,68 @@
 // Compares words from 2 twitter feeds to one another.
 
 // Params: item1 = a twitter username, item2 = a twitter username.
-function comparison(item1, item2){
+function comparison(iId, iItem1, iItem2){
 
 	// --- Properties
-	this.item1 = item1;
-	this.item2 = item2;
+	this.id = iId;
+	this.item1 = iItem1;
+	this.item2 = iItem2;
 	this.stateMachine = null;
 	this.twitterDataItem1 = null;
 	this.twitterDataItem2 = null;
 	this.allQueriesReceived = false;
 
 	// --- Behavior
-	socket.emit('eClientRequestsTwitterQuery', this.item1, this.item2);			//TODO
-	socket.on('eServerReturnsTwitterResult', function (iResponse) {
-		console.log("comparison.js- eServerReturnsTwitterResult- iResponse : ");
-		console.log(iResponse);
-		logTwitterResults(iResponse);
-
-		// Store query results.
-		if(iResponse.iQueryNum == 1){
-			this.twitterDataItem1 = iResponse.iData;
-		} else if(iResponse.iQueryNum == 2){
-			this.twitterDataItem2 = iResponse.iData;
-		}
-
-		// When all data received, trigger the views.
-		if(this.twitterDataItem1 != null && this.twitterDataItem2 != null){
-			// console.log("t- ALL QUERIES RECEIVED");
-			this.allQueriesReceived = true;			// Currently unused.
-			
-			// Clear Model & View items.
-			emptyModelItems();
-			// emptyViewItems();
-			// Create sets.
-			createSet(this.twitterDataItem1, "set1");
-			createSet(this.twitterDataItem2, "set2");
-			emptyResultObjects();
-			// Display diagram.
-			// listView();																			//DEV: moved to setState().
-
-			console.log(sets);
-		}
-	});
+	// this.setupServerCalls();
 	//
 	this.buildStateMachine();
 	this.stateMachine.gotoState("intro");
-	introView();																	
+	// introView();																	
 	// 
 	// console.log("* * * * * * * * states = ");
 	// console.log(this.stateMachine.states);
 	// console.log("* * * * * * * * transitions = ");
 	// console.log(this.stateMachine.transitions);
 	// console.log("* * * * * * * * curState = "+ this.stateMachine.curState.name);
-	
+
 }
 comparison.prototype = {
+	//
+	setupServerCalls: function(){
+		// Send request for Twitter data.
+		socket.emit('eClientRequestsTwitterQuery', this.id, this.item1, this.item2);
+		// Receive Twitter data.
+		var _this = this;
+		socket.on('eServerReturnsTwitterResult_'+this.id, function (iResponse) {
+			console.log("comparison.js- eServerReturnsTwitterResult_"+ _this.id +"- iResponse : ");
+			console.log(iResponse);
+			logTwitterResults(iResponse);
+
+			// Store query results.
+			if(iResponse.iQueryNum == 1){
+				_this.twitterDataItem1 = iResponse.iData;
+			} else if(iResponse.iQueryNum == 2){
+				_this.twitterDataItem2 = iResponse.iData;
+			}
+
+			// When all data received, trigger the views.
+			if(_this.twitterDataItem1 != null && _this.twitterDataItem2 != null){
+				// console.log("t- ALL QUERIES RECEIVED");
+				_this.allQueriesReceived = true;			// Currently unused.
+				
+				// Clear Model & View items.
+				emptyModelItems();
+				// emptyViewItems();
+				
+				// Create sets.
+				createSet(_this.twitterDataItem1, "set1");
+				createSet(_this.twitterDataItem2, "set2");
+				emptyResultObjects();
+				
+				console.log(sets);
+			}
+		});
+	},
 	// Define the state machine transitions here.
 	buildStateMachine: function(){
 		this.stateMachine = new sosoStateMachine();

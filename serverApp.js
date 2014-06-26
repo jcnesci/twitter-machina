@@ -62,16 +62,16 @@ io.sockets.on('connection', function (socket) {
 	console.log('A new user connected!');
 	// socket.emit('info', { msg: 'The world is round, there is no up or down.' });       //OLD
 
-	socket.on('eClientRequestsTwitterQuery', function (item1, item2) {
+	socket.on('eClientRequestsTwitterQuery', function (comparisonId, item1, item2) {
 		console.log("serverApp.js- eClientRequestsTwitterQuery- ENTER- item1: "+ item1 +" | item2: "+ item2);
-		sendQueries(socket, item1, item2);
+		sendQueries(socket, comparisonId, item1, item2);
 	});
 
 });
 
 // Sends 2 queries to Twitter for a Comparison object.
-function sendQueries(socket, item1, item2) {
-	console.log("serverApp.js- sendQueries- ENTER- item1 = "+ item1 +" | item2 = "+ item2);
+function sendQueries(socket, comparisonId, item1, item2) {
+	console.log("serverApp.js- sendQueries- ENTER- comparisonId = "+ comparisonId +" | item1 = "+ item1 +" | item2 = "+ item2);
 
 	// Do REST search #1.
 	T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
@@ -79,7 +79,7 @@ function sendQueries(socket, item1, item2) {
 				console.log("ERROR- serverApp.js- search #1.");
 				console.error(err.stack);
 			}
-			socket.emit('eServerReturnsTwitterResult', {iData: data, iQueryNum: 1, iQueryString: item1});
+			socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 1, iQueryString: item1});
 	});
 
 	// Do REST search #2.
@@ -88,7 +88,7 @@ function sendQueries(socket, item1, item2) {
 				console.log("ERROR-  serverApp.js- search #2.");
 				console.error(err.stack);
 			}
-			socket.emit('eServerReturnsTwitterResult', {iData: data, iQueryNum: 2, iQueryString: item2});
+			socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 2, iQueryString: item2});
 	});
 }
 
