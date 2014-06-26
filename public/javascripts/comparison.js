@@ -14,11 +14,11 @@ function comparison(item1, item2){
 	this.buildStateMachine();
 	this.stateMachine.gotoState("intro");
 	// 
-	console.log("* * * * * * * * states = ");
-	console.log(this.stateMachine.states);
-	console.log("* * * * * * * * transitions = ");
-	console.log(this.stateMachine.transitions);
-	console.log("* * * * * * * * curState = "+ this.stateMachine.curState.name);
+	// console.log("* * * * * * * * states = ");
+	// console.log(this.stateMachine.states);
+	// console.log("* * * * * * * * transitions = ");
+	// console.log(this.stateMachine.transitions);
+	// console.log("* * * * * * * * curState = "+ this.stateMachine.curState.name);
 
 	// Show first state view.
 	introView();
@@ -49,7 +49,7 @@ function comparison(item1, item2){
 			
 			// Clear Model & View items.
 			emptyModelItems();
-			emptyViewItems();
+			// emptyViewItems();
 			// Create sets.
 			createSet(dataTwitterGetResult_1, "set1");
 			createSet(dataTwitterGetResult_2, "set2");
@@ -73,16 +73,27 @@ comparison.prototype = {
 		this.stateMachine.addTransition("intro", "tweetList");
 		this.stateMachine.addTransition("tweetList", "wordBlocks");
 	},
-	setState: function(iStateName){
-		var stateChangeSuccess = this.stateMachine.gotoState(iStateName);
-		if (stateChangeSuccess) {
+	// TODO: instead of using IF statemtn for each step, make this automatically know what the enxt state is.
+	nextState: function(){
 
-			// Clear current content div.
-			$("#content").empty();
+		if (this.stateMachine.curState == this.stateMachine.getState("intro")){
 
-			// Fill content div with tweetList content.
-			listView();
+			var stateChangeSuccess = this.stateMachine.gotoState("tweetList");
+			// If the transition is valid, do stuff.
+			if (stateChangeSuccess) {
 
+				emptyViewItems();
+				listView();													// Fill content div with tweetList content.
+			}
+		} else if (this.stateMachine.curState == this.stateMachine.getState("tweetList")){
+
+			var stateChangeSuccess = this.stateMachine.gotoState("wordBlocks");
+			// If the transition is valid, do stuff.
+			if (stateChangeSuccess) {
+
+				emptyViewItems();
+				initialTweetBubblesView();
+			}
 		}
 
 	}

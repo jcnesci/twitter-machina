@@ -21,13 +21,6 @@ $(function(){
 
 // Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-// Assign button actions here.
-function setupButtons(){
-	$("#state-selector > #next").click(function() { 
-		cgApp.curComparison.setState("tweetList");				//TODO_jc: make this actually go to the next state.
-	});
-}
-
 // 
 function emptyResultObjects(){
 	dataTwitterGetResult_1 = null;
@@ -45,10 +38,14 @@ function emptyModelItems(){
 //DEV: should this be in view.js?
 // Empties the tweet bubble divs.
 function emptyViewItems(){
-	console.log("EMPTY BUBBLE DOM * * * * * * ********");
+	console.log("model.js- EMPTY VIEW ITEMS");
+	// Clear current content div.
+	$("#content").empty();
+	//
 	$("#tweetBubble1").empty();
 	$("#tweetBubble2").empty();
 	$("#tweetBubble3").empty();
+	//
 	$("#list1").empty();
 	$("#list2").empty();
 }
@@ -66,7 +63,7 @@ function logTwitterResults(data) {
 
 //Adding a union class and moving union words to another div.
 function union() {
-	diagramView();
+	// tweetBubbles();
 	for (var i = 0; i < words.length; i++) {
     	if (lookup[words[i].value].sets == "union") {
     		var id = "#"+i;

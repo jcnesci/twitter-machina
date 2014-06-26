@@ -5,16 +5,14 @@ Contains the code relative to the View parts of the app (following an MVC approa
 
 // View for intro/1st state of a comparison.
 function introView(){
-	$("#content").html("<div id='intro_view'>"
-															+ "<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>"
-															+ "<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>"
-														+ "</div>");
+	$("#content").html("<div id='intro_view'>" +
+												"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
+												"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
+											"</div>");
 }
 
 // 
 function diagramView(){
-
-	tweetBubbles();
 
 	// TODO: set the state of the diagram view.
 	// Each state has descriptive text and a graphical layout of the data associated with it.
@@ -36,23 +34,26 @@ function tweetView(){
 
 // A list view of both sets of tweets. Un-cleaned.
 function listView(){
-
+	// Add the HTML structure to be populated.
+	$("#content").html("<div id='listView'>" +
+												"<div id='listContainer'>" +
+													"<h2>List 1</h2>" +
+													"<div id='list1' class='tweetlist'></div>" +
+												"</div>" +
+												"<div id='listContainer'>" +
+													"<h2>List 2</h2>" +
+													"<div id='list2' class='tweetlist'></div>");
+	
+	// Populate it.
 	$.each(sets, function(key, value) {
-
+		
 		if (key == 0) {		//if in set 1 place in div list1
-
 			$.each(value.tweets, function(jKey, jValue) {
-
 				$("#list1").append('<p>'+ jValue.fullTweet +' </p><br>');
-
 			});
-
 		} else if (key == 1) {	//if in set 2 place in div list2
-
 			$.each(value.tweets, function(jKey, jValue) {
-
 				$("#list2").append('<p>'+ jValue.fullTweet +' </p><br>');
-
 			});
 
 		} else { console.log("Error in listView")}; //If not a part of a set...
@@ -61,13 +62,20 @@ function listView(){
 
 }
 
-//---------------------------------------------
-//should be changed to tweetView at some point.
-//---------------------------------------------
+function initialTweetBubblesView() {
+	console.log("view.js- tweetBubblesView----------- ENTER");
 
-function tweetBubbles() {
-	console.log(" TWEET BUBBLES  * * *  * * * *");
+	// Add the HTML structure to be populated.
+	$("#content").html("<div id='bubbleContainer'>" +
+											"<div id='tweetBubble1'></div>" +
+											"<div id='tweetBubble2'></div>" +
+											"<div id='tweetBubble3'></div>" +
+											"<div>" +
+												"<button type='button' class='button' onclick='union()'>Union</button>" +
+											"</div>" +
+										"</div>");
 
+	// Populate it.
 	$.each(words, function(key, value){
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {

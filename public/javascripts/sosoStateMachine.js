@@ -108,9 +108,9 @@ sosoStateMachine.prototype = {
 		}
 	},
 	startTransition: function(iTransition){
-		curTransition = iTransition;
-		curState = curTransition.endState;
-		console.log("sosoStateMachine- startTransition- transition complete. curState : "+ curState.name +" | curTransition : ["+ curTransition.startState.name +", "+ curTransition.endState.name +"]");
+		this.curTransition = iTransition;
+		this.curState = this.curTransition.endState;
+		console.log("sosoStateMachine- startTransition- transition complete. curState : "+ this.curState.name +" | curTransition : ["+ this.curTransition.startState.name +", "+ this.curTransition.endState.name +"]");
 	}
 	
 }
