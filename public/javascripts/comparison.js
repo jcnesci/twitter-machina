@@ -53,44 +53,7 @@ function comparison(item1, item2){
 	// console.log("* * * * * * * * transitions = ");
 	// console.log(this.stateMachine.transitions);
 	// console.log("* * * * * * * * curState = "+ this.stateMachine.curState.name);
-
-
-
-	/*
-	// Receive Twitter search results, triggered by dropdown selection on page.
-	socket.on('eReceiveTwitterResult', function (iResponse) {
-		
-		logTwitterResults(iResponse);
-
-		// Store query results.
-		if(iResponse.iQueryNum == 1){
-			dataTwitterGetResult_1 = iResponse.iData;
-		} else if(iResponse.iQueryNum == 2){
-			dataTwitterGetResult_2 = iResponse.iData;
-		}
-
-		// When all data received, trigger the views.
-		if(dataTwitterGetResult_1 != null && dataTwitterGetResult_2 != null){
-			// console.log("t- ALL QUERIES RECEIVED");
-			allQueriesReceived = true;			// Currently unused.
-			
-			// Clear Model & View items.
-			emptyModelItems();
-			// emptyViewItems();
-			// Create sets.
-			createSet(dataTwitterGetResult_1, "set1");
-			createSet(dataTwitterGetResult_2, "set2");
-			emptyResultObjects();
-			// Display diagram.
-			// listView();																			//DEV: moved to setState().
-
-
-			console.log(sets);
-		}
-		
-	});
-	*/
-
+	
 }
 comparison.prototype = {
 	// Define the state machine transitions here.
