@@ -62,10 +62,13 @@ io.sockets.on('connection', function (socket) {
 	console.log('A new user connected!');
 	// socket.emit('info', { msg: 'The world is round, there is no up or down.' });       //OLD
 
+
+	/*
+	//OLD
 	var queryIndex = 0;
 
 	// 1 --- On connection/1st page load, display the first set of queries.
-	sendQueries(socket, 0);
+	sendQueries_old(socket, 0);
 
 	// 2 --- Receive selected query from dropdown menu on page.
 	socket.on('eReceiveSelectedQuery', function (selectedQuery) {
@@ -80,13 +83,46 @@ io.sockets.on('connection', function (socket) {
 		console.log("FROM APP 2: " + twitterQueries[queryIndex][0]);
 
 		// Send the queries to Twitter.
-		sendQueries(socket, queryIndex);
+		sendQueries_old(socket, queryIndex);
 
+	});
+	*/
+
+	//DEV - - - - - - --  - - - - - - -- - 
+
+	socket.on('eClientRequestsTwitterQuery', function (item1, item2) {
+		console.log("serverApp.js- eClientRequestsTwitterQuery- ENTER- item1: "+ item1 +" | item2: "+ item2);
+		sendQueries(socket, item1, item2);
 	});
 
 });
 
-function sendQueries(socket, queryIndex) {
+// NEW
+function sendQueries(socket, item1, item2) {
+	console.log("serverApp.js- sendQueries- ENTER- item1 = "+ item1 +" | item2 = "+ item2);
+
+	// Do REST search #1.
+	T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
+			if (err) {
+				console.log("ERROR- serverApp.js- search #1.");
+				console.error(err.stack);
+			}
+			socket.emit('eServerReturnsTwitterResult', {iData: data, iQueryNum: 1, iQueryString: item1});
+	});
+
+	// Do REST search #2.
+	T.get('statuses/user_timeline', { screen_name: item2, exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
+			if (err) {
+				console.log("ERROR-  serverApp.js- search #2.");
+				console.error(err.stack);
+			}
+			socket.emit('eServerReturnsTwitterResult', {iData: data, iQueryNum: 2, iQueryString: item2});
+	});
+}
+
+/*
+//OLD
+function sendQueries_old(socket, queryIndex) {
 	console.log("app- sendQueries- queryIndex = "+ queryIndex +" | query string #1 = "+ twitterQueries[queryIndex][0] +" | query string #2 = "+ twitterQueries[queryIndex][1]);
 
 	// Do REST search #1.
@@ -107,6 +143,7 @@ function sendQueries(socket, queryIndex) {
 			socket.emit('eReceiveTwitterResult', {iData: data, iQueryNum: 2, iQueryString: twitterQueries[queryIndex][1]});
 	});
 }
+*/
 
 // Twitter credentials.
 // Replace these with your own!

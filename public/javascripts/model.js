@@ -5,10 +5,8 @@ Contains the code relative to the Model parts of the app (following an MVC appro
 
 // Global variables - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+var socket = io.connect();						// connect to the socket server
 var cgApp;														// the main client-side app, which controls everything.
-var dataTwitterGetResult_1 = null;		// Results from 1st Twitter GET query.
-var dataTwitterGetResult_2 = null;		// Results from 2nd Twitter GET query.
-var allQueriesReceived = false;				// DEV: Currently unused.
 
 // Main execution body - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 $(function(){
