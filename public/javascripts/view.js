@@ -53,31 +53,42 @@ function initialTweetBubblesView() {
 											"<div id='tweetBubble1' class='tweetBubble'></div>" +
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
+	//For counting word length
+	var bA1 = 0,
+			bA2 = 0;
 
 	// Populate it.
 	$.each(words, function(key, value){
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
+				bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
 				$("#tweetBubble1").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
 			} else {
 				$("#tweetBubble1").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
 			}
 		} else if(value.linkedSets[0] == "set2") {
 			if (value.visible == true) {
+				bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
 				$("#tweetBubble2").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
 			} else {
 				$("#tweetBubble2").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
 			}
+		} else {
+			console.log(" ********** Unaccounted Word! **********");
 		}
 	});
+
+	//And the word length count to the DOM.
+	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
+	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
 }
 
 function unionTweetBubblesView(){
 	$("#state_title").html("state : unionTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
+	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div><div id='bubbleArea3' class='bubbleArea'></div>");
 
 	// Populate it.
 	union();
