@@ -57,16 +57,14 @@ function initialTweetBubblesView() {
 										"</div>");
 
 	console.log("1 :");
-	console.log(cgApp.curComparison.sets);
+	console.log(cgApp.curComparison);
 	console.log("2 :");
-	console.log(cgApp.curComparison.sets.tweets);
+	console.log(cgApp.curComparison.words);
 	console.log("3 :");
-	console.log(cgApp.curComparison.sets.tweets.words);
-	console.log("4 :");
-	console.log(cgApp.curComparison.sets.tweets.lookup);
+	console.log(cgApp.curComparison.lookup);
 
 	// Populate it.
-	$.each(cgApp.curComparison.sets.tweets.words, function(key, value){
+	$.each(cgApp.curComparison.words, function(key, value){
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
@@ -91,8 +89,8 @@ function unionTweetBubblesView(){
 	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
-	for (var i = 0; i < cgApp.curComparison.sets.tweets.words.length; i++) {
-    	if (cgApp.curComparison.sets.tweets.lookup[cgApp.curComparison.sets.tweets.words[i].value].sets == "union") {
+	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
+    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
     		var id = "#"+i;
     		$uSpan = $(id).clone();
     		$(id).remove();

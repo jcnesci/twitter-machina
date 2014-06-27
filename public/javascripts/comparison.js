@@ -12,16 +12,14 @@ function comparison(iId, iItem1, iItem2){
 	this.twitterDataItem2 = null;
 	this.allQueriesReceived = false;
 	this.sets = [];
+	this.words = [];
+	this.lookup = {};
 	this.introHTML = "";
 
 	// --- Behavior
-	// this.setupServerCalls();
-	//
 	this.buildStateMachine();
 	this.stateMachine.gotoState("intro");
 	
-	// introView();																	
-	// 
 	// console.log("* * * * * * * * states = ");
 	// console.log(this.stateMachine.states);
 	// console.log("* * * * * * * * transitions = ");
@@ -58,14 +56,8 @@ comparison.prototype = {
 				// emptyViewItems();
 
 				// Create sets.
-/*
-				//OLD
-				createSet(_this.twitterDataItem1, "set1");
-				createSet(_this.twitterDataItem2, "set2");
-				emptyResultObjects();
-*/			
-				_this.sets.push(new Set(_this.twitterDataItem1, "set1"));
-				_this.sets.push(new Set(_this.twitterDataItem2, "set2"));
+				_this.sets.push(new Set(_this, _this.twitterDataItem1, "set1"));
+				_this.sets.push(new Set(_this, _this.twitterDataItem2, "set2"));
 
 				console.log("comparison.js- comparison["+_this.id+"]- sets : ");
 				console.log(_this.sets);

@@ -20,11 +20,6 @@ $(function(){
 
 // Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-// 
-function emptyResultObjects(){
-	dataTwitterGetResult_1 = null;
-	dataTwitterGetResult_2 = null;
-}
 
 // Empties the sets array.
 function emptyModelItems(){

@@ -6,7 +6,7 @@ Contains the code relative to the Controller parts of the app (following an MVC 
 
 // General function to assign button actions @start.
 function setupButtons(){
-	
+
 	// Next btn to go between states within a Query.
 	$("#state_selector > #next").click(function() { 
 		cgApp.curComparison.nextState();				//TODO_jc: make this actually go to the next state.
@@ -17,11 +17,11 @@ function setupButtons(){
 function ddController(){
 
 	var domSelect = document.getElementById("dd_queries");
-	var selectedQuery = domSelect.options[domSelect.selectedIndex].value;
-	
-	console.log("FROM CONTROLLER: " + selectedQuery);
+	var selectedQueryNum = domSelect.options[domSelect.selectedIndex].value;
+	// socket.emit('eReceiveSelectedQuery', selectedQueryNum);
+	cgApp.switchCurComparison(selectedQueryNum);
 
-	socket.emit('eReceiveSelectedQuery', selectedQuery);
+	console.log("FROM CONTROLLER: " + selectedQueryNum);
 }
 
 

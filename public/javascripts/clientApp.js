@@ -13,12 +13,13 @@ function clientApp(){
 	this.comparisons.push(new comparison(3, "facebook", "twitter"));
 	this.comparisons.push(new comparison(4, "foxnews", "mnsbc"));
 	this.curComparison = this.comparisons[0];					//TODO: later, the dropdown should affect the curComparison.
-	// Button setup
+	// Generic button setup
 	setupButtons();
-	// Setup drowdown buttons here (cant be done in setupButtons because that runs before cgApp()'s constructor is done and cdApp witl be undefined at that moment).
+	// Comparison obj setup
 	for (var i = 0; i < this.comparisons.length; i++){
-			console.log("clientApp.js- eServerReturnsTwitterResult- * * * * * * * * * * * * * * * ** * *");
-			$("#dd_queries").append("<option value='query"+ this.comparisons[i].id +"'>"+ this.comparisons[i].item1 +" / "+ this.comparisons[i].item2 +"</option>");
+			// Setup drowdown buttons here (cant be done in setupButtons because that runs before cgApp()'s constructor is done and cdApp witl be undefined at that moment).
+			$("#dd_queries").append("<option value='"+ this.comparisons[i].id +"'>"+ this.comparisons[i].item1 +" / "+ this.comparisons[i].item2 +"</option>");
+			// Initiating server calls (they are not done in the comparison constructor so the comparisons array gets its length quicker).
 			this.comparisons[i].setupServerCalls();
 	}
 	// 
@@ -43,6 +44,26 @@ clientApp.prototype = {
 	start: function(){
 		// Display the first comparison.
 		introView();
+	},
+	switchCurComparison: function(iComparisonNum){
+		console.log("*** iComparisonNum : "+ iComparisonNum);
+
+		// Get comparison with the id from the dropdown value.
+		var newComparison = $.grep(this.comparisons, function(c, i){
+			console.log("^^^ c: ");
+			console.log(c);
+			return (c.id == iComparisonNum);
+		});
+
+		console.log("*** newComparison : ");
+		console.log(newComparison);
+
+		this.curComparison = newComparison;
+
+		console.log("*** this.curComparison : ");
+		console.log(this.curComparison);
+
+		this.start();
 	}
 }
 

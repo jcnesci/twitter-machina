@@ -3,31 +3,26 @@ var allTweets = [];	// An array to hold all the tweets.                         
 // var lookup = {};	// Used to count words and determine duplicates.             // DEV: moved locally inside tweet object belonging to a comparison
 
 // Creates the individual tweet objects.
-function Tweet(tweet, refSet) {
-	this.fullTweet = tweet;
-	this.ref = [refSet];
-	var tmpWords = tweet.cleanTweet().split(" ")
-	
-    this.words = [];
-    this.lookup = {};
+function Tweet(iComparison, iSet, tweet) {
+	this.comparison = iComparison;
+    this.set = iSet;
+    this.fullTweet = tweet;
+	var tmpWords = tweet.cleanTweet().split(" ");
 
     allTweets.push(tweet);
 	
 	for (var i = 0; i < tmpWords.length; i++) {
 			//If the word doesn't exists
-    	if (this.lookup[tmpWords[i]] == undefined) {
-    		this.lookup[tmpWords[i]] = { "count" : 1, "sets" : refSet};
-    		this.words.push(new Word(tmpWords[i], refSet, true));
+    	if (this.comparison.lookup[tmpWords[i]] == undefined) {
+    		this.comparison.lookup[tmpWords[i]] = { "count" : 1, "sets" : this.set.name};
+    		this.comparison.words.push(new Word(tmpWords[i], this.set.name, true));
     	} else {
     		//If the word was originally in another set.
-    		if (this.lookup[tmpWords[i]].sets != refSet) {
-    			this.lookup[tmpWords[i]] = { "count" : 1 + this.lookup[tmpWords[i]].count, "sets" : "union"};
+    		if (this.comparison.lookup[tmpWords[i]].sets != this.set.name) {
+    			this.comparison.lookup[tmpWords[i]] = { "count" : 1 + this.comparison.lookup[tmpWords[i]].count, "sets" : "union"};
     		}
-    		this.words.push(new Word(tmpWords[i], refSet, false));
+    		this.comparison.words.push(new Word(tmpWords[i], this.set.name, false));
     	}		
 	}
-
-    // console.log("tweet.js- words: - - - - - - - - - *");
-    // console.log(this.words);
 
 };
