@@ -76,19 +76,22 @@ function initialTweetBubblesView() {
 	// Populate it.
 	$.each(cgApp.curComparison.words, function(key, value){
 		var theWord = value.value;
+
+		value.position2.y = key*15;
+
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
 				bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-				$("#tweetBubble1").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
+				$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="left:' + value.position2.x + 'px;top:' + value.position2.y + 'px">'+ theWord +' </span>');
 			} else {
-				$("#tweetBubble1").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
+				$("#tweetBubble1").append('<span id="'+key+'" class="hide word" style="left:' + value.position2.x + 'px;top:' + value.position2.y + 'px">'+ theWord +' </span>');
 			}
 		} else if(value.linkedSets[0] == "set2") {
 			if (value.visible == true) {
 				bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				$("#tweetBubble2").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
+				$("#tweetBubble2").append('<span id="'+key+'" class="show word" style="left:' + value.position2.x + 'px;top:' + value.position2.y + 'px">'+ theWord +' </span>');
 			} else {
-				$("#tweetBubble2").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
+				$("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="left:' + value.position2.x + 'px;top:' + value.position2.y + 'px">'+ theWord +' </span>');
 			}
 		} else {
 			console.log(" ********** Unaccounted Word! **********");
