@@ -20,12 +20,6 @@ $(function(){
 
 // Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-// 
-function buildUserImageSet(iItem1, iUrlItem1, iItem2, iUrlItem2){
-	$("#menu").append("<img src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>");
-	$("#menu").append("<img src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>");
-}
-
 // Empties the sets array.
 function emptyModelItems(){
 	// words.length = 0;			// before var was made local to comparison obj
