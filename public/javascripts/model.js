@@ -58,17 +58,45 @@ function logTwitterResults(data) {
 //Adding a union class and moving union words to another div.
 function union() {
 	console.log("model.js- union- ENTER --------------------");
+	var unionCount = {}; //Counting Unions
+	var bA3 = 0, //Count Union Words length
+			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
+			bA2 = Number($('#bubbleArea2').html());
 
-	// tweetBubbles();
-	// for (var i = 0; i < words.length; i++) {
- //    	if (lookup[words[i].value].sets == "union") {
- //    		var id = "#"+i;
- //    		$uSpan = $(id).clone();
- //    		$(id).remove();
- //    		$("#tweetBubble3").append($uSpan);
- //    		$(id).addClass("union");
- //    	}		
-	// }
+	// NEW
+	for (var i = 0; i < words.length; i++) {
+    	
+    	if (lookup[words[i].value].sets == "union") {
+    		var id = "#"+i;
+
+    		//Union Count to check for duplicates.
+	    	if (unionCount[words[i].value] == undefined) {
+		    	bA3 = words[i].value.length + bA3;  //Counting Length
+
+		    	if (words[i].linkedSets == "set1") bA1 = bA1 - words[i].value.length;
+					if (words[i].linkedSets == "set2") bA2 = bA2 - words[i].value.length;
+
+		    	unionCount[words[i].value] = true;
+		    	$(id).addClass("union");
+		    	$uSpan = $(id).clone();
+		    	$(id).attr('class', 'hide union');
+		    	$('#tweetBubble3').append($uSpan); //Creating the union set
+		    	
+	    	} else {
+	    		//Hide the Duplicates
+	    		$(id).attr('class', 'hide union');
+
+		    	if (words[i].linkedSets == "set1") bA1 = bA1 - words[i].value.length;
+					if (words[i].linkedSets == "set2") bA2 = bA2 - words[i].value.length;
+    		}
+    	}		
+	}
+
+	//Add union bubble area to Dom.
+	$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
+	$('#bubbleArea1').html(bA1);
+	$('#bubbleArea2').html(bA2);
+	
 }
 
 function createSet(iData, iName) {

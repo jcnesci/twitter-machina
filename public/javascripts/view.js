@@ -62,6 +62,9 @@ function initialTweetBubblesView() {
 											"<div id='tweetBubble1' class='tweetBubble'></div>" +
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
+	//For counting word length
+	var bA1 = 0,
+			bA2 = 0;
 
 	console.log("1 :");
 	console.log(cgApp.curComparison);
@@ -75,18 +78,26 @@ function initialTweetBubblesView() {
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
+				bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
 				$("#tweetBubble1").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
 			} else {
 				$("#tweetBubble1").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
 			}
 		} else if(value.linkedSets[0] == "set2") {
 			if (value.visible == true) {
+				bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
 				$("#tweetBubble2").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
 			} else {
 				$("#tweetBubble2").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
 			}
+		} else {
+			console.log(" ********** Unaccounted Word! **********");
 		}
 	});
+
+	//And the word length count to the DOM.
+	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
+	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
 }
 
 function unionTweetBubblesView(){
@@ -96,6 +107,9 @@ function unionTweetBubblesView(){
 	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
+
+	/*
+	// OLD
 	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
     	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
     		var id = "#"+i;
@@ -105,6 +119,47 @@ function unionTweetBubblesView(){
     		$(id).addClass("union");
     	}		
 	}
+	*/
+
+	// NEW
+
+	var unionCount = {}; //Counting Unions
+	var bA3 = 0, //Count Union Words length
+			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
+			bA2 = Number($('#bubbleArea2').html());
+
+	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
+    	
+    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
+    		var id = "#"+i;
+
+    		//Union Count to check for duplicates.
+	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
+		    	bA3 = cgApp.curComparison.words[i].value.length + bA3;  //Counting Length
+
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+
+		    	unionCount[cgApp.curComparison.words[i].value] = true;
+		    	$(id).addClass("union");
+		    	$uSpan = $(id).clone();
+		    	$(id).attr('class', 'hide union');
+		    	$('#tweetBubble3').append($uSpan); //Creating the union set
+		    	
+	    	} else {
+	    		//Hide the Duplicates
+	    		$(id).attr('class', 'hide union');
+
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+    		}
+    	}		
+	}
+
+	//Add union bubble area to Dom.
+	$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
+	$('#bubbleArea1').html(bA1);
+	$('#bubbleArea2').html(bA2);
 }
 
 // 
