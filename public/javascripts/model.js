@@ -14,7 +14,7 @@ $(function(){
 	// --- Setup
 
 	cgApp = new clientApp();
-
+	
 });
 
 // Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
