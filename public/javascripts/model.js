@@ -27,10 +27,10 @@ function emptyResultObjects(){
 
 // Empties the sets array.
 function emptyModelItems(){
-	words.length = 0;
+	// words.length = 0;			// before var was made local to comparison obj
 	allTweets.length = 0;
-	lookup = {};
-	sets.length = 0;
+	// lookup = {};			// before var was made local to comparison obj
+	// sets.length = 0;			// before var was made local to comparison obj
 }
 
 //DEV: should this be in view.js?

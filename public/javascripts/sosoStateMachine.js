@@ -7,15 +7,15 @@ function sosoStateMachine(){
 	this.states = [];
 	this.transitions = [];
 
-	console.log("sosoStateMachine- this.states : " + this.states);
-	console.log("sosoStateMachine- this.transitions : " + this.transitions);
+	// console.log("sosoStateMachine- this.states : " + this.states);
+	// console.log("sosoStateMachine- this.transitions : " + this.transitions);
 }
 sosoStateMachine.prototype = {
 	getState: function(iStateName){
 		// If the state exists, return it.
 		for (var i = 0; i < this.states.length; i++){
 			if (this.states[i].name == iStateName){
-				console.log("sosoStateMachine- getState- state already exists: "+ this.states[i].name);
+				// console.log("sosoStateMachine- getState- state already exists: "+ this.states[i].name);
 				return this.states[i];
 			}
 		}
@@ -26,7 +26,7 @@ sosoStateMachine.prototype = {
 		// If the transition exists, return it.
 		for (var i = 0; i < this.transitions.length; i++){
 			if (this.transitions[i].startState == iStartState && this.transitions[i].endState == iEndState){
-				console.log("sosoStateMachine- getTransition- transition already exists: "+ this.transitions[i]);
+				// console.log("sosoStateMachine- getTransition- transition already exists: "+ this.transitions[i]);
 				return this.transitions[i];
 			}
 		}
@@ -34,7 +34,7 @@ sosoStateMachine.prototype = {
 		return null;
 	},
 	addState: function(iStateName){
-		console.log("sosoStateMachine- addState- iStateName : "+ iStateName);
+		// console.log("sosoStateMachine- addState- iStateName : "+ iStateName);
 		
 		var state = this.getState(iStateName);
 
@@ -46,15 +46,15 @@ sosoStateMachine.prototype = {
 			var newState = new sosoState(iStateName);
 			this.states.push(newState);
 			// 
-			console.log("sosoStateMachine- addState- states: ");
-			console.log(this.states);
+			// console.log("sosoStateMachine- addState- states: ");
+			// console.log(this.states);
 			// 
 			return newState;
 		}
 		
 	},
 	addTransition: function(iStartState, iEndState){
-		console.log("sosoStateMachine- addTransition- iStartState : " + iStartState +" | iEndState : "+ iEndState);
+		// console.log("sosoStateMachine- addTransition- iStartState : " + iStartState +" | iEndState : "+ iEndState);
 		
 		var newStartState = this.addState(iStartState);
 		var newEndState = this.addState(iEndState);
@@ -68,8 +68,8 @@ sosoStateMachine.prototype = {
 			var newTransition = new sosoStateTransition(newStartState, newEndState);
 			this.transitions.push(newTransition);
 			// 
-			console.log("sosoStateMachine- addTransition- transitions: ")
-			console.log(this.transitions);
+			// console.log("sosoStateMachine- addTransition- transitions: ")
+			// console.log(this.transitions);
 			// 
 			return newTransition;
 		}
@@ -85,7 +85,7 @@ sosoStateMachine.prototype = {
 			// If the curState is null, just set it to 'state'.
 			if (this.curState == null){
 				this.curState = state;
-				console.log("sosoStateMachine- gotoState- state initiated at : "+ state.name);
+				// console.log("sosoStateMachine- gotoState- state initiated at : "+ state.name);
 				return true;
 			} else {
 				// TODO: add transitionBlicking here, if necessary.
@@ -96,14 +96,14 @@ sosoStateMachine.prototype = {
 					this.startTransition(transition);
 					return true;
 				} else {
-					console.log("sosoStateMachine- gotoState- ERROR: transition does not exist.");
+					// console.log("sosoStateMachine- gotoState- ERROR: transition does not exist.");
 					return false;
 				}
 
 			}
 
 		} else {
-			console.log("sosoStateMachine- gotoState- ERROR: state does not exist.");
+			// console.log("sosoStateMachine- gotoState- ERROR: state does not exist.");
 			return false;
 		}
 	},

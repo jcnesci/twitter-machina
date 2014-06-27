@@ -11,6 +11,7 @@ function comparison(iId, iItem1, iItem2){
 	this.twitterDataItem1 = null;
 	this.twitterDataItem2 = null;
 	this.allQueriesReceived = false;
+	this.sets = [];
 
 	// --- Behavior
 	// this.setupServerCalls();
@@ -53,13 +54,19 @@ comparison.prototype = {
 				// Clear Model & View items.
 				emptyModelItems();
 				// emptyViewItems();
-				
+
 				// Create sets.
+/*
+				//OLD
 				createSet(_this.twitterDataItem1, "set1");
 				createSet(_this.twitterDataItem2, "set2");
 				emptyResultObjects();
-				
-				console.log(sets);
+*/			
+				_this.sets.push(new Set(_this.twitterDataItem1, "set1"));
+				_this.sets.push(new Set(_this.twitterDataItem2, "set2"));
+
+				console.log("comparison.js- comparison["+_this.id+"]- sets : ");
+				console.log(_this.sets);
 			}
 		});
 	},

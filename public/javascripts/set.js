@@ -1,8 +1,9 @@
-var sets = [];	//An array to hold sets of word origins.
+// DEV: made this local to each comparison object.
+// var sets = [];	//An array to hold sets of word origins.
 
 // Creates set objects. This creates the parent objects for the tweets and word.
 function Set(iData, iName) {
-	sets.push(this);
+	// sets.push(this);
 	this.tweets = [];
 
 	for (var i = 0; i < iData.length; i++) {
