@@ -7,10 +7,12 @@ Contains the code relative to the View parts of the app (following an MVC approa
 function introView(){
 	$("#state_title").html("state : intro");
 
-	$("#content").html("<div id='intro_view'>" +
-												"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
-												"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
-											"</div>");
+	// $("#content").html("<div id='intro_view'>" +
+	// 											"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
+	// 											"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
+	// 										"</div>");
+
+	$("#content").html(cgApp.curComparison.introHTML);
 }
 
 // A list view of both sets of tweets. Un-cleaned.
@@ -28,7 +30,7 @@ function listView(){
 													"<div id='list2' class='tweetlist'></div>");
 	
 	// Populate it.
-	$.each(sets, function(key, value) {
+	$.each(cgApp.curComparison.sets, function(key, value) {
 		
 		if (key == 0) {		//if in set 1 place in div list1
 			$.each(value.tweets, function(jKey, jValue) {
@@ -54,8 +56,17 @@ function initialTweetBubblesView() {
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
 
+	console.log("1 :");
+	console.log(cgApp.curComparison.sets);
+	console.log("2 :");
+	console.log(cgApp.curComparison.sets.tweets);
+	console.log("3 :");
+	console.log(cgApp.curComparison.sets.tweets.words);
+	console.log("4 :");
+	console.log(cgApp.curComparison.sets.tweets.lookup);
+
 	// Populate it.
-	$.each(words, function(key, value){
+	$.each(cgApp.curComparison.sets.tweets.words, function(key, value){
 		var theWord = value.value;
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
@@ -80,7 +91,15 @@ function unionTweetBubblesView(){
 	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
-	union();
+	for (var i = 0; i < cgApp.curComparison.sets.tweets.words.length; i++) {
+    	if (cgApp.curComparison.sets.tweets.lookup[cgApp.curComparison.sets.tweets.words[i].value].sets == "union") {
+    		var id = "#"+i;
+    		$uSpan = $(id).clone();
+    		$(id).remove();
+    		$("#tweetBubble3").append($uSpan);
+    		$(id).addClass("union");
+    	}		
+	}
 }
 
 // 

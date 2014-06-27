@@ -14,6 +14,7 @@ $(function(){
 	// --- Setup
 
 	cgApp = new clientApp();
+	cgApp.start();
 	
 });
 
@@ -64,15 +65,15 @@ function union() {
 	console.log("model.js- union- ENTER --------------------");
 
 	// tweetBubbles();
-	for (var i = 0; i < words.length; i++) {
-    	if (lookup[words[i].value].sets == "union") {
-    		var id = "#"+i;
-    		$uSpan = $(id).clone();
-    		$(id).remove();
-    		$("#tweetBubble3").append($uSpan);
-    		$(id).addClass("union");
-    	}		
-	}
+	// for (var i = 0; i < words.length; i++) {
+ //    	if (lookup[words[i].value].sets == "union") {
+ //    		var id = "#"+i;
+ //    		$uSpan = $(id).clone();
+ //    		$(id).remove();
+ //    		$("#tweetBubble3").append($uSpan);
+ //    		$(id).addClass("union");
+ //    	}		
+	// }
 }
 
 function createSet(iData, iName) {

@@ -21,15 +21,28 @@ function clientApp(){
 			$("#dd_queries").append("<option value='query"+ this.comparisons[i].id +"'>"+ this.comparisons[i].item1 +" / "+ this.comparisons[i].item2 +"</option>");
 			this.comparisons[i].setupServerCalls();
 	}
-	// Display the first comparison.
-	// this.comparisons[0].
-	// attach reloadCOntent when select new item in dropdown
+	// 
+	this.buildIntroHTML();
+	
+	// TODO: attach reloadCOntent when select new item in dropdown
 
 
 	console.log("clientApp- comparisons :");
 	console.log(this.comparisons);
 }
 clientApp.prototype = {
-
+	// Cutomize the intro text for each comparison. 
+	buildIntroHTML: function(){
+		for (var i = 0; i < this.comparisons.length; i++){
+			this.comparisons[i].introHTML = "<div id='intro_view'>" +
+																				"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
+																				"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
+																			"</div>";
+		}
+	},
+	start: function(){
+		// Display the first comparison.
+		introView();
+	}
 }
 

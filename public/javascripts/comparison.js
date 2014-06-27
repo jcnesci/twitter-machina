@@ -12,12 +12,14 @@ function comparison(iId, iItem1, iItem2){
 	this.twitterDataItem2 = null;
 	this.allQueriesReceived = false;
 	this.sets = [];
+	this.introHTML = "";
 
 	// --- Behavior
 	// this.setupServerCalls();
 	//
 	this.buildStateMachine();
 	this.stateMachine.gotoState("intro");
+	
 	// introView();																	
 	// 
 	// console.log("* * * * * * * * states = ");
