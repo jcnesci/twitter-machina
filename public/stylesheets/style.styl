@@ -79,3 +79,52 @@ h2
 #state_selector > #next
   cursor pointer
   cursor hand
+
+// Query menu bar
+
+#menu, #menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#menu {
+    width: 900px;
+    margin: 60px auto;
+    border: 1px solid #222;
+    background-color: #111;
+    background-image: linear-gradient(#444, #111);
+    border-radius: 6px;
+    box-shadow: 0 1px 1px #777;
+}
+#menu:before,
+#menu:after {
+    content: "";
+    display: table;
+}
+#menu:after {
+    clear: both;
+}
+#menu {
+    zoom:1;
+}
+#menu li {
+    float: left;
+    border-right: 1px solid #222;
+    box-shadow: 1px 0 0 #444;
+    position: relative;
+}
+#menu a {
+    float: left;
+    padding: 12px 30px;
+    color: #999;
+    text-transform: uppercase;
+    font: bold 12px Arial, Helvetica;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #000;
+}
+#menu li:hover > a {
+    color: #fafafa;
+}
+*html #menu li a:hover { /* IE6 only */
+    color: #fafafa;
+}

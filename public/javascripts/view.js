@@ -164,13 +164,7 @@ function unionTweetBubblesView(){
 
 // 
 function diagramView(){
-
-	// TODO: set the state of the diagram view.
-	// Each state has descriptive text and a graphical layout of the data associated with it.
 	
-	//OLD
-	// drawD3TestChart();
-
 }
 
 // 

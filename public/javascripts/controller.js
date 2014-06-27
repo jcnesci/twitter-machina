@@ -9,7 +9,7 @@ function setupButtons(){
 
 	// Next btn to go between states within a Query.
 	$("#state_selector > #next").click(function() { 
-		cgApp.curComparison.nextState();				//TODO_jc: make this actually go to the next state.
+		cgApp.curComparison.nextState();
 	});
 }
 

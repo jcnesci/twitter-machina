@@ -73,16 +73,22 @@ io.sockets.on('connection', function (socket) {
 function sendQueries(socket, comparisonId, item1, item2) {
 	console.log("serverApp.js- sendQueries- ENTER- comparisonId = "+ comparisonId +" | item1 = "+ item1 +" | item2 = "+ item2);
 
-	// Do REST search #1.
+	// Search tweets from twitter user #1's timeline.
 	T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: numberOfQueries }, function(err, data, response) {
-			if (err) {
-				console.log("ERROR- serverApp.js- search #1.");
-				console.error(err.stack);
-			}
-			socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 1, iQueryString: item1});
+		if (err) {
+			console.log("ERROR- serverApp.js- search #1.");
+			console.error(err.stack);
+		}
+		socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 1, iQueryString: item1});
 	});
+	// Ger twitter user #1's image url.
+	T.get('users/show/:screen_name', { screen_name: item1 }, function (err, data, response) {
+	  console.log("USER IMAGE: ")
+	  console.log(data.profile_image_url)
+	  socket.emit('eServerReturnsUserImage_'+ comparisonId, {iImageUrl: data.profile_image_url, iQueryNum: 1});
+	})
 
-	// Do REST search #2.
+	// Search tweets from twitter user #2's timeline.
 	T.get('statuses/user_timeline', { screen_name: item2, exclude_replies: true, include_rts: false, count: numberOfQueries }, function(err, data, response) {
 			if (err) {
 				console.log("ERROR-  serverApp.js- search #2.");
@@ -90,6 +96,12 @@ function sendQueries(socket, comparisonId, item1, item2) {
 			}
 			socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 2, iQueryString: item2});
 	});
+	// Ger twitter user #2's image url.
+	T.get('users/show/:screen_name', { screen_name: item2 }, function (err, data, response) {
+	  console.log("USER IMAGE: ")
+	  console.log(data.profile_image_url)
+	  socket.emit('eServerReturnsUserImage_'+ comparisonId, {iImageUrl: data.profile_image_url, iQueryNum: 2});
+	})
 }
 
 // Twitter credentials.

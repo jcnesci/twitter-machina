@@ -88,7 +88,7 @@ sosoStateMachine.prototype = {
 				// console.log("sosoStateMachine- gotoState- state initiated at : "+ state.name);
 				return true;
 			} else {
-				// TODO: add transitionBlicking here, if necessary.
+				// TODO: add transitionBlocking here, if necessary.
 
 				// If the transition exists, start it.
 				var transition = this.getTransition(this.curState, state);

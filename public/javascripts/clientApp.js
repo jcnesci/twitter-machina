@@ -12,7 +12,7 @@ function clientApp(){
 	this.comparisons.push(new comparison(2, "WholeFoods", "McDonalds"));
 	this.comparisons.push(new comparison(3, "facebook", "twitter"));
 	this.comparisons.push(new comparison(4, "foxnews", "CNN"));
-	this.curComparison = this.comparisons[0];					//TODO: later, the dropdown should affect the curComparison.
+	this.curComparison = this.comparisons[0];
 	// Generic button setup
 	setupButtons();
 	// Comparison obj setup
@@ -56,8 +56,6 @@ clientApp.prototype = {
 
 		// Get comparison with the id from the dropdown value.
 		var newComparison = $.grep(this.comparisons, function(c, i){
-			console.log("^^^ c: ");
-			console.log(c);
 			return (c.id == iComparisonNum);
 		});
 		
