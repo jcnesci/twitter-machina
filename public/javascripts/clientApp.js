@@ -39,10 +39,13 @@ clientApp.prototype = {
 																				"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
 																				"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
 																			"</div>";
+
+			console.log("INTRO HTML : "+ this.comparisons[i].introHTML);
 		}
 	},
 	start: function(){
 		// Display the first comparison.
+		emptyViewItems();
 		introView();
 	},
 	switchCurComparison: function(iComparisonNum){
@@ -58,7 +61,7 @@ clientApp.prototype = {
 		console.log("*** newComparison : ");
 		console.log(newComparison);
 
-		this.curComparison = newComparison;
+		this.curComparison = newComparison[0];
 
 		console.log("*** this.curComparison : ");
 		console.log(this.curComparison);

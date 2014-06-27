@@ -5,6 +5,13 @@ Contains the code relative to the View parts of the app (following an MVC approa
 
 // View for intro/1st state of a comparison.
 function introView(){
+	console.log("introView -- - - - - cgApp");
+	console.log(cgApp);
+	console.log("introView -- - - - - cgApp.curComparison");
+	console.log(cgApp.curComparison);
+	console.log("introView -- - - - - cgApp.curComparison.introHTML");
+	console.log(cgApp.curComparison.introHTML);
+
 	$("#state_title").html("state : intro");
 
 	// $("#content").html("<div id='intro_view'>" +
