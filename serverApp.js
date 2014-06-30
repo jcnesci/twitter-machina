@@ -13,7 +13,7 @@ var stream_phrase = "bieber";
 var twitterQueries = [["BarackObama", "MichelleObama"],["WholeFoods","McDonalds"]];
 var twitterQuery_1 = "BarackObama";
 var twitterQuery_2 = "MichelleObama";
-var numberOfQueries = 100;
+
 // Setup stuff.
 app.configure(function(){
 	app.set('views', __dirname + '/views');
@@ -74,7 +74,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 	console.log("serverApp.js- sendQueries- ENTER- comparisonId = "+ comparisonId +" | item1 = "+ item1 +" | item2 = "+ item2);
 
 	// Do REST search #1.
-	T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: numberOfQueries }, function(err, data, response) {
+	T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
 			if (err) {
 				console.log("ERROR- serverApp.js- search #1.");
 				console.error(err.stack);
@@ -83,7 +83,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 	});
 
 	// Do REST search #2.
-	T.get('statuses/user_timeline', { screen_name: item2, exclude_replies: true, include_rts: false, count: numberOfQueries }, function(err, data, response) {
+	T.get('statuses/user_timeline', { screen_name: item2, exclude_replies: true, include_rts: false, count: 10 }, function(err, data, response) {
 			if (err) {
 				console.log("ERROR-  serverApp.js- search #2.");
 				console.error(err.stack);
