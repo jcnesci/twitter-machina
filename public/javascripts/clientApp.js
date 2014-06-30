@@ -12,6 +12,7 @@ function clientApp(){
 	this.comparisons.push(new comparison(2, "WholeFoods", "McDonalds"));
 	this.comparisons.push(new comparison(3, "facebook", "twitter"));
 	this.comparisons.push(new comparison(4, "foxnews", "CNN"));
+	this.comparisons.push(new comparison(5, "kanyewest", "KimKardashian"));
 	this.curComparison = this.comparisons[0];
 	// Generic button setup
 	setupButtons();

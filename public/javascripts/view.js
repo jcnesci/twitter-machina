@@ -164,10 +164,11 @@ function unionTweetBubblesView(){
 
 // 
 function buildUserImageSet(iItem1, iUrlItem1, iItem2, iUrlItem2){
-	$("#menu").append("<div class='query_block'>" +
-											"<img src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
-											"<img src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
-										"</div>");
+	
+	$("#menu > #query_block_container").prepend("<li class='query_block'>" +
+											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
+											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
+										"</li>");
 }
 
 // 

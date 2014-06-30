@@ -82,20 +82,32 @@ h2
 
 // Query menu bar
 
+#menu {
+    width: 900px;
+    margin: 60px auto;
+    position: relative;
+    padding: 10px;
+    background-color: #E6E6E6;
+}
+#menu:before,
+#menu:after {
+  content: "";
+  display: table;
+}
+#menu:after{
+  clear:both;
+}
+#menu {
+  zoom:1;
+}
 #menu, #menu ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
-#menu {
-    width: 900px;
-    margin: 60px auto;
-    background-color: #CCC;
-}
 #menu li {
     float: left;
     position: relative;
-
 }
 #menu a {
     float: left;
@@ -112,9 +124,39 @@ h2
 *html #menu li a:hover { /* IE6 only */
     color: #fafafa;
 }
+#query_block_container{
+  display: table;
+  margin: 0 auto;
+}
 .query_block
   float left
-  border 1px solid red
-  padding 5px
-  padding 10px
+  padding 6px
+  margin 12px 6px
+  background #FCFCFC
+  cursor pointer
+  cursor hand
+  
+.twitterUserImage
+  margin 6px
+  border 1px solid #cfcfcf
 
+//  TEST OTHER METHOD
+
+// #menu {
+//   height: 125px;
+//   text-align: justify;
+//   border: 10px solid black;
+//   font-size: 0.1px; /* IE 9/10 don't like font-size: 0; */
+//   min-width: 900px;
+// }
+// #menu div {
+//   width: 150px;
+//   height: 125px;
+//   display: inline-block;
+//   background: red;
+// }
+// #menu:after {
+//   content: '';
+//   width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+//   display: inline-block;
+// }
