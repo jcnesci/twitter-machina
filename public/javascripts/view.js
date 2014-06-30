@@ -65,7 +65,45 @@ function initialTweetBubblesView() {
 
 	//Bubble Area Count
 	var bA1 = 0,
-			bA2 = 0;
+	                bA2 = 0;
+	
+	//Line Packing Variables
+	var lineWidth = 0,
+	                lineCount = 0;
+	
+	function linePack(id, setSpace) {
+	        var span = $('#' + id),
+	                        width = span.width() + 3,
+	                        freeSpace = 300 - lineWidth,
+	                        newTop = 0,
+	                        newLeft = 0;
+	                        //console.log(width);
+	
+	        if (width - 3 <= freeSpace) {
+	                newTop = lineCount * 20;
+	                newLeft = lineWidth;
+	                //console.log(newTop + ":" + newLeft);
+	                lineWidth = lineWidth + width;
+	        } else if (width - 3 > freeSpace) {
+	                ++lineCount;
+	                lineWidth = 0;
+	                newTop = lineCount * 20;
+	                newLeft = lineWidth;
+	                lineWidth = lineWidth + width;
+	        }
+	
+	        span.animate({
+	
+	                        top: newTop + 50,
+	                        left: newLeft + setSpace + 10
+	
+	                }, 1000, function() {
+	
+	                console.log("animation complete");
+	
+	        });
+	};
+
 
 	//Line Packing Variables
 	var lineWidth = 0,
@@ -114,7 +152,9 @@ function initialTweetBubblesView() {
 	// Populate it.
 	$.each(cgApp.curComparison.words, function(key, value){
 		var theWord = value.value;
+
 		if(value.linkedSets[0] == "set1") {
+<<<<<<< HEAD
 			if (value.visible == true) {
 				bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
 				$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
@@ -130,8 +170,25 @@ function initialTweetBubblesView() {
 			} else {
 				$("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
 			}
+=======
+		        if (value.visible == true) {
+		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
+										$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		                linePack(key, 0);
+		        } else {
+										$("#tweetBubble1").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		        }
+		} else if(value.linkedSets[0] == "set2") {
+		        if (value.visible == true) {
+		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
+				            $("#tweetBubble2").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		                linePack(key, 600);
+		        } else {
+                    $("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		        }
+>>>>>>> e2a29c8f4468810f442ce39117a052eec78b5f8d
 		} else {
-			console.log(" ********** Unaccounted Word! **********");
+		        console.log(" ********** Unaccounted Word! **********");
 		}
 	});
 
@@ -147,6 +204,7 @@ function unionTweetBubblesView(){
 	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
+<<<<<<< HEAD
 
 	/*
 		// OLD
@@ -200,13 +258,61 @@ function unionTweetBubblesView(){
 		$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
 		$('#bubbleArea1').html(bA1);
 		$('#bubbleArea2').html(bA2);
+=======
+	var unionCount = {}; //Counting Unions
+	var bA3 = 0, //Count Union Words length
+			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
+			bA2 = Number($('#bubbleArea2').html());
+
+	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
+    	
+    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
+    		var id = "#"+i;
+
+    		//Union Count to check for duplicates.
+	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
+		    	bA3 = cgApp.curComparison.words[i].value.length + bA3;  //Counting Length
+
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+
+		    	unionCount[cgApp.curComparison.words[i].value] = true;
+		    	$(id).addClass("union");
+		    	$uSpan = $(id).clone();
+		    	$(id).attr('class', 'hide union');
+		    	$('#tweetBubble3').append($uSpan); //Creating the union set
+		    	
+	    	} else {
+	    		//Hide the Duplicates
+	    		$(id).attr('class', 'hide union');
+
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+    		}
+    	}		
+	}
+
+	//Add union bubble area to Dom.
+	$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
+	$('#bubbleArea1').html(bA1);
+	$('#bubbleArea2').html(bA2);
+>>>>>>> e2a29c8f4468810f442ce39117a052eec78b5f8d
 }
 
 
 // Create menu items for each query, click one to display it. The custom search query is prepopulated in index.jade.
 function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 	
-	$("#menu > #query_block_container").prepend("<li class='query_block' onClick='queryBlockController("+ iComparisonId +")')>" +
+	console.log("buildUserImageSet- iComparisonId : "+ iComparisonId +" | cgApp.curComparison : "+ cgApp.curComparison);
+
+	var curComparison = "";
+	if(iComparisonId == cgApp.curComparison.id){
+		curComparison = "selected";
+	}
+
+	console.log("buildUserImageSet- curComparison : "+ curComparison);
+
+	$("#menu > #query_block_container").prepend("<li class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
 										"</li>");
