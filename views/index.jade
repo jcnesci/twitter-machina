@@ -31,14 +31,13 @@ html(lang='en')
 		div#container
 			//- div.test Bacon ipsum dolor sit amet landjaeger biltong porchetta rump, turducken corned beef fatback. Strip steak prosciutto drumstick meatball ribeye shank jerky shoulder shankle pork pork loin beef ribs biltong. Fatback boudin sirloin pork. Tenderloin ham pork chop sirloin t-bone andouille shank bresaola tongue meatball. Shoulder pork belly salami, tenderloin frankfurter kielbasa meatloaf spare ribs.
 
-			ul#menu
-				
-				
-			div#query_selector
-				p Select the query to run:
-				select(id="dd_queries" onchange="ddController()")
-					//- option(value="query1" selected) BarackObama / MichelleObama
-					//- option(value="query2") WholeFoods / McDonalds
+			div#menu
+				div#query_block_container
+					//- Add the last query item to the menu: the choice to custom search.
+					li.query_block(onClick='queryBlockController("custom")')
+						img.twitterUserImage(src="assets/CustomSearchIcon.png" alt="perform custom search")
+						img.twitterUserImage(src="assets/CustomSearchIcon.png" alt="perform custom search")
+			
 			br
 			div#state_selector
 				span#next NEXT >

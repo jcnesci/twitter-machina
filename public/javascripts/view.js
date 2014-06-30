@@ -77,12 +77,12 @@ function initialTweetBubblesView() {
 				freeSpace = 300 - lineWidth,
 				newTop = 0,
 				newLeft = 0;
-				console.log(width);
+				//console.log(width);
 
 		if (width - 3 <= freeSpace) {
 			newTop = lineCount * 20;
 			newLeft = lineWidth;
-			console.log(newTop + ":" + newLeft);
+			//console.log(newTop + ":" + newLeft);
 			lineWidth = lineWidth + width;
 		} else if (width - 3 > freeSpace) {
 			++lineCount;
@@ -203,12 +203,14 @@ function unionTweetBubblesView(){
 }
 
 
-// 
-function buildUserImageSet(iItem1, iUrlItem1, iItem2, iUrlItem2){
-	$("#menu").append("<div class='query_block'>" +
-											"<img src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
-											"<img src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
-										"</div>");
+// Create menu items for each query, click one to display it. The custom search query is prepopulated in index.jade.
+function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
+	
+	$("#menu > #query_block_container").prepend("<li class='query_block' onClick='queryBlockController("+ iComparisonId +")')>" +
+											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
+											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
+										"</li>");
+
 }
 
 // 
