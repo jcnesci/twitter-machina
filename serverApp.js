@@ -13,7 +13,7 @@ var stream_phrase = "bieber";
 var twitterQueries = [["BarackObama", "MichelleObama"],["WholeFoods","McDonalds"]];
 var twitterQuery_1 = "BarackObama";
 var twitterQuery_2 = "MichelleObama";
-var numberOfQueries = 100;
+var numberOfQueries = 20;
 // Setup stuff.
 app.configure(function(){
 	app.set('views', __dirname + '/views');

@@ -63,8 +63,46 @@ function initialTweetBubblesView() {
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
 
+	//Bubble Area Count
 	var bA1 = 0,
 			bA2 = 0;
+
+	//Line Packing Variables
+	var lineWidth = 0,
+			lineCount = 0;
+
+	function linePack(id, setSpace) {
+		var span = $('#' + id),
+				width = span.width() + 3,
+				freeSpace = 300 - lineWidth,
+				newTop = 0,
+				newLeft = 0;
+				console.log(width);
+
+		if (width - 3 <= freeSpace) {
+			newTop = lineCount * 20;
+			newLeft = lineWidth;
+			console.log(newTop + ":" + newLeft);
+			lineWidth = lineWidth + width;
+		} else if (width - 3 > freeSpace) {
+			++lineCount;
+			lineWidth = 0;
+			newTop = lineCount * 20;
+			newLeft = lineWidth;
+			lineWidth = lineWidth + width;
+		}
+
+		span.animate({
+
+				top: newTop + 50,
+				left: newLeft + setSpace + 10
+
+			}, 1000, function() {
+
+			console.log("animation complete");
+
+		});
+	};
 
 	console.log("1 :");
 	console.log(cgApp.curComparison);
@@ -79,16 +117,18 @@ function initialTweetBubblesView() {
 		if(value.linkedSets[0] == "set1") {
 			if (value.visible == true) {
 				bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-				$("#tweetBubble1").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
+				$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+				linePack(key, 0);
 			} else {
-				$("#tweetBubble1").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
+				$("#tweetBubble1").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
 			}
 		} else if(value.linkedSets[0] == "set2") {
 			if (value.visible == true) {
 				bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				$("#tweetBubble2").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
+				$("#tweetBubble2").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+				linePack(key, 600);
 			} else {
-				$("#tweetBubble2").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
+				$("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
 			}
 		} else {
 			console.log(" ********** Unaccounted Word! **********");

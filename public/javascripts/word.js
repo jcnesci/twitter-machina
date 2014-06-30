@@ -8,6 +8,7 @@ function Word(theWord, refSet, vis) {
 	this.linkedTweets = [{}];
 	//this.count = 1;
 
+	this.startPosition = {"left": "450px", "top": "300px"};
 	this.position1 = {"left": 0, "top": 0};
 	this.position2 = {"left":0, "top":0};
 	this.position3 = {"left": 0, "top": 0};
