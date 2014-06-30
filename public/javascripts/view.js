@@ -74,23 +74,25 @@ function initialTweetBubblesView() {
 	    lineCountSet2 = 0,
 	    canvasWidth = $('#container').width() - 15;
 
-	function linePack(id, setSpace) {
-		var span = $('#bubbleContainer #' + id),
+	function linePack(id) {
+		var span = $('#word' + id),
 				width = span.width() + 3,
+				lineHeight = 15,
+				setSpace = 0,
 				freeSpace = canvasWidth/3 - lineWidth,
 				newTop = 0,
 				newLeft = 0;
-				//console.log(width);
+				console.log(span);
 
 		if (width - 3 <= freeSpace) {
-			newTop = lineCount * 20;
+			newTop = lineCount * lineHeight;
 			newLeft = lineWidth;
 			//console.log(newTop + ":" + newLeft);
 			lineWidth = lineWidth + width;
 		} else if (width - 3 > freeSpace) {
 			++lineCount;
 			lineWidth = 0;
-			newTop = lineCount * 20;
+			newTop = lineCount * lineHeight;
 			newLeft = lineWidth;
 			lineWidth = lineWidth + width;
 		}
@@ -107,23 +109,25 @@ function initialTweetBubblesView() {
 			});
 		};
 
-	function linePack2(id, setSpace) {
-		var span = $('#bubbleContainer #' + id),
+	function linePack2(id) {
+		var span = $('#word' + id),
 				width = span.width() + 3,
+				lineHeight = 15,
+				setSpace = 2*canvasWidth/3,
 				freeSpace = canvasWidth/3 - lineWidthSet2,
 				newTop = 0,
 				newLeft = 0;
 				//console.log(width);
 
 		if (width - 3 <= freeSpace) {
-			newTop = lineCountSet2 * 20;
+			newTop = lineCountSet2 * lineHeight;
 			newLeft = lineWidthSet2;
 			//console.log(newTop + ":" + newLeft);
 			lineWidthSet2 = lineWidthSet2 + width;
 		} else if (width - 3 > freeSpace) {
 			++lineCountSet2;
 			lineWidthSet2 = 0;
-			newTop = lineCountSet2 * 20;
+			newTop = lineCountSet2 * lineHeight;
 			newLeft = lineWidthSet2;
 			lineWidthSet2 = lineWidthSet2 + width;
 		}
@@ -156,18 +160,18 @@ function initialTweetBubblesView() {
 
 		        if (value.visible == true) {
 		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-										$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
-		                linePack(key, 0);
+										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		                linePack(key);
 		        } else {
-										$("#tweetBubble1").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
 		        }
 		} else if(value.linkedSets[0] == "set2") {
 		        if (value.visible == true) {
 		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				            $("#tweetBubble2").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
-		                linePack2(key, 600);
+				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		                linePack2(key);
 		        } else {
-                    $("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+                    $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
 		        }
 
 		} else {
@@ -193,10 +197,51 @@ function unionTweetBubblesView(){
 			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
 			bA2 = Number($('#bubbleArea2').html());
 
+	//Line Packing Variables
+	var lineWidthSet3 = 0,
+	    lineCountSet3 = 0,
+	    canvasWidth = $('#container').width() - 15;
+
+	function linePack3(id) {
+		var span = $('#word' + id),
+				width = span.width() + 3,
+				lineHeight = 15,
+				setSpace = canvasWidth/3,
+				freeSpace = canvasWidth/3 - lineWidthSet3,
+				newTop = 0,
+				newLeft = 0;
+				//console.log(width);
+
+		if (width - 3 <= freeSpace) {
+			newTop = lineCountSet3 * lineHeight;
+			newLeft = lineWidthSet3;
+			//console.log(newTop + ":" + newLeft);
+			lineWidthSet3 = lineWidthSet3 + width;
+		} else if (width - 3 > freeSpace) {
+			++lineCountSet3;
+			lineWidthSet3 = 0;
+			newTop = lineCountSet3 * lineHeight;
+			newLeft = lineWidthSet3;
+			lineWidthSet3 = lineWidthSet3 + width;
+		}
+
+		span.animate({
+
+				top: newTop + 50,
+				left: newLeft + setSpace + 10
+
+			}, 1000, function() {
+
+			console.log("animation complete");
+
+			});
+
+		};
+
 	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
     	
     	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#bubbleContainer #"+i;
+    		var id = "#word"+i;
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
@@ -207,14 +252,17 @@ function unionTweetBubblesView(){
 
 		    	unionCount[cgApp.curComparison.words[i].value] = true;
 		    	$(id).addClass("union");
-		    	$uSpan = $(id).clone();
-		    	$(id).attr('class', 'hide union');
-		    	$('#tweetBubble3').append($uSpan); //Creating the union set
+		    	
+		    	linePack3(i);
+
+		    	//$uSpan = $(id).clone();
+		    	//$(id).attr('class', 'hide union');
+		    	//$('#tweetBubble3').append($uSpan); //Creating the union set
 		    	
 	    	} else {
 	    		//Hide the Duplicates
-	    		$(id).attr('class', 'hide union');
-
+	    		//$(id).attr('class', 'hide union');
+	    		$(id).fadeOut(1000);
 		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
 					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
     		}
