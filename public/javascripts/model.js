@@ -66,7 +66,7 @@ function union() {
 	for (var i = 0; i < words.length; i++) {
     	
     	if (lookup[words[i].value].sets == "union") {
-    		var id = "#"+i;
+    		var id = "#bubbleContainer #"+i;
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[words[i].value] == undefined) {

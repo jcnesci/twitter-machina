@@ -65,54 +65,19 @@ function initialTweetBubblesView() {
 
 	//Bubble Area Count
 	var bA1 = 0,
-	                bA2 = 0;
+	    bA2 = 0;
 	
 	//Line Packing Variables
 	var lineWidth = 0,
-	                lineCount = 0;
-	
-	function linePack(id, setSpace) {
-	        var span = $('#' + id),
-	                        width = span.width() + 3,
-	                        freeSpace = 300 - lineWidth,
-	                        newTop = 0,
-	                        newLeft = 0;
-	                        //console.log(width);
-	
-	        if (width - 3 <= freeSpace) {
-	                newTop = lineCount * 20;
-	                newLeft = lineWidth;
-	                //console.log(newTop + ":" + newLeft);
-	                lineWidth = lineWidth + width;
-	        } else if (width - 3 > freeSpace) {
-	                ++lineCount;
-	                lineWidth = 0;
-	                newTop = lineCount * 20;
-	                newLeft = lineWidth;
-	                lineWidth = lineWidth + width;
-	        }
-	
-	        span.animate({
-	
-	                        top: newTop + 50,
-	                        left: newLeft + setSpace + 10
-	
-	                }, 1000, function() {
-	
-	                console.log("animation complete");
-	
-	        });
-	};
-
-
-	//Line Packing Variables
-	var lineWidth = 0,
-			lineCount = 0;
+	    lineCount = 0,
+	    lineWidthSet2 = 0,
+	    lineCountSet2 = 0,
+	    canvasWidth = $('#container').width() - 15;
 
 	function linePack(id, setSpace) {
-		var span = $('#' + id),
+		var span = $('#bubbleContainer #' + id),
 				width = span.width() + 3,
-				freeSpace = 300 - lineWidth,
+				freeSpace = canvasWidth/3 - lineWidth,
 				newTop = 0,
 				newLeft = 0;
 				//console.log(width);
@@ -139,8 +104,42 @@ function initialTweetBubblesView() {
 
 			console.log("animation complete");
 
-		});
-	};
+			});
+		};
+
+	function linePack2(id, setSpace) {
+		var span = $('#bubbleContainer #' + id),
+				width = span.width() + 3,
+				freeSpace = canvasWidth/3 - lineWidthSet2,
+				newTop = 0,
+				newLeft = 0;
+				//console.log(width);
+
+		if (width - 3 <= freeSpace) {
+			newTop = lineCountSet2 * 20;
+			newLeft = lineWidthSet2;
+			//console.log(newTop + ":" + newLeft);
+			lineWidthSet2 = lineWidthSet2 + width;
+		} else if (width - 3 > freeSpace) {
+			++lineCountSet2;
+			lineWidthSet2 = 0;
+			newTop = lineCountSet2 * 20;
+			newLeft = lineWidthSet2;
+			lineWidthSet2 = lineWidthSet2 + width;
+		}
+
+		span.animate({
+
+				top: newTop + 50,
+				left: newLeft + setSpace + 10
+
+			}, 1000, function() {
+
+			console.log("animation complete");
+
+			});
+
+		};
 
 	console.log("1 :");
 	console.log(cgApp.curComparison);
@@ -166,7 +165,7 @@ function initialTweetBubblesView() {
 		        if (value.visible == true) {
 		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
 				            $("#tweetBubble2").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
-		                linePack(key, 600);
+		                linePack2(key, 600);
 		        } else {
                     $("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
 		        }
@@ -197,7 +196,7 @@ function unionTweetBubblesView(){
 	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
     	
     	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#"+i;
+    		var id = "#bubbleContainer #"+i;
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
