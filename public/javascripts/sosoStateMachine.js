@@ -111,6 +111,14 @@ sosoStateMachine.prototype = {
 		this.curTransition = iTransition;
 		this.curState = this.curTransition.endState;
 		console.log("sosoStateMachine- startTransition- transition complete. curState : "+ this.curState.name +" | curTransition : ["+ this.curTransition.startState.name +", "+ this.curTransition.endState.name +"]");
+	},
+	forceState: function(iStateName){
+		// See if state exists.
+		var state = this.getState(iStateName);
+		if (state){
+			this.curState = state;
+			this.curTransition = null;
+			console.log("sosoStateMachine- forceState- curState: "+ this.curState);
+		}
 	}
-	
 }

@@ -50,7 +50,7 @@ clientApp.prototype = {
 		introView();
 	},
 	switchCurComparison: function(iComparisonNum){
-		console.log("*** iComparisonNum : "+ iComparisonNum);
+		console.log("switchCurComparison- iComparisonNum : "+ iComparisonNum);
 
 		// Reset the old comparison to its initial state.
 		this.curComparison.stateMachine.forceState("intro");
@@ -59,15 +59,7 @@ clientApp.prototype = {
 		var newComparison = $.grep(this.comparisons, function(c, i){
 			return (c.id == iComparisonNum);
 		});
-
-		console.log("*** newComparison : ");
-		console.log(newComparison);
-
 		this.curComparison = newComparison[0];
-
-		console.log("*** this.curComparison : ");
-		console.log(this.curComparison);
-
 		this.start();
 
 		// Update the view to reflect the current comparison.
