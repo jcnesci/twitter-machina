@@ -1,5 +1,5 @@
 //word exclusion array
-var exWordArray = ["the", "a", "if", "is", "on", "in", "to", "it", "of", "this", "and"];
+var exWordArray = ["the", "a", "if", "is", "on", "in", "to", "it", "of"];
 
 // Creates the individual word objects.
 function Word(theWord, refSet, vis) {
