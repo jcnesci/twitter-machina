@@ -15,6 +15,8 @@ function comparison(iId, iItem1, iItem2){
 	this.words = [];
 	this.lookup = {};
 	this.introHTML = "";
+	this.imageUrlItem1 = null;
+	this.imageUrlItem2 = null;
 
 	// --- Behavior
 	this.buildStateMachine();
@@ -63,6 +65,21 @@ comparison.prototype = {
 				console.log(_this.sets);
 			}
 		});
+
+		// Receive twitter users' image urls.
+		socket.on('eServerReturnsUserImage_'+this.id, function(iResponse){
+			if(iResponse.iQueryNum == 1){
+				_this.imageUrlItem1 = iResponse.iImageUrl;
+			} else if(iResponse.iQueryNum == 2){
+				_this.imageUrlItem2 = iResponse.iImageUrl;
+			}
+			// Populate navigation menu bar with the images.
+			if(_this.imageUrlItem1 != null && _this.imageUrlItem2 != null){
+				buildUserImageSet(_this.item1, _this.imageUrlItem1, _this.item2, _this.imageUrlItem2);
+			}
+			
+		});
+
 	},
 	// Define the state machine transitions here.
 	buildStateMachine: function(){

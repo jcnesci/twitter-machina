@@ -20,7 +20,6 @@ $(function(){
 
 // Global functions - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
 // Empties the sets array.
 function emptyModelItems(){
 	// words.length = 0;			// before var was made local to comparison obj

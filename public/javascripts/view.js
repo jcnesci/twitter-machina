@@ -108,13 +108,15 @@ function unionTweetBubblesView(){
 }
 
 // 
-function diagramView(){
+function buildUserImageSet(iItem1, iUrlItem1, iItem2, iUrlItem2){
+	$("#menu").append("<div class='query_block'>" +
+											"<img src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
+											"<img src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
+										"</div>");
+}
 
-	// TODO: set the state of the diagram view.
-	// Each state has descriptive text and a graphical layout of the data associated with it.
-	
-	//OLD
-	// drawD3TestChart();
+// 
+function diagramView(){
 
 }
 

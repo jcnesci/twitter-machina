@@ -83,3 +83,40 @@ h2 {
   cursor: pointer;
   cursor: hand;
 }
+#menu,
+#menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#menu {
+  width: 900px;
+  margin: 60px auto;
+  background-color: #ccc;
+}
+#menu li {
+  float: left;
+  position: relative;
+}
+#menu a {
+  float: left;
+  padding: 12px 30px;
+  color: #999;
+  text-transform: uppercase;
+  font: bold 12px Arial, Helvetica;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #000;
+}
+#menu li:hover > a {
+  color: #fafafa;
+}
+*html #menu li a:hover {
+/* IE6 only */
+  color: #fafafa;
+}
+.query_block {
+  float: left;
+  border: 1px solid #f00;
+  padding: 5px;
+  padding: 10px;
+}
