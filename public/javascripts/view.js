@@ -189,20 +189,35 @@ function unionTweetBubblesView(){
 
 // Create menu items for each query, click one to display it. The custom search query is prepopulated in index.jade.
 function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
-	
-	console.log("buildUserImageSet- iComparisonId : "+ iComparisonId +" | cgApp.curComparison : "+ cgApp.curComparison);
+	// console.log("buildUserImageSet- iComparisonId : "+ iComparisonId +" | cgApp.curComparison : "+ cgApp.curComparison);
 
+	// Set the selected class on the default query at start.
 	var curComparison = "";
 	if(iComparisonId == cgApp.curComparison.id){
 		curComparison = "selected";
 	}
-
-	console.log("buildUserImageSet- curComparison : "+ curComparison);
-
-	$("#menu > #query_block_container").prepend("<li class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
+	// Create query blocks containing the Twitter user images.
+	$("#menu > #query_block_container").prepend("<li id='"+ iComparisonId +"' class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
 										"</li>");
+
+	// console.log("buildUserImageSet- curComparison : "+ curComparison);
+}
+
+function updateView(){
+
+	// Change the selected/hilited query block according to the newly selected comparison.
+	$(".query_block").removeClass("selected");
+	var _this = this;
+	$(".query_block").each(function(){
+		console.log("* * * * attr id :"+ $(this).attr('id'));
+		console.log("^ ^ ^ : "+ cgApp.curComparison.id);
+
+		if ($(this).attr('id') == cgApp.curComparison.id){
+			$(this).addClass("selected");
+		}
+	});
 }
 
 // 

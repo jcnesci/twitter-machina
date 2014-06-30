@@ -53,7 +53,7 @@ clientApp.prototype = {
 		// Reset the old comparison to its initial state.
 		this.curComparison.stateMachine.forceState("intro");
 
-		// Get comparison with the id from the dropdown value.
+		// Get the comparison with the specified id.
 		var newComparison = $.grep(this.comparisons, function(c, i){
 			return (c.id == iComparisonNum);
 		});
@@ -61,6 +61,9 @@ clientApp.prototype = {
 		// Make it the current comparison.
 		this.curComparison = newComparison[0];
 		this.start();
+
+		// Update the view to reflect the current comparison.
+		updateView();
 	}
 }
 
