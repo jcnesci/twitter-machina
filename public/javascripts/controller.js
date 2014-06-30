@@ -24,4 +24,11 @@ function ddController(){
 	console.log("FROM CONTROLLER: " + selectedQueryNum);
 }
 
+// 
+function queryBlockController(iQuery){
+	console.log("queryBlockController- iQuery : "+ iQuery);
 
+	if (iQuery != "custom"){
+		cgApp.switchCurComparison(Number(iQuery));
+	}
+}

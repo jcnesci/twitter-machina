@@ -75,7 +75,7 @@ comparison.prototype = {
 			}
 			// Populate navigation menu bar with the images.
 			if(_this.imageUrlItem1 != null && _this.imageUrlItem2 != null){
-				buildUserImageSet(_this.item1, _this.imageUrlItem1, _this.item2, _this.imageUrlItem2);
+				buildUserImageSet(_this.id, _this.item1, _this.imageUrlItem1, _this.item2, _this.imageUrlItem2);
 			}
 			
 		});
