@@ -13,17 +13,6 @@ function setupButtons(){
 	});
 }
 
-// Handles click on query dropdown.
-function ddController(){
-
-	var domSelect = document.getElementById("dd_queries");
-	var selectedQueryNum = domSelect.options[domSelect.selectedIndex].value;
-	// socket.emit('eReceiveSelectedQuery', selectedQueryNum);
-	cgApp.switchCurComparison(selectedQueryNum);
-
-	console.log("FROM CONTROLLER: " + selectedQueryNum);
-}
-
 // 
 function queryBlockController(iQuery){
 	console.log("queryBlockController- iQuery : "+ iQuery);

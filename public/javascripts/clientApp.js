@@ -18,8 +18,6 @@ function clientApp(){
 	setupButtons();
 	// Comparison obj setup
 	for (var i = 0; i < this.comparisons.length; i++){
-			// Setup drowdown buttons here (cant be done in setupButtons because that runs before cgApp()'s constructor is done and cdApp witl be undefined at that moment).
-			$("#dd_queries").append("<option value='"+ this.comparisons[i].id +"'>"+ this.comparisons[i].item1 +" / "+ this.comparisons[i].item2 +"</option>");
 			// Initiating server calls (they are not done in the comparison constructor so the comparisons array gets its length quicker).
 			this.comparisons[i].setupServerCalls();
 	}
