@@ -34,9 +34,9 @@ html(lang='en')
 			div#menu
 				div#query_block_container
 					//- Add the last query item to the menu: the choice to custom search.
-					li.query_block(onClick='queryBlockController("custom")')
-						img.twitterUserImage(src="assets/CustomSearchIcon.png" alt="perform custom search")
-						img.twitterUserImage(src="assets/CustomSearchIcon.png" alt="perform custom search")
+					li.query_block.custom(onClick='queryBlockController("custom")')
+						img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
+						img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
 			
 			br
 			div#state_selector

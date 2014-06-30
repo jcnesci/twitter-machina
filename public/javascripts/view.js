@@ -165,7 +165,16 @@ function unionTweetBubblesView(){
 // Create menu items for each query, click one to display it. The custom search query is prepopulated in index.jade.
 function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 	
-	$("#menu > #query_block_container").prepend("<li class='query_block' onClick='queryBlockController("+ iComparisonId +")')>" +
+	console.log("buildUserImageSet- iComparisonId : "+ iComparisonId +" | cgApp.curComparison : "+ cgApp.curComparison);
+
+	var curComparison = "";
+	if(iComparisonId == cgApp.curComparison.id){
+		curComparison = "selected";
+	}
+
+	console.log("buildUserImageSet- curComparison : "+ curComparison);
+
+	$("#menu > #query_block_container").prepend("<li class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
 										"</li>");
