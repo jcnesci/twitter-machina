@@ -80,7 +80,7 @@ function union() {
 		    	$uSpan = $(id).clone();
 		    	$(id).attr('class', 'hide union');
 		    	$('#tweetBubble3').append($uSpan); //Creating the union set
-		    	
+
 	    	} else {
 	    		//Hide the Duplicates
 	    		$(id).attr('class', 'hide union');
@@ -95,7 +95,7 @@ function union() {
 	$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
 	$('#bubbleArea1').html(bA1);
 	$('#bubbleArea2').html(bA2);
-	
+
 }
 
 function createSet(iData, iName) {

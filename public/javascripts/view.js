@@ -62,7 +62,7 @@ function initialTweetBubblesView() {
 											"<div id='tweetBubble1' class='tweetBubble'></div>" +
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
-	//For counting word length
+
 	var bA1 = 0,
 			bA2 = 0;
 
@@ -109,58 +109,59 @@ function unionTweetBubblesView(){
 	// Populate it.
 
 	/*
-	// OLD
-	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
-    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#"+i;
-    		$uSpan = $(id).clone();
-    		$(id).remove();
-    		$("#tweetBubble3").append($uSpan);
-    		$(id).addClass("union");
-    	}		
-	}
-	*/
+		// OLD
+		for (var i = 0; i < cgApp.curComparison.words.length; i++) {
+	    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
+	    		var id = "#"+i;
+	    		$uSpan = $(id).clone();
+	    		$(id).remove();
+	    		$("#tweetBubble3").append($uSpan);
+	    		$(id).addClass("union");
+	    	}		
+		}
+		*/
 
-	// NEW
+		// NEW
 
-	var unionCount = {}; //Counting Unions
-	var bA3 = 0, //Count Union Words length
-			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
-			bA2 = Number($('#bubbleArea2').html());
+		var unionCount = {}; //Counting Unions
+		var bA3 = 0, //Count Union Words length
+				bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
+				bA2 = Number($('#bubbleArea2').html());
 
-	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
-    	
-    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#"+i;
+		for (var i = 0; i < cgApp.curComparison.words.length; i++) {
+	    	
+	    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
+	    		var id = "#"+i;
 
-    		//Union Count to check for duplicates.
-	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
-		    	bA3 = cgApp.curComparison.words[i].value.length + bA3;  //Counting Length
+	    		//Union Count to check for duplicates.
+		    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
+			    	bA3 = cgApp.curComparison.words[i].value.length + bA3;  //Counting Length
 
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+			    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
+						if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
 
-		    	unionCount[cgApp.curComparison.words[i].value] = true;
-		    	$(id).addClass("union");
-		    	$uSpan = $(id).clone();
-		    	$(id).attr('class', 'hide union');
-		    	$('#tweetBubble3').append($uSpan); //Creating the union set
-		    	
-	    	} else {
-	    		//Hide the Duplicates
-	    		$(id).attr('class', 'hide union');
+			    	unionCount[cgApp.curComparison.words[i].value] = true;
+			    	$(id).addClass("union");
+			    	$uSpan = $(id).clone();
+			    	$(id).attr('class', 'hide union');
+			    	$('#tweetBubble3').append($uSpan); //Creating the union set
 
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
-    		}
-    	}		
-	}
+		    	} else {
+		    		//Hide the Duplicates
+		    		$(id).attr('class', 'hide union');
 
-	//Add union bubble area to Dom.
-	$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
-	$('#bubbleArea1').html(bA1);
-	$('#bubbleArea2').html(bA2);
+			    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
+						if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+	    		}
+	    	}		
+		}
+
+		//Add union bubble area to Dom.
+		$('#tweetBubble3').append("<p id='bubbleArea3' class='bubbleArea'>" + bA3 + "</p>");
+		$('#bubbleArea1').html(bA1);
+		$('#bubbleArea2').html(bA2);
 }
+
 
 // 
 function buildUserImageSet(iItem1, iUrlItem1, iItem2, iUrlItem2){

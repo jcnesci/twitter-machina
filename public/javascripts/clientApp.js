@@ -11,9 +11,11 @@ function clientApp(){
 	this.comparisons.push(new comparison(1, "BarackObama", "MichelleObama"));
 	this.comparisons.push(new comparison(2, "WholeFoods", "McDonalds"));
 	this.comparisons.push(new comparison(3, "facebook", "twitter"));
+
 	this.comparisons.push(new comparison(4, "foxnews", "CNN"));
 	this.comparisons.push(new comparison(5, "kanyewest", "KimKardashian"));
 	this.curComparison = this.comparisons[0];
+
 	// Generic button setup
 	setupButtons();
 	// Comparison obj setup
@@ -52,16 +54,19 @@ clientApp.prototype = {
 	switchCurComparison: function(iComparisonNum){
 		console.log("*** iComparisonNum : "+ iComparisonNum);
 
-		// Reset the old comparison to its initial state.
-		this.curComparison.stateMachine.forceState("intro");
-
 		// Get comparison with the id from the dropdown value.
 		var newComparison = $.grep(this.comparisons, function(c, i){
 			return (c.id == iComparisonNum);
 		});
-		
-		// Make it the current comparison.
+
+		console.log("*** newComparison : ");
+		console.log(newComparison);
+
 		this.curComparison = newComparison[0];
+
+		console.log("*** this.curComparison : ");
+		console.log(this.curComparison);
+
 		this.start();
 	}
 }
