@@ -62,9 +62,47 @@ function initialTweetBubblesView() {
 											"<div id='tweetBubble1' class='tweetBubble'></div>" +
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
 										"</div>");
-	//For counting word length
+	//Bubble Area Count
 	var bA1 = 0,
-			bA2 = 0;
+	                bA2 = 0;
+	
+	//Line Packing Variables
+	var lineWidth = 0,
+	                lineCount = 0;
+	
+	function linePack(id, setSpace) {
+	        var span = $('#' + id),
+	                        width = span.width() + 3,
+	                        freeSpace = 300 - lineWidth,
+	                        newTop = 0,
+	                        newLeft = 0;
+	                        //console.log(width);
+	
+	        if (width - 3 <= freeSpace) {
+	                newTop = lineCount * 20;
+	                newLeft = lineWidth;
+	                //console.log(newTop + ":" + newLeft);
+	                lineWidth = lineWidth + width;
+	        } else if (width - 3 > freeSpace) {
+	                ++lineCount;
+	                lineWidth = 0;
+	                newTop = lineCount * 20;
+	                newLeft = lineWidth;
+	                lineWidth = lineWidth + width;
+	        }
+	
+	        span.animate({
+	
+	                        top: newTop + 50,
+	                        left: newLeft + setSpace + 10
+	
+	                }, 1000, function() {
+	
+	                console.log("animation complete");
+	
+	        });
+	};
+
 
 	console.log("1 :");
 	console.log(cgApp.curComparison);
@@ -76,22 +114,25 @@ function initialTweetBubblesView() {
 	// Populate it.
 	$.each(cgApp.curComparison.words, function(key, value){
 		var theWord = value.value;
+
 		if(value.linkedSets[0] == "set1") {
-			if (value.visible == true) {
-				bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-				$("#tweetBubble1").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
-			} else {
-				$("#tweetBubble1").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
-			}
+		        if (value.visible == true) {
+		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
+										$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		                linePack(key, 0);
+		        } else {
+										$("#tweetBubble1").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		        }
 		} else if(value.linkedSets[0] == "set2") {
-			if (value.visible == true) {
-				bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				$("#tweetBubble2").append('<span id="'+key+'" class="show">'+ theWord +' </span>');
-			} else {
-				$("#tweetBubble2").append('<span id="'+key+'" class="hide">'+ theWord +' </span>');
-			}
+		        if (value.visible == true) {
+		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
+				            $("#tweetBubble2").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		                linePack(key, 600);
+		        } else {
+                    $("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		        }
 		} else {
-			console.log(" ********** Unaccounted Word! **********");
+		        console.log(" ********** Unaccounted Word! **********");
 		}
 	});
 
@@ -107,22 +148,6 @@ function unionTweetBubblesView(){
 	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
-
-	/*
-	// OLD
-	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
-    	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#"+i;
-    		$uSpan = $(id).clone();
-    		$(id).remove();
-    		$("#tweetBubble3").append($uSpan);
-    		$(id).addClass("union");
-    	}		
-	}
-	*/
-
-	// NEW
-
 	var unionCount = {}; //Counting Unions
 	var bA3 = 0, //Count Union Words length
 			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
