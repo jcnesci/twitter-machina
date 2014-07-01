@@ -54,8 +54,11 @@ function logTwitterResults(data) {
 	});
 }
 
+
+//******UNION Function no longer used.  Container in unionTweetBubblesView. DELETABLE
+
 //Adding a union class and moving union words to another div.
-function union() {
+/*function union() {
 	console.log("model.js- union- ENTER --------------------");
 	var unionCount = {}; //Counting Unions
 	var bA3 = 0, //Count Union Words length
@@ -96,7 +99,7 @@ function union() {
 	$('#bubbleArea1').html(bA1);
 	$('#bubbleArea2').html(bA2);
 
-}
+}*/
 
 function createSet(iData, iName) {
 	var set = new Set(iData, iName);
@@ -119,3 +122,46 @@ String.prototype.cleanTweet = function() {
 
 	return tweet;
 }
+
+//-- -- -- -- -- Animations -- -- -- -- --
+
+//Line Packing
+	function linePack(id, setCount) {
+		var span = $('#word' + id),
+				width = span.width() + 3,
+				lineHeight = 15,
+				canvasWidth = $('#container').width() - 15,
+				freeSpace = canvasWidth/3 - setCount.lineWidth,
+				newTop = 0,
+				newLeft = 0;
+
+		if (width - 3 <= freeSpace) {
+			newTop = setCount.lineCount * lineHeight;
+			newLeft = setCount.lineWidth;
+			//console.log(newTop + ":" + newLeft);
+			setCount.lineWidth = setCount.lineWidth + width;
+		} else if (width - 3 > freeSpace) {
+			++setCount.lineCount;
+			setCount.lineWidth = 0;
+			newTop = setCount.lineCount * lineHeight;
+			newLeft = setCount.lineWidth;
+			setCount.lineWidth = setCount.lineWidth + width;
+		}
+
+		span.animate({
+
+				top: newTop + 50,
+				left: newLeft + setCount.setPos + 10
+
+			}, 1000, function() {
+
+			//console.log("animation complete");
+
+			});
+
+		return {"lineWidth": setCount.lineWidth, "lineCount": setCount.lineCount , "setPos": setCount.setPos};
+
+		};
+
+
+//-- -- -- -- -- -- -- -- -- -- -- -- -- --
