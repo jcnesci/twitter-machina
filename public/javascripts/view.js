@@ -39,13 +39,20 @@ function listView(){
 	// Populate it.
 	$.each(cgApp.curComparison.sets, function(key, value) {
 		
+
 		if (key == 0) {		//if in set 1 place in div list1
 			$.each(value.tweets, function(jKey, jValue) {
-				$("#list1").append('<p>'+ jValue.fullTweet +' </p><br>');
+					var tweet = "";
+					$.each(jValue.fullTweet.split(" "), function(k, v) {
+					tweet = tweet + '<span>' + v + ' </span>'; });
+					$("#list1").append('<p>'+ tweet +' </p><br>');
 			});
 		} else if (key == 1) {	//if in set 2 place in div list2
 			$.each(value.tweets, function(jKey, jValue) {
-				$("#list2").append('<p>'+ jValue.fullTweet +' </p><br>');
+					var tweet = "";
+					$.each(jValue.fullTweet.split(" "), function(k, v) {
+					tweet = tweet + '<span>' + v + ' </span>'; });
+					$("#list2").append('<p>'+ tweet +' </p><br>');
 			});
 
 		} else { console.log("Error in listView")}; //If not a part of a set...

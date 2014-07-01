@@ -63,11 +63,10 @@ h2 {
   color: #1890ff;
 }
 #listView {
-  width: 1024px;
   padding: 10px;
 }
 #listContainer {
-  width: 500px;
+  width: 50%;
   float: left;
   padding: 10px;
 }
