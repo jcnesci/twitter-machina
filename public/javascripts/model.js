@@ -63,13 +63,16 @@ function createSet(iData, iName) {
 String.prototype.cleanTweet = function() {		
 	var tweet = this;
 	// NB: we're not doing it now, but it's possible to store the regex matches in arrays for later use. We would need to use .
-	tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
+	//tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
 	tweet = tweet.replace(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g, "");	// remove http links.
 	tweet = tweet.replace(/: /, " ");		// remove colons at the end of a word.
 	tweet = tweet.replace(/[\.,-\/"!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g, "");
-	tweet = tweet.replace('\u2014', '');	//em dash
-	tweet = tweet.replace('\u201C', '');	//left double quote
-	tweet = tweet.replace('\u201D', '');	//right double quote
+	tweet = tweet.replace(/([\u2014])/g, '');	//em dash
+	tweet = tweet.replace(/([\u201C])/g, '');	//left double quote
+	tweet = tweet.replace(/([\u201D])/g, '');	//right double quote
+	//tweet = tweet.replace(/([\u2026])/g, '');	// ... ellipsis
+	tweet = tweet.replace(/([\u2019])/g, '\u0027'); 
+	tweet = tweet.replace(/([\u02BC])/g, '\u0027');
 
 	$.trim(tweet);	// Remove leading and trailing whitespace.
 		// return this.replace(/^\s+|\s+$/g,"");		// regex for trim fct.
@@ -102,7 +105,7 @@ String.prototype.cleanTweet = function() {
 			setCount.lineWidth = setCount.lineWidth + width;
 		}
 
-		span.animate({
+		span.delay( 800 ).animate({
 
 				top: newTop + 50,
 				left: newLeft + setCount.setPos + 10

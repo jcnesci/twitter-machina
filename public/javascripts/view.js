@@ -43,12 +43,13 @@ function listView(){
 			if (key == 0) {		//if in set 1 place in div list1
 				$.each(value.tweets, function(jKey, jValue) {
 						var tweet = "";
-						$.each(jValue.fullTweet.split(" "), function(k, v) {
+						//console.log(jValue.fullTweet.split(/([^A-Za-z0-9#])/);
+						$.each(jValue.fullTweet.split(/([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/), function(k, v) {
 							
-							tweet = tweet + '<span id="tw'+ s1tw +'">' + v + ' </span>'; 
+							tweet = tweet + '<span id="tw'+ s1tw +'">' + v + '</span>'; 
 
 							var cleanW = v.cleanTweet();
-							//console.log(value.comparison.words);
+							console.log(cleanW);
 							if (value.comparison.words[wCount].value == cleanW) {
 								
 								value.comparison.words[wCount].linkedTweetWord = "#list1 #tw"+ s1tw;
@@ -62,8 +63,8 @@ function listView(){
 			} else if (key == 1) {	//if in set 2 place in div list2
 				$.each(value.tweets, function(jKey, jValue) {
 						var tweet = "";
-							$.each(jValue.fullTweet.split(" "), function(k, v) {
-							tweet = tweet + '<span id="tw'+ s2tw +'">' + v + ' </span>';
+							$.each(jValue.fullTweet.split(/([^A-Za-z0-9#']+|https?:\/\/\S+)/), function(k, v) {
+							tweet = tweet + '<span id="tw'+ s2tw +'">' + v + '</span>';
 
 							var cleanW = v.cleanTweet();
 							//console.log(value.comparison.words);
@@ -84,15 +85,19 @@ function listView(){
 	$.each(cgApp.curComparison.sets, function(key, value) {
 		if (key == 0) {
 			$.each(value.comparison.words, function(k, v) {
-				v.startPosition = $(v.linkedTweetWord).position();
-				console.log("Set 1 - " + k);
-				console.log(v.startPosition);
+				if (v.linkedTweetWord != null) {
+					v.startPosition = $(v.linkedTweetWord).position();
+				};
+				//console.log("Set 1 - " + k);
+				//console.log(v.startPosition);
 			});
 		} else if (key == 1) {
 			$.each(value.comparison.words, function(k, v) {
-				v.startPosition = $(v.linkedTweetWord).position();
-				console.log("Set 2 - " + k);
-				console.log(v.startPosition);
+				if (v.linkedTweetWord != null) {
+					v.startPosition = $(v.linkedTweetWord).position();
+				};
+				//console.log("Set 2 - " + k);
+				//console.log(v.startPosition);
 			});
 		}
 	});
@@ -130,7 +135,8 @@ function initialTweetBubblesView() {
 
 		        if (value.visible == true) {
 		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
+										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+ theWord +' </span>');
+										$("#word" + key).fadeIn(800);
 		                setCount1 = linePack(key, setCount1);
 		        } else {
 										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
@@ -138,7 +144,8 @@ function initialTweetBubblesView() {
 		} else if(value.linkedSets[0] == "set2") {
 		        if (value.visible == true) {
 		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
+				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+ theWord +' </span>');
+		                $("#word" + key).fadeIn(800);
 		                setCount2 = linePack(key, setCount2);
 		        } else {
                     $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
@@ -149,7 +156,7 @@ function initialTweetBubblesView() {
 		}
 	});
 
-	$("#content #listView").fadeOut();
+	$("#content #listView").delay( 800 ).fadeOut();
 	//And the word length count to the DOM.
 	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
 	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
