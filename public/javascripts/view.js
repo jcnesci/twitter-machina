@@ -135,20 +135,34 @@ function initialTweetBubblesView() {
 
 		        if (value.visible == true) {
 		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+ theWord +' </span>');
+										// Append words over tweet list yet invisible in the DOM.
+										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' +
+											value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+
+											theWord +' </span>');
+										// Fade In the words.
 										$("#word" + key).fadeIn(800);
+										// Animate to Bubble View
 		                setCount1 = linePack(key, setCount1);
 		        } else {
-										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
+		        				// None Visisble words.
+										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' +
+											value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		        }
 		} else if(value.linkedSets[0] == "set2") {
 		        if (value.visible == true) {
 		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+ theWord +' </span>');
+		                // Append words over tweet list yet invisible in the DOM.
+				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' +
+				            	value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+
+				            	theWord +' </span>');
+				            // Fade In the words.
 		                $("#word" + key).fadeIn(800);
+		                // Animate to Bubble View
 		                setCount2 = linePack(key, setCount2);
 		        } else {
-                    $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
+		        				// None Visible words.
+                    $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' +
+                    	value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		        }
 
 		} else {
@@ -156,10 +170,13 @@ function initialTweetBubblesView() {
 		}
 	});
 
+	// FadeOut the Tweet List
 	$("#content #listView").delay( 800 ).fadeOut();
 	//And the word length count to the DOM.
-	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
-	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
+	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea style='display: none'>" + bA1 + "</p>");
+	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea' style='display: none'>" + bA2 + "</p>");
+	$('#bubbleArea1').fadeIn(1000);
+	$('#bubbleArea2').fadeIn(1000);
 }
 
 function unionTweetBubblesView(){
