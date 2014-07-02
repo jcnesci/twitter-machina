@@ -149,7 +149,7 @@ function initialTweetBubblesView() {
 		}
 	});
 
-	//$("#content #listView").fadeOut();
+	$("#content #listView").fadeOut();
 	//And the word length count to the DOM.
 	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
 	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
