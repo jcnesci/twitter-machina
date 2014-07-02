@@ -5,7 +5,7 @@ var exWordArray = ["the", "a", "if", "is", "on", "in", "to", "it", "of"];
 function Word(theWord, refSet, vis) {
 	this.value = theWord;
 	this.linkedSets = [refSet];
-	this.linkedTweets = [{}];
+	this.linkedTweetWord = null;
 	//this.count = 1;
 
 	this.startPosition = {"left": "450px", "top": "300px"};

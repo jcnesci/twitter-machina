@@ -35,40 +35,78 @@ function listView(){
 												"<div id='listContainer'>" +
 													"<h2>List 2</h2>" +
 													"<div id='list2' class='tweetlist'></div>");
-	
+	var s1tw = 0;
+	var s2tw = 0;
+	var wCount = 0
 	// Populate it.
 	$.each(cgApp.curComparison.sets, function(key, value) {
-		
+			if (key == 0) {		//if in set 1 place in div list1
+				$.each(value.tweets, function(jKey, jValue) {
+						var tweet = "";
+						$.each(jValue.fullTweet.split(" "), function(k, v) {
+							
+							tweet = tweet + '<span id="tw'+ s1tw +'">' + v + ' </span>'; 
 
-		if (key == 0) {		//if in set 1 place in div list1
-			$.each(value.tweets, function(jKey, jValue) {
-					var tweet = "";
-					$.each(jValue.fullTweet.split(" "), function(k, v) {
-					tweet = tweet + '<span>' + v + ' </span>'; });
-					$("#list1").append('<p>'+ tweet +' </p><br>');
-			});
-		} else if (key == 1) {	//if in set 2 place in div list2
-			$.each(value.tweets, function(jKey, jValue) {
-					var tweet = "";
-					$.each(jValue.fullTweet.split(" "), function(k, v) {
-					tweet = tweet + '<span>' + v + ' </span>'; });
-					$("#list2").append('<p>'+ tweet +' </p><br>');
-			});
+							var cleanW = v.cleanTweet();
+							//console.log(value.comparison.words);
+							if (value.comparison.words[wCount].value == cleanW) {
+								
+								value.comparison.words[wCount].linkedTweetWord = "#list1 #tw"+ s1tw;
+								wCount++;
+							}
+							s1tw++;
 
-		} else { console.log("Error in listView")}; //If not a part of a set...
+						});
+						$("#list1").append('<p>'+ tweet +' </p><br>');
+				});
+			} else if (key == 1) {	//if in set 2 place in div list2
+				$.each(value.tweets, function(jKey, jValue) {
+						var tweet = "";
+							$.each(jValue.fullTweet.split(" "), function(k, v) {
+							tweet = tweet + '<span id="tw'+ s2tw +'">' + v + ' </span>';
+
+							var cleanW = v.cleanTweet();
+							//console.log(value.comparison.words);
+							if (value.comparison.words[wCount].value == cleanW) {
+								
+								value.comparison.words[wCount].linkedTweetWord = "#list2 #tw"+ s2tw;
+								wCount++;
+							}
+							s2tw++;
+						});
+						$("#list2").append('<p>'+ tweet +' </p><br>');
+				});
+
+			} else { console.log("Error in listView")}; //If not a part of a set...
 
 	});
-
+	//console.log(cgApp.curComparison.sets);
+	$.each(cgApp.curComparison.sets, function(key, value) {
+		if (key == 0) {
+			$.each(value.comparison.words, function(k, v) {
+				v.startPosition = $(v.linkedTweetWord).position();
+				console.log("Set 1 - " + k);
+				console.log(v.startPosition);
+			});
+		} else if (key == 1) {
+			$.each(value.comparison.words, function(k, v) {
+				v.startPosition = $(v.linkedTweetWord).position();
+				console.log("Set 2 - " + k);
+				console.log(v.startPosition);
+			});
+		}
+	});
+	console.log(cgApp.curComparison.sets);
 }
 
 function initialTweetBubblesView() {
 	$("#state_title").html("state : initialTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("#content").html("<div id='bubbleContainer'>" +
+	$("<div id='bubbleContainer'>" +
 											"<div id='tweetBubble1' class='tweetBubble'></div>" +
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
-										"</div>");
+										"</div>").insertBefore("#listView");
 
 	//Bubble Area Count
 	var bA1 = 0,
@@ -92,18 +130,18 @@ function initialTweetBubblesView() {
 
 		        if (value.visible == true) {
 		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		                setCount1 = linePack(key, setCount1);
 		        } else {
-										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		        }
 		} else if(value.linkedSets[0] == "set2") {
 		        if (value.visible == true) {
 		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		                setCount2 = linePack(key, setCount2);
 		        } else {
-                    $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+                    $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' + value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		        }
 
 		} else {
@@ -111,6 +149,7 @@ function initialTweetBubblesView() {
 		}
 	});
 
+	//$("#content #listView").fadeOut();
 	//And the word length count to the DOM.
 	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
 	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
@@ -132,11 +171,13 @@ function unionTweetBubblesView(){
 	//Line Packing Variables
 	var canvasWidth = $('#container').width() - 15;
 	var setCount3 = {"lineWidth": 0, "lineCount": 0 , "setPos": 1*canvasWidth/3}; //For Line Pack
+	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3};
+	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0};
 
 	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
-    	
+    	var id = "#word"+i;
+
     	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#word"+i;
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
@@ -147,15 +188,26 @@ function unionTweetBubblesView(){
 
 		    	unionCount[cgApp.curComparison.words[i].value] = true;
 		    	$(id).addClass("union");
-		    	
+		    	if ($(id).hasClass('show')) {
 		    	setCount3 = linePack(i, setCount3);
-		    	
+		    	};
 	    	} else {
 	    		//Hide the Duplicates
 	    		$(id).fadeOut(1000);
 		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
 					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
     		}
+    	} else {
+    		if (cgApp.curComparison.words[i].linkedSets == "set1" && $(id).hasClass('show')) {
+    			if ($(id).hasClass('show')) {
+			    		setCount1 = linePack(i, setCount1);
+			    	};
+    		};
+    		if (cgApp.curComparison.words[i].linkedSets == "set2" && $(id).hasClass('show')) {
+    			if ($(id).hasClass('show')) {
+			    		setCount2 = linePack(i, setCount2);
+			    	};
+    		};
     	}		
 	}
 
