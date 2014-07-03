@@ -64,15 +64,19 @@ String.prototype.cleanTweet = function() {
 	var tweet = this;
 	// NB: we're not doing it now, but it's possible to store the regex matches in arrays for later use. We would need to use .
 	//tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
+	tweet = tweet.replace(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g, " ");
 	tweet = tweet.replace(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g, "");	// remove http links.
 	tweet = tweet.replace(/: /, " ");		// remove colons at the end of a word.
+	tweet = tweet.replace(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g, ''); //Remove Emoji	
 	tweet = tweet.replace(/[\.,-\/"!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g, "");
 	tweet = tweet.replace(/([\u2014])/g, '');	//em dash
 	tweet = tweet.replace(/([\u201C])/g, '');	//left double quote
 	tweet = tweet.replace(/([\u201D])/g, '');	//right double quote
 	//tweet = tweet.replace(/([\u2026])/g, '');	// ... ellipsis
-	tweet = tweet.replace(/([\u2019])/g, '\u0027'); 
-	tweet = tweet.replace(/([\u02BC])/g, '\u0027');
+	tweet = tweet.replace(/([\u2019])/g, '\u0027');	// Make funky apostrophes regular
+	tweet = tweet.replace(/([\u02BC])/g, '\u0027');	// Make funky apostrophes regular
+
+	//tweet = tweet.replace(/([\u1f4ab])/g, 'Dizzy Symbol');
 
 	$.trim(tweet);	// Remove leading and trailing whitespace.
 		// return this.replace(/^\s+|\s+$/g,"");		// regex for trim fct.

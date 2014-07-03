@@ -64,6 +64,15 @@ clientApp.prototype = {
 
 		// Update the view to reflect the current comparison.
 		updateView();
+	},
+	customComparison: function(iComparisonNum){
+		console.log("-customComparison-");
+
+		// Reset the old comparison to its initial state.
+		this.curComparison.stateMachine.forceState("intro");
+		emptyViewItems();
+		introView();
+		searchView();
 	}
 }
 

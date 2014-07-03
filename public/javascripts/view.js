@@ -43,19 +43,21 @@ function listView(){
 			if (key == 0) {		//if in set 1 place in div list1
 				$.each(value.tweets, function(jKey, jValue) {
 						var tweet = "";
-						//console.log(jValue.fullTweet.split(/([^A-Za-z0-9#])/);
-						$.each(jValue.fullTweet.split(/([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/), function(k, v) {
-							
+						// Split the tweet into spans for position tracking.
+						$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
+
 							tweet = tweet + '<span id="tw'+ s1tw +'">' + v + '</span>'; 
 
+							// Clean the split tweet word for comparison.  This is the same cleanTweet all the words went through.
 							var cleanW = v.cleanTweet();
-							console.log(cleanW);
-							if (value.comparison.words[wCount].value == cleanW) {
-								
+							// If a match is found in the words array.
+							if (value.comparison.words[wCount].value === cleanW) {
+								//Words array value is linked to it's tweet list brother.
 								value.comparison.words[wCount].linkedTweetWord = "#list1 #tw"+ s1tw;
-								wCount++;
+								wCount++; // move on to the next word in the word array.
 							}
-							s1tw++;
+							s1tw++; // The tweet word progress on regardless of finding a match.
+											// This accounts for word/symbols that didn't make the words array.
 
 						});
 						$("#list1").append('<p>'+ tweet +' </p><br>');
@@ -63,9 +65,9 @@ function listView(){
 			} else if (key == 1) {	//if in set 2 place in div list2
 				$.each(value.tweets, function(jKey, jValue) {
 						var tweet = "";
-							$.each(jValue.fullTweet.split(/([^A-Za-z0-9#']+|https?:\/\/\S+)/), function(k, v) {
+							$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
 							tweet = tweet + '<span id="tw'+ s2tw +'">' + v + '</span>';
-
+							console.log(v);
 							var cleanW = v.cleanTweet();
 							//console.log(value.comparison.words);
 							if (value.comparison.words[wCount].value == cleanW) {
@@ -275,6 +277,13 @@ function updateView(){
 			$(this).addClass("selected");
 		}
 	});
+}
+
+function searchView() {
+	$('#menu').append('<div id="searchForm"><form action="">'+
+		'Person 1: <input type="text" name="person1" value="ianbeyer">'+
+		'Person 2: <input type="text" name="person2" value="videorx">'+
+		'<input type="submit" value="Submit"></form></div>');
 }
 
 // 
