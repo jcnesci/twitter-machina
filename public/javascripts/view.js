@@ -295,10 +295,18 @@ function updateView(){
 }
 
 function searchView() {
-	$('#searchContainer').append('<div id="searchForm"><form action="">'+
-		'Person 1: <input type="text" name="person1" value="ianbeyer">'+
-		'Person 2: <input type="text" name="person2" value="videorx">'+
-		'<input type="submit" value="Submit"></form></div>');
+	$('#searchContainer').append('<div id="searchForm"><div>'+
+		'Person 1: <input id="input1" type="text" name="person1" value="DalaiLama">'+
+		'Person 2: <input id="input2" type="text" name="person2" value="PutinRF_Eng">'+
+		'<input type="submit" value="Submit" onclick="searchButton(); return false;"></div></div>');
+}
+
+function searchButton() {
+	var inputs = {
+		"input1": $("#input1").val(),
+		"input2": $("#input2").val()
+	};
+	cgApp.search(inputs);
 }
 
 // 

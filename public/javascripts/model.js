@@ -88,45 +88,45 @@ String.prototype.cleanTweet = function() {
 	return tweet;
 }
 
-//-- -- -- -- -- Animations -- -- -- -- --
+// -- -- -- -- -- Animations -- -- -- -- --
 
-//Line Packing
-	function linePack(id, setCount, delayCount) {
-		var span = $('#word' + id),
-				width = span.width() + 3,
-				lineHeight = 15,
-				canvasWidth = $('#container').width() - 15,
-				freeSpace = canvasWidth/3 - setCount.lineWidth,
-				newTop = 0,
-				newLeft = 0;
+// Line Packing
+function linePack(id, setCount, delayCount) {
+	var span = $('#word' + id),
+			width = span.width() + 3,
+			lineHeight = 15,
+			canvasWidth = $('#container').width() - 15,
+			freeSpace = canvasWidth/3 - setCount.lineWidth,
+			newTop = 0,
+			newLeft = 0;
 
-		if (width - 3 <= freeSpace) {
-			newTop = setCount.lineCount * lineHeight;
-			newLeft = setCount.lineWidth;
-			//console.log(newTop + ":" + newLeft);
-			setCount.lineWidth = setCount.lineWidth + width;
-		} else if (width - 3 > freeSpace) {
-			++setCount.lineCount;
-			setCount.lineWidth = 0;
-			newTop = setCount.lineCount * lineHeight;
-			newLeft = setCount.lineWidth;
-			setCount.lineWidth = setCount.lineWidth + width;
-		}
+	if (width - 3 <= freeSpace) {
+		newTop = setCount.lineCount * lineHeight;
+		newLeft = setCount.lineWidth;
+		//console.log(newTop + ":" + newLeft);
+		setCount.lineWidth = setCount.lineWidth + width;
+	} else if (width - 3 > freeSpace) {
+		++setCount.lineCount;
+		setCount.lineWidth = 0;
+		newTop = setCount.lineCount * lineHeight;
+		newLeft = setCount.lineWidth;
+		setCount.lineWidth = setCount.lineWidth + width;
+	}
 
-		span.delay( 200 + delayCount * 10 ).animate({
+	span.delay( 200 + delayCount * 10 ).animate({
 
-				top: newTop + 50,
-				left: newLeft + setCount.setPos + 10
+			top: newTop + 50,
+			left: newLeft + setCount.setPos + 10
 
-			}, 1000, function() {
+		}, 1000, function() {
 
-			//console.log("animation complete");
+		//console.log("animation complete");
 
-			});
+		});
 
-		return {"lineWidth": setCount.lineWidth, "lineCount": setCount.lineCount , "setPos": setCount.setPos};
+	return {"lineWidth": setCount.lineWidth, "lineCount": setCount.lineCount , "setPos": setCount.setPos};
 
-		};
+	};
 
 
 //-- -- -- -- -- -- -- -- -- -- -- -- -- --

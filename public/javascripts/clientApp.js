@@ -41,7 +41,7 @@ clientApp.prototype = {
 																				"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
 																			"</div>";
 
-			console.log("INTRO HTML : "+ this.comparisons[i].introHTML);
+			//console.log("INTRO HTML : "+ this.comparisons[i].introHTML);
 		}
 	},
 	start: function(){
@@ -73,6 +73,30 @@ clientApp.prototype = {
 		emptyViewItems();
 		introView();
 		searchView();
+	},
+	search: function(iComparionObj) {
+		console.log("* * * * * * * * SEARCH FIRED * * * * * * * * * *");
+		console.log(iComparionObj.input1);
+		console.log(iComparionObj.input2);
+		//console.log(this);
+		if (this.comparisons[5] != undefined) {
+			console.log("conditional true");
+			this.comparisons.pop();
+		};
+		this.comparisons.push(new comparison(6, iComparionObj.input1, iComparionObj.input2));
+		this.comparisons[5].setupServerCalls();
+
+		this.comparisons[5].introHTML = "<div id='intro_view'>" +
+																				"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
+																				"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
+																			"</div>";
+
+		this.curComparison = this.comparisons[5];
+		console.log(this.comparisons);
+		// Reset the old comparison to its initial state.
+		this.curComparison.stateMachine.forceState("intro");
+		this.start();
+		updateView();
 	}
 }
 
