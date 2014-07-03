@@ -41,6 +41,8 @@ function emptyViewItems(){
 	//
 	$("#list1").empty();
 	$("#list2").empty();
+	//
+	$("#searchContainer").empty();
 }
 
 // Print out the tweet text for each query.
@@ -62,13 +64,18 @@ function createSet(iData, iName) {
 // Common function, to clean a tweet of unwanted features.
 String.prototype.cleanTweet = function() {		
 	var tweet = this;
-	// NB: we're not doing it now, but it's possible to store the regex matches in arrays for later use. We would need to use .
+	// -- NB: we're not doing it now, but it's possible to store the regex matches in arrays for later use. We would need to use
+	// Matches punctuation. Leaves words, time ex. 2:20, p.m, 5.7, urls, and contractions.
+	var punctRegEx = new RegExp(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g);
+	// Matches URLs that start with http, ftp, and https.
+	var urlRegEx = new RegExp(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g);
+	// Matches most emoticons.
+	var emojiRegEx = new RegExp(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g);
+
 	//tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
-	tweet = tweet.replace(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g, " ");
-	tweet = tweet.replace(/(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/g, "");	// remove http links.
-	tweet = tweet.replace(/: /, " ");		// remove colons at the end of a word.
-	tweet = tweet.replace(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g, ''); //Remove Emoji	
-	tweet = tweet.replace(/[\.,-\/"!$%\^&\*;:{}=\-_`~()@\+\?><\[\]\+]/g, "");
+	tweet = tweet.replace(punctRegEx, " "); // remove punctuation.
+	tweet = tweet.replace(urlRegEx, "");	// remove http links.
+	tweet = tweet.replace(emojiRegEx, "EMOJI "); //Swap Most Emoji with EMOJI	
 	tweet = tweet.replace(/([\u2014])/g, '');	//em dash
 	tweet = tweet.replace(/([\u201C])/g, '');	//left double quote
 	tweet = tweet.replace(/([\u201D])/g, '');	//right double quote
@@ -76,10 +83,7 @@ String.prototype.cleanTweet = function() {
 	tweet = tweet.replace(/([\u2019])/g, '\u0027');	// Make funky apostrophes regular
 	tweet = tweet.replace(/([\u02BC])/g, '\u0027');	// Make funky apostrophes regular
 
-	//tweet = tweet.replace(/([\u1f4ab])/g, 'Dizzy Symbol');
-
 	$.trim(tweet);	// Remove leading and trailing whitespace.
-		// return this.replace(/^\s+|\s+$/g,"");		// regex for trim fct.
 
 	return tweet;
 }
@@ -87,7 +91,7 @@ String.prototype.cleanTweet = function() {
 //-- -- -- -- -- Animations -- -- -- -- --
 
 //Line Packing
-	function linePack(id, setCount) {
+	function linePack(id, setCount, delayCount) {
 		var span = $('#word' + id),
 				width = span.width() + 3,
 				lineHeight = 15,
@@ -109,7 +113,7 @@ String.prototype.cleanTweet = function() {
 			setCount.lineWidth = setCount.lineWidth + width;
 		}
 
-		span.delay( 800 ).animate({
+		span.delay( 200 + delayCount * 10 ).animate({
 
 				top: newTop + 50,
 				left: newLeft + setCount.setPos + 10

@@ -15,7 +15,12 @@ function Word(theWord, refSet, vis) {
 
 	//if word is in exclusion array or only one letter, set visibility to false.
 	if (exWordArray.indexOf(theWord) !== -1 || theWord.length < 2) {
-		this.visible = false;
+		// If capital "I" allow visibility.
+		if (theWord == "I") {
+			this.visible = vis;
+		} else {
+			this.visible = false;
+		}
 	} else {
 		this.visible = vis;	//true or false
 	}

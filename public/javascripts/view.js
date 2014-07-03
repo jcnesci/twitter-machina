@@ -5,12 +5,12 @@ Contains the code relative to the View parts of the app (following an MVC approa
 
 // View for intro/1st state of a comparison.
 function introView(){
-	console.log("introView -- - - - - cgApp");
-	console.log(cgApp);
-	console.log("introView -- - - - - cgApp.curComparison");
-	console.log(cgApp.curComparison);
-	console.log("introView -- - - - - cgApp.curComparison.introHTML");
-	console.log(cgApp.curComparison.introHTML);
+	//console.log("introView -- - - - - cgApp");
+	//console.log(cgApp);
+	//console.log("introView -- - - - - cgApp.curComparison");
+	//console.log(cgApp.curComparison);
+	//console.log("introView -- - - - - cgApp.curComparison.introHTML");
+	//console.log(cgApp.curComparison.introHTML);
 
 	$("#state_title").html("state : intro");
 
@@ -46,7 +46,7 @@ function listView(){
 						// Split the tweet into spans for position tracking.
 						$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
 
-							tweet = tweet + '<span id="tw'+ s1tw +'">' + v + '</span>'; 
+							tweet = tweet + '<span id="tw'+ s1tw +'" class="tword">' + v + '</span>'; 
 
 							// Clean the split tweet word for comparison.  This is the same cleanTweet all the words went through.
 							var cleanW = v.cleanTweet();
@@ -66,8 +66,8 @@ function listView(){
 				$.each(value.tweets, function(jKey, jValue) {
 						var tweet = "";
 							$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
-							tweet = tweet + '<span id="tw'+ s2tw +'">' + v + '</span>';
-							console.log(v);
+							tweet = tweet + '<span id="tw'+ s2tw +'" class="tword2">' + v + '</span>';
+							//console.log(v);
 							var cleanW = v.cleanTweet();
 							//console.log(value.comparison.words);
 							if (value.comparison.words[wCount].value == cleanW) {
@@ -103,7 +103,7 @@ function listView(){
 			});
 		}
 	});
-	console.log(cgApp.curComparison.sets);
+	//console.log(cgApp.curComparison.sets);
 }
 
 function initialTweetBubblesView() {
@@ -119,17 +119,19 @@ function initialTweetBubblesView() {
 	var bA1 = 0,
 	    bA2 = 0;
 
-	console.log("1 :");
-	console.log(cgApp.curComparison);
-	console.log("2 :");
-	console.log(cgApp.curComparison.words);
-	console.log("3 :");
-	console.log(cgApp.curComparison.lookup);
+	//console.log("1 :");
+	//console.log(cgApp.curComparison);
+	//console.log("2 :");
+	//console.log(cgApp.curComparison.words);
+	//console.log("3 :");
+	//console.log(cgApp.curComparison.lookup);
 
 	// Populate it.
 	var canvasWidth = $('#container').width() - 15;
 	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; //For Line Pack
 	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; //For Line Pack
+	var delayCount = 0;
+	var delayCount2 = 0;
 	$.each(cgApp.curComparison.words, function(key, value){
 		var theWord = value.value;
 
@@ -144,7 +146,8 @@ function initialTweetBubblesView() {
 										// Fade In the words.
 										$("#word" + key).fadeIn(800);
 										// Animate to Bubble View
-		                setCount1 = linePack(key, setCount1);
+		                setCount1 = linePack(key, setCount1, delayCount);
+		                delayCount++;
 		        } else {
 		        				// None Visisble words.
 										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' +
@@ -160,7 +163,8 @@ function initialTweetBubblesView() {
 				            // Fade In the words.
 		                $("#word" + key).fadeIn(800);
 		                // Animate to Bubble View
-		                setCount2 = linePack(key, setCount2);
+		                setCount2 = linePack(key, setCount2, delayCount2);
+		                delayCount2++;
 		        } else {
 		        				// None Visible words.
                     $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' +
@@ -173,7 +177,13 @@ function initialTweetBubblesView() {
 	});
 
 	// FadeOut the Tweet List
-	$("#content #listView").delay( 800 ).fadeOut();
+	$(".tword").each(function(i) {
+		$(this).delay(1*i).fadeTo( 500, 0);
+	});
+		$(".tword2").each(function(i) {
+		$(this).delay(1*i).fadeTo( 500, 0);
+	});
+	$("#content #listView").delay( 2000 ).fadeOut();
 	//And the word length count to the DOM.
 	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea style='display: none'>" + bA1 + "</p>");
 	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea' style='display: none'>" + bA2 + "</p>");
@@ -196,9 +206,11 @@ function unionTweetBubblesView(){
 
 	//Line Packing Variables
 	var canvasWidth = $('#container').width() - 15;
-	var setCount3 = {"lineWidth": 0, "lineCount": 0 , "setPos": 1*canvasWidth/3}; //For Line Pack
-	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3};
-	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0};
+	var setCount4 = {"lineWidth": 0, "lineCount": 0 , "setPos": 1*canvasWidth/3}; // For Duplicates to move before fading.
+	var setCount3 = {"lineWidth": 0, "lineCount": 0 , "setPos": 1*canvasWidth/3}; // Union Pack
+	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; // Right Bubble
+	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; 							// Left Bubble
+	var delayCount = 0;
 
 	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
     	var id = "#word"+i;
@@ -215,7 +227,8 @@ function unionTweetBubblesView(){
 		    	unionCount[cgApp.curComparison.words[i].value] = true;
 		    	$(id).addClass("union");
 		    	if ($(id).hasClass('show')) {
-		    	setCount3 = linePack(i, setCount3);
+		    	setCount3 = linePack(i, setCount3, delayCount);
+		    	delayCount++
 		    	};
 	    	} else {
 	    		//Hide the Duplicates
@@ -226,12 +239,14 @@ function unionTweetBubblesView(){
     	} else {
     		if (cgApp.curComparison.words[i].linkedSets == "set1" && $(id).hasClass('show')) {
     			if ($(id).hasClass('show')) {
-			    		setCount1 = linePack(i, setCount1);
+			    		setCount1 = linePack(i, setCount1, delayCount);
+			    		delayCount++;
 			    	};
     		};
     		if (cgApp.curComparison.words[i].linkedSets == "set2" && $(id).hasClass('show')) {
     			if ($(id).hasClass('show')) {
-			    		setCount2 = linePack(i, setCount2);
+			    		setCount2 = linePack(i, setCount2, delayCount);
+			    		delayCount++;
 			    	};
     		};
     	}		
@@ -270,8 +285,8 @@ function updateView(){
 	$(".query_block").removeClass("selected");
 	var _this = this;
 	$(".query_block").each(function(){
-		console.log("* * * * attr id :"+ $(this).attr('id'));
-		console.log("^ ^ ^ : "+ cgApp.curComparison.id);
+		//console.log("* * * * attr id :"+ $(this).attr('id'));
+		//console.log("^ ^ ^ : "+ cgApp.curComparison.id);
 
 		if ($(this).attr('id') == cgApp.curComparison.id){
 			$(this).addClass("selected");
@@ -280,7 +295,7 @@ function updateView(){
 }
 
 function searchView() {
-	$('#menu').append('<div id="searchForm"><form action="">'+
+	$('#searchContainer').append('<div id="searchForm"><form action="">'+
 		'Person 1: <input type="text" name="person1" value="ianbeyer">'+
 		'Person 2: <input type="text" name="person2" value="videorx">'+
 		'<input type="submit" value="Submit"></form></div>');
