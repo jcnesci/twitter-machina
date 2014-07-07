@@ -71,6 +71,7 @@ clientApp.prototype = {
 		// Reset the old comparison to its initial state.
 		this.curComparison.stateMachine.forceState("intro");
 		emptyViewItems();
+		//emptySearchView();
 		introView();
 		searchView();
 	},
@@ -83,7 +84,7 @@ clientApp.prototype = {
 			console.log("conditional true");
 			this.comparisons.pop();
 		};
-		this.comparisons.push(new comparison(6, iComparionObj.input1, iComparionObj.input2));
+		this.comparisons.push(new comparison("custom", iComparionObj.input1, iComparionObj.input2));
 		this.comparisons[5].setupServerCalls();
 
 		this.comparisons[5].introHTML = "<div id='intro_view'>" +

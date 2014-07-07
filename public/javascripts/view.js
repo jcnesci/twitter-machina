@@ -224,10 +224,10 @@ function unionTweetBubblesView(){
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
-		    	bA3 = cgApp.curComparison.words[i].value.pixelWidth + bA3;  //Counting Length
+		    	bA3 = cgApp.curComparison.words[i].pixelWidth + bA3;  //Counting Length
 
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.pixelWidth;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.pixelWidth;
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].pixelWidth;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].pixelWidth;
 
 		    	unionCount[cgApp.curComparison.words[i].value] = true;
 		    	$(id).addClass("union");
@@ -238,8 +238,8 @@ function unionTweetBubblesView(){
 	    	} else {
 	    		//Hide the Duplicates
 	    		$(id).fadeOut(1000);
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.pixelWidth;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.pixelWidth;
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].pixelWidth;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].pixelWidth;
     		}
     	} else {
     		if (cgApp.curComparison.words[i].linkedSets == "set1" && $(id).hasClass('show')) {
@@ -274,13 +274,21 @@ function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 	if(iComparisonId == cgApp.curComparison.id){
 		curComparison = "selected";
 	}
+	console.log("*********************************");
+	console.log(cgApp.curComparison.id);
+	console.log("*********************************");
 	// Create query blocks containing the Twitter user images.
+	if (cgApp.curComparison.id != "custom") {
 	$("#menu > #query_block_container").prepend("<li id='"+ iComparisonId +"' class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
 											"<div class='comparisonTitle'>"+ iItem1 +"<br><span class='versus'>VS</span><br>"+ iItem2 +"</div>" +
 										"</li>");
-
+	} else {
+		$("#query_block_container #" + cgApp.curComparison.id).html("<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
+											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
+											"<div class='comparisonTitle'>"+ iItem1 +"<br><span class='versus'>VS</span><br>"+ iItem2 +"</div>");
+	}
 	// console.log("buildUserImageSet- curComparison : "+ curComparison);
 }
 

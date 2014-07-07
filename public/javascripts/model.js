@@ -45,6 +45,14 @@ function emptyViewItems(){
 	$("#searchContainer").empty();
 }
 
+//DEV: should this be in view.js?
+// Empties the tweet bubble divs.
+function emptySearchView(){
+	console.log("model.js- EMPTY SEARCH VIEW");
+	// Clear current content div.
+	
+}
+
 // Print out the tweet text for each query.
 function logTwitterResults(data) {
 	console.log("-logTwitterResults - - - - - - - - - - - - - - - - - - - - - - - - - ");
@@ -132,42 +140,60 @@ function linePack(id, setCount, delayCount) {
 function lineCount(iArea) {
    
     var intArea = iArea, // Initial Area to reference back to.
-        Area = intArea,
         lH = 15, // Line Height **Could make this a global variable for animations.
-        radius = Math.sqrt(Area / Math.PI), // initial radius of estimated circle.
+        radius = Math.sqrt(intArea / Math.PI), // initial radius of estimated circle.
         lC = Math.floor(radius / lH), // initial line count.
-        sqAr = 0; // The square area of the circle based on the words square space.
+        sqAr = 0, // The square area of the circle based on the words square space.
+        loopOn = 1,
+        pcErr = 1; // percent Error
 
    	// A for loop to get the square area as close to the initial area as possible (0.01)
    	// For better acuraccy this should be reworked to account for a greater area or negative difference.
-    for (; 1 - sqAr / intArea > 0.01;) {
+     while (loopOn == 1) {
 
-        console.log(lC);
-        sqAr = 0;  // As the loop cycles through this needs to be reset.
+        console.log(lC + 1);
 
-        // Calculate the area based on Line Height * Line Count for the circle.
-        for (i = 0; i <= lC; i++) {
-            if (i * lH < radius) {
-                var s = Math.sqrt(radius * radius - i * lH * i * lH);
-                sqAr = 2 * s * 15 + sqAr; // both sides of the circle.
-            }
-            console.log("line : " + (i + 1) + " : " + sqAr);
+        if (pcErr > 0.01) {
+	        sqAr = 0;  // As the loop cycles through this needs to be reset.
+
+	        // Calculate the area based on Line Height * Line Count for the circle.
+	        for (i = 0; i <= lC; i++) {
+	            if (i * lH < radius) {
+	                var s = Math.sqrt(radius * radius - i * lH * i * lH);
+	                sqAr = 2 * s * 15 + sqAr; // both sides of the circle.
+	            }
+	            console.log("line : " + (i + 1) + " : " + sqAr);
+	        }
+
+	        var pcErr = 1 - sqAr / intArea; // Percent Error
+	        console.log(pcErr);
+
+	        // new area to shoot for...
+	        sqRad = Math.sqrt(sqAr / Math.PI);
+	        radius = 1 + radius;
+	        lC = Math.floor(radius / lH);
+	        console.log(radius);
+	        console.log(sqAr);
+
+        } else {
+            loopOn = 0;
         }
 
-        var pcErr = 1 - sqAr / intArea; // Percent Error
-        console.log(pcErr);
-
-        // new area to shoot for...
-        Area = Area * (2 - sqAr / Area);
-        radius = Math.sqrt(Area / Math.PI);
-        lC = Math.floor(radius / lH);
-        console.log(radius);
-        console.log(Area);
-
     }
-    console.log(lC);
+    console.log(lC + 1);
+    return {"radius": radius, "lineCount": 2*(lC+1)};
 }
-//lineCount(7574);
+
+// Packing Circle
+function packCircle(iWords, iArea, iX, iY) {
+
+	var wordsArray = iWords
+
+
+
+
+
+}
 
 
 //-- -- -- -- -- -- -- -- -- -- -- -- -- --
