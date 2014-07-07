@@ -138,13 +138,16 @@ function initialTweetBubblesView() {
 		if(value.linkedSets[0] == "set1") {
 
 		        if (value.visible == true) {
-		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-										// Append words over tweet list yet invisible in the DOM.
+		                				// Append words over tweet list yet invisible in the DOM.
 										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' +
 											value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+
 											theWord +' </span>');
 										// Fade In the words.
 										$("#word" + key).fadeIn(800);
+
+						value.pixelWidth = $('#word'+key).width();
+						bA1 = value.pixelWidth + bA1; //Counting set1 visibile word lengths.
+
 										// Animate to Bubble View
 		                setCount1 = linePack(key, setCount1, delayCount);
 		                delayCount++;
@@ -155,13 +158,15 @@ function initialTweetBubblesView() {
 		        }
 		} else if(value.linkedSets[0] == "set2") {
 		        if (value.visible == true) {
-		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
 		                // Append words over tweet list yet invisible in the DOM.
 				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' +
 				            	value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+
 				            	theWord +' </span>');
 				            // Fade In the words.
 		                $("#word" + key).fadeIn(800);
+
+		                value.pixelWidth = $('#word'+key).width();
+		                bA2 = value.pixelWidth + bA2; //Counting set2 visibile word lengths.
 		                // Animate to Bubble View
 		                setCount2 = linePack(key, setCount2, delayCount2);
 		                delayCount2++;
@@ -219,10 +224,10 @@ function unionTweetBubblesView(){
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
-		    	bA3 = cgApp.curComparison.words[i].value.length + bA3;  //Counting Length
+		    	bA3 = cgApp.curComparison.words[i].value.pixelWidth + bA3;  //Counting Length
 
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.pixelWidth;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.pixelWidth;
 
 		    	unionCount[cgApp.curComparison.words[i].value] = true;
 		    	$(id).addClass("union");
@@ -233,8 +238,8 @@ function unionTweetBubblesView(){
 	    	} else {
 	    		//Hide the Duplicates
 	    		$(id).fadeOut(1000);
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.pixelWidth;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.pixelWidth;
     		}
     	} else {
     		if (cgApp.curComparison.words[i].linkedSets == "set1" && $(id).hasClass('show')) {
