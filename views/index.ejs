@@ -4,45 +4,63 @@
 		<meta charset="utf-8">
 		<title> <%= title %> </title>
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet' href='assets/stylesheets/bootstrap.min.css'>
 		<link rel='stylesheet' href='assets/stylesheets/frontend.css'>
-		<script type='text/javascript', src="http://d3js.org/d3.v3.min.js"></script>
-		<script type='text/javascript' src='assets/javascript/frontend.js'></script>
-		<script type='text/javascript' src='typeahead.jquery.js'></script>
-		<script type='text/javascript' src='jquery.textillate.js'></script>
-		<script type='text/javascript' src='assets/jquery.lettering.js'></script>
-		<script type='text/javascript' src='assets/jquery.fittext.js'></script>
-		<script type='text/css' src='assets/animate.css'></script>
-		<script type='text/javascript' src="/socket.io/socket.io.js"></script>
-		<script type='text/javascript' src='javascripts/view.js'></script>
-		<script type='text/javascript' src='javascripts/word.js'></script>
-		<script type='text/javascript' src='javascripts/tweet.js'></script>
-		<script type='text/javascript' src='javascripts/set.js'></script>
-		<script type='text/javascript' src='javascripts/sosoStateMachine.js'></script>
-		<script type='text/javascript' src='javascripts/sosoState.js'></script>
-		<script type='text/javascript' src='javascripts/sosoStateTransition.js'></script>
-		<script type='text/javascript' src='javascripts/comparison.js'></script>
-		<script type='text/javascript' src='javascripts/clientApp.js'></script>
-		<script type='text/javascript' src='javascripts/model.js'></script>
-		<script type='text/javascript' src='javascripts/controller.js'></script>
+
+
+
 	</head>
 	<body>
-		hello boo
-		
+	
 		<div class='container'>
+			
+			<!-- NEW : bootstrap items -->
+
 			<div class='page-header'>
 				<img class='page-logo' src='assets/CommonGround-logo.png'/>
-				<nav class="navbar navbar-default" role="navigation">
-					<a class='navbar-brand' href='#'>Brand</a>
-				</nav>
 			</div>
 
+			<nav class="navbar navbar-default" role="navigation">
+					<div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Bootstrap theme</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+		</nav>
+
+		<!-- OLD : pre-bootstrap -->
 
 			<div id='container'>
 
 				<div id='menu'>
 					<div id='query_block_container'>
 						<!-- //- Add the last query item to the menu: the choice to custom search. -->
-						<li class='query_block custom' id='custom' onClick='queryBlockController("custom")'>
+							<li class='query_block custom' id='custom' onClick='queryBlockController("custom")'>
 							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
 							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
 							<div class='comparisonTitle'>
@@ -69,5 +87,24 @@
 				<p>footer</p>
 			</footer>
 	</div>
+		<script type='text/javascript', src="http://d3js.org/d3.v3.min.js"></script>
+		<script type='text/javascript' src='assets/javascript/frontend.js'></script>
+		<script type='text/javascript' src='typeahead.jquery.js'></script>
+		<script type='text/javascript' src='jquery.textillate.js'></script>
+		<script type='text/javascript' src='assets/jquery.lettering.js'></script>
+		<script type='text/javascript' src='assets/jquery.fittext.js'></script>
+		<script type='text/css' src='assets/animate.css'></script>
+		<script type='text/javascript' src="/socket.io/socket.io.js"></script>
+		<script type='text/javascript' src='javascripts/view.js'></script>
+		<script type='text/javascript' src='javascripts/word.js'></script>
+		<script type='text/javascript' src='javascripts/tweet.js'></script>
+		<script type='text/javascript' src='javascripts/set.js'></script>
+		<script type='text/javascript' src='javascripts/sosoStateMachine.js'></script>
+		<script type='text/javascript' src='javascripts/sosoState.js'></script>
+		<script type='text/javascript' src='javascripts/sosoStateTransition.js'></script>
+		<script type='text/javascript' src='javascripts/comparison.js'></script>
+		<script type='text/javascript' src='javascripts/clientApp.js'></script>
+		<script type='text/javascript' src='javascripts/model.js'></script>
+		<script type='text/javascript' src='javascripts/controller.js'></script>
 </body>
 </html>
