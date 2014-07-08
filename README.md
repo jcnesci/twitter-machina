@@ -48,3 +48,15 @@ App Setup
   * http://localhost:3000/
 
 That's all folks.
+
+sudo apt-get install git
+
+sudo npm install -g grunt-cli
+
+npm install grunt --save-dev 
+npm install grunt-contrib-concat --save-dev 
+npm install grunt-contrib-less --save-dev 
+npm install grunt-contrib-uglify --save-dev 
+npm install grunt-contrib-watch --save-dev 
+
+sudo npm install -g bower

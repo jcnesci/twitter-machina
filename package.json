@@ -7,10 +7,9 @@
     "name": "Soso"
   },
   "dependencies": {
-    "bootstrap": "^3.2.0",
     "express": "3.x",
     "jade": "*",
-    "less-middleware": "^1.0.3",
+    //"less-middleware": "^1.0.3",
     "oauth": "0.9.9",
     "sentiment": "1.0.0-alpha",
     "socket.io": "*",
@@ -24,5 +23,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jcnesci/twitter-machina.git"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-less": "^0.11.3",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
   }
 }
