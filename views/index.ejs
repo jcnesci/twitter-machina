@@ -3,66 +3,71 @@
 	<head>
 		<meta charset="utf-8">
 		<title> <%= title %> </title>
-		
-		<!-- link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', rel='stylesheet', type='text/css')
-		link(rel='stylesheet', href='assets/stylesheets/frontend.css')
-		script(type='text/javascript', src="http://d3js.org/d3.v3.min.js")
-		script(src='assets/javascript/frontend.js')
-		script(type='text/javascript', src='typeahead.jquery.js')
-		script(type='text/javascript', src='jquery.textillate.js')
-		script(type='text/javascript', src='assets/jquery.lettering.js')
-		script(type='text/javascript', src='assets/jquery.fittext.js')
-		script(type='text/css', src='assets/animate.css')
-		script(type='text/javascript', src="/socket.io/socket.io.js")
-		script(type='text/javascript', src='javascripts/view.js')
-		script(type='text/javascript', src='javascripts/word.js')
-		script(type='text/javascript', src='javascripts/tweet.js')
-		script(type='text/javascript', src='javascripts/set.js')
-		script(type='text/javascript', src='javascripts/sosoStateMachine.js')
-		script(type='text/javascript', src='javascripts/sosoState.js')
-		script(type='text/javascript', src='javascripts/sosoStateTransition.js')
-		script(type='text/javascript', src='javascripts/comparison.js')
-		script(type='text/javascript', src='javascripts/clientApp.js')
-		script(type='text/javascript', src='javascripts/model.js')
-		script(type='text/javascript', src='javascripts/controller.js') -->
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet' href='assets/stylesheets/frontend.css'>
+		<script type='text/javascript', src="http://d3js.org/d3.v3.min.js"></script>
+		<script type='text/javascript' src='assets/javascript/frontend.js'></script>
+		<script type='text/javascript' src='typeahead.jquery.js'></script>
+		<script type='text/javascript' src='jquery.textillate.js'></script>
+		<script type='text/javascript' src='assets/jquery.lettering.js'></script>
+		<script type='text/javascript' src='assets/jquery.fittext.js'></script>
+		<script type='text/css' src='assets/animate.css'></script>
+		<script type='text/javascript' src="/socket.io/socket.io.js"></script>
+		<script type='text/javascript' src='javascripts/view.js'></script>
+		<script type='text/javascript' src='javascripts/word.js'></script>
+		<script type='text/javascript' src='javascripts/tweet.js'></script>
+		<script type='text/javascript' src='javascripts/set.js'></script>
+		<script type='text/javascript' src='javascripts/sosoStateMachine.js'></script>
+		<script type='text/javascript' src='javascripts/sosoState.js'></script>
+		<script type='text/javascript' src='javascripts/sosoStateTransition.js'></script>
+		<script type='text/javascript' src='javascripts/comparison.js'></script>
+		<script type='text/javascript' src='javascripts/clientApp.js'></script>
+		<script type='text/javascript' src='javascripts/model.js'></script>
+		<script type='text/javascript' src='javascripts/controller.js'></script>
 	</head>
 	<body>
-		hello
-		<!--
-		div.container
-			div.page-header
-				img(class='page-logo' src='assets/CommonGround-logo.png')
-			
-			nav(class="navbar navbar-default" role="navigation")
-				a(class="navbar-brand" href="#") Brand
-			
+		hello boo
+		
+		<div class='container'>
+			<div class='page-header'>
+				<img class='page-logo' src='assets/CommonGround-logo.png'/>
+				<nav class="navbar navbar-default" role="navigation">
+					<a class='navbar-brand' href='#'>Brand</a>
+				</nav>
+			</div>
 
 
-			div#container
-				//- div.test Bacon ipsum dolor sit amet landjaeger biltong porchetta rump, turducken corned beef fatback. Strip steak prosciutto drumstick meatball ribeye shank jerky shoulder shankle pork pork loin beef ribs biltong. Fatback boudin sirloin pork. Tenderloin ham pork chop sirloin t-bone andouille shank bresaola tongue meatball. Shoulder pork belly salami, tenderloin frankfurter kielbasa meatloaf spare ribs.
+			<div id='container'>
 
-				div#menu
-					div#query_block_container
-						//- Add the last query item to the menu: the choice to custom search.
-						li.query_block.custom(id='custom' onClick='queryBlockController("custom")')
-							img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
-							img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
-							div.comparisonTitle 
-								br
-								p custom search
-								br
-					div#searchContainer
-				
-				br
-				div#state_selector
-					span#next NEXT >
-				
-				h2#state_title
-				div#content
+				<div id='menu'>
+					<div id='query_block_container'>
+						<!-- //- Add the last query item to the menu: the choice to custom search. -->
+						<li class='query_block custom' id='custom' onClick='queryBlockController("custom")'>
+							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+							<div class='comparisonTitle'>
+								<br>
+								<p>custom search</p>
+								<br>
+							</div>
+						</li>
+					</div>
+					<div id='searchContainer'></div>
+				</div>
 
+				<br>
+				<div id='state_selector'>
+					<span id='next'>NEXT ></span>
+				</div>
 
-			footer
-				//- p Sosofun.
-	-->
+				<h2 id='state_title'></h2>
+				<div id='content'></div>
+
+			</div>
+
+			<footer>
+				<p>footer</p>
+			</footer>
+	</div>
 </body>
 </html>
