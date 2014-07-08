@@ -7,13 +7,15 @@
     "name": "Soso"
   },
   "dependencies": {
-    "oauth": "0.9.9",
+    "bootstrap": "^3.2.0",
     "express": "3.x",
-    "socket.io": "*",
     "jade": "*",
+    "less-middleware": "^1.0.3",
+    "oauth": "0.9.9",
+    "sentiment": "1.0.0-alpha",
+    "socket.io": "*",
     "stylus": "*",
     "twit": "*",
-    "sentiment": "1.0.0-alpha",
     "underscore": "*"
   },
   "engines": {

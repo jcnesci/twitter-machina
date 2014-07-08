@@ -2,7 +2,9 @@ var express = require('express')
 	, http = require('http')
 	, stylus = require('stylus')
 	, Twit = require('twit')
-	, _ = require('underscore');
+	, _ = require('underscore')
+	, lessMiddleware = require('less-middleware')
+	, path = require("path");
 
 // Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -16,6 +18,7 @@ var twitterQuery_2 = "MichelleObama";
 var numberOfQueries = 20;
 // Setup stuff.
 app.configure(function(){
+	var bootstrapPath = path.join(__dirname, 'node_modules', 'bootstrap');
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.use(express.favicon());
@@ -26,13 +29,44 @@ app.configure(function(){
 		, compile: compile
 		}
 	));
-
-
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
+	app.use('/img', express.static(path.join(bootstrapPath, 'img')));
 	app.use(app.router);
+	app.use(lessMiddleware(path.join(__dirname, 'source', 'less'), {
+    dest: path.join(__dirname, 'public'),
+    parser: {
+      paths: [path.join(bootstrapPath, 'less')],
+    }
+  }));
+  app.use(express.static(path.join(__dirname, 'public')));
 });
+
+
+// - - - -
+/*
+lessMiddleware = require('less-middleware');
+
+var app = express();
+app.configure(function(){
+  var bootstrapPath = path.join(__dirname, 'node_modules', 'bootstrap');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use('/img', express.static(path.join(bootstrapPath, 'img')));
+  app.use(app.router);
+  app.use(lessMiddleware(path.join(__dirname, 'source', 'less'), {
+    dest: path.join(__dirname, 'public'),
+    parser: {
+      paths: [path.join(bootstrapPath, 'less')],
+    }
+  }));
+  app.use(express.static(path.join(__dirname, 'public')));
+});
+*/
+// - - - - - -
+
+
 
 
 function compile(str, path) {

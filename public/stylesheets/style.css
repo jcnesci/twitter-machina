@@ -141,7 +141,7 @@ h2 {
   float: left;
   padding: 6px;
   margin: 12px 6px;
-  background: #fcfcfc;
+  background: #fff;
   cursor: pointer;
   cursor: hand;
 }
@@ -156,6 +156,7 @@ h2 {
 }
 .twitterUserImage {
   margin: 6px;
+  border-radius: 5px;
   border: 1px solid #cfcfcf;
 }
 .twitterUserImage.custom {
