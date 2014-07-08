@@ -180,7 +180,8 @@ function initialTweetBubblesView() {
 		        console.log(" ********** Unaccounted Word! **********");
 		}
 	});
-
+	console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
+	packCircle(cgApp.curComparison.words, bA1*15/2, 200, 200);
 	// FadeOut the Tweet List
 	$(".tword").each(function(i) {
 		$(this).delay(1*i).fadeTo( 500, 0);

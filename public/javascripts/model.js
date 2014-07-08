@@ -142,14 +142,14 @@ function lineCount(iArea) {
     var intArea = iArea, // Initial Area to reference back to.
         lH = 15, // Line Height **Could make this a global variable for animations.
         radius = Math.sqrt(intArea / Math.PI), // initial radius of estimated circle.
-        lC = Math.floor(radius / lH), // initial line count.
+        lC = Math.floor(2*radius / lH), // initial line count.
         sqAr = 0, // The square area of the circle based on the words square space.
         loopOn = 1,
         pcErr = 1; // percent Error
 
    	// A for loop to get the square area as close to the initial area as possible (0.01)
    	// For better acuraccy this should be reworked to account for a greater area or negative difference.
-     while (loopOn == 1) {
+     for (; loopOn != 0;) {
 
         console.log(lC + 1);
 
@@ -158,10 +158,15 @@ function lineCount(iArea) {
 
 	        // Calculate the area based on Line Height * Line Count for the circle.
 	        for (i = 0; i <= lC; i++) {
-	            if (i * lH < radius) {
-	                var s = Math.sqrt(radius * radius - i * lH * i * lH);
-	                sqAr = 2 * s * 15 + sqAr; // both sides of the circle.
-	            }
+	            if (i * lH < 2*radius) {
+	            	if (i%2 == 0) {
+		              var s = Math.sqrt(radius * radius - i * lH * i * lH);
+		              sqAr = 2 * s * 15 + sqAr; // both sides of the circle.
+		            } else {
+		            	var lineArea = sqAr - 30*Math.sqrt(radius * radius - (i-1) * lH * (i-1) * lH);
+		          		sqAr = sqAr + lineArea; // both sides of the circle.
+		          	}
+		          }
 	            console.log("line : " + (i + 1) + " : " + sqAr);
 	        }
 
@@ -174,22 +179,59 @@ function lineCount(iArea) {
 	        lC = Math.floor(radius / lH);
 	        console.log(radius);
 	        console.log(sqAr);
-
         } else {
-            loopOn = 0;
+          loopOn = 0;
         }
 
-    }
+    };
     console.log(lC + 1);
-    return {"radius": radius, "lineCount": 2*(lC+1)};
+    return {"radius": radius, "lineCount": 2*lC};
 }
 
 // Packing Circle
 function packCircle(iWords, iArea, iX, iY) {
+	var wordsArray = iWords,
+			specs = lineCount(iArea),
+			lineTracker = [],
+			curLine = 0;
 
-	var wordsArray = iWords
+	for (i = 0; i < specs.lineCount; i++) {
+		if (i%2 == 0) {
+		var space  = 2*Math.sqrt(specs.radius*specs.radius - i*15*i*15);
+		lineTracker.push({"line": i, "space": space});
+		} else {
+			lineTracker.push({"line": i, "space": lineTracker[i-1].space});
+		}
+	}
+	console.log(lineTracker);
 
 
+
+
+/*	for (i = 0; i < wordsArray.length; i++) {
+		if (wordsArray[i].linkedSets[0] == "set1") {
+			if (curLine <= lineTracker.length) {
+				console.log(lineTracker[curLine]);
+				if (wordsArray[i].pixelWidth-3 > lineTracker[curLine].space) {
+					cgApp.curComparison.words[i].circlePosition.percent = (wordsArray[i].pixelWidth-3)/lineTracker[curLine].space;
+					cgApp.curComparison.words[i].circlePosition.line = curLine;
+				} else {
+					curLine++;
+				}
+			} else if (curLine2 <= lineTracker2.length) {
+				console.log(lineTracker2[curLine2]);
+				if (wordsArray[i].pixelWidth-3 > lineTracker2[curLine2].space) {
+					cgApp.curComparison.words[i].circlePosition.percent = (wordsArray[i].pixelWidth-3)/lineTracker2[curLine2].space;
+					cgApp.curComparison.words[i].circlePosition.line = curLine2;
+					} else {
+					curLine2++;
+				}
+			} else {
+				console.log("**not enough space**");
+			}
+		}
+
+	}*/
 
 
 

@@ -109,7 +109,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 						socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet1, iQueryNum: 1, iQueryString: item1});
 				} else {
 						var curSearch1 = iQ + numberOfQueries;
-						if (curSearch1 > numberOfQueries*5) {
+						if (curSearch1 > numberOfQueries*1) { // Multiply for more
 							var dataSet1 = data.slice(0, numberOfQueries+1);
 							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet1, iQueryNum: 1, iQueryString: item1});
 						} else {
@@ -141,7 +141,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 						socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
 				} else {
 						var curSearch2 = iQ + numberOfQueries;
-						if (curSearch2 > numberOfQueries*5) {
+						if (curSearch2 > numberOfQueries*1) { // Multiply for more
 							var dataSet2 = data.slice(0, numberOfQueries+1);
 							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
 						} else {
@@ -166,10 +166,10 @@ function sendQueries(socket, comparisonId, item1, item2) {
 // Replace these with your own!
 // DEV: Using Alex's keys.
 var T = new Twit({
-		consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
-	, consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
-	, access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
-	, access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
+		consumer_key: 'lG3ef2gaY5yeX0kVj7W3DFDG3'
+	, consumer_secret: 'HNcGrpUvd9mIAaE6qHhYfupdS49IEZ5Vgl7TwVYVtHCYq0dd2D'
+	, access_token: '48737760-s2s2jcYDNhKuiZFdCRchedjUTg4VuztWpCdQaJQNu'
+	, access_token_secret: 'DPgXfVNT2e4bqOcjl5rhur1tP5PRk6tu5MH2HeYTScaW3'
 });
 
 // Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
