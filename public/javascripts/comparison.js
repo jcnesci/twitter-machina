@@ -107,7 +107,7 @@ comparison.prototype = {
 			// If the transition is valid, do stuff.
 			if (stateChangeSuccess) {
 
-				emptyViewItems();
+				//emptyViewItems();
 				initialTweetBubblesView();
 			}
 		} else if (this.stateMachine.curState == this.stateMachine.getState("initialTweetBubbles")){

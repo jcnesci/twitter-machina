@@ -74,13 +74,29 @@ function sendQueries(socket, comparisonId, item1, item2) {
 	console.log("serverApp.js- sendQueries- ENTER- comparisonId = "+ comparisonId +" | item1 = "+ item1 +" | item2 = "+ item2);
 
 	// Search tweets from twitter user #1's timeline.
-	T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: numberOfQueries }, function(err, data, response) {
-		if (err) {
-			console.log("ERROR- serverApp.js- search #1.");
-			console.error(err.stack);
-		}
-		socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 1, iQueryString: item1});
-	});
+	function getQueries(iQ) {
+		T.get('statuses/user_timeline', { screen_name: item1, exclude_replies: true, include_rts: false, count: iQ }, function(err, data, response) {
+			if (err) {
+				console.log("ERROR- serverApp.js- search #1.");
+				console.error(err.stack);
+			} else if (data.length >= numberOfQueries) {
+						var dataSet1 = data.slice(0, numberOfQueries+1);
+						socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet1, iQueryNum: 1, iQueryString: item1});
+				} else {
+						var curSearch1 = iQ + numberOfQueries;
+						if (curSearch1 > numberOfQueries*5) {
+							var dataSet1 = data.slice(0, numberOfQueries+1);
+							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet1, iQueryNum: 1, iQueryString: item1});
+						} else {
+							getQueries(curSearch1);
+						}
+				}
+			}
+			
+		);
+	};
+	getQueries(numberOfQueries);
+
 	// Ger twitter user #1's image url.
 	T.get('users/show/:screen_name', { screen_name: item1 }, function (err, data, response) {
 	  console.log("USER IMAGE: ")
@@ -88,14 +104,31 @@ function sendQueries(socket, comparisonId, item1, item2) {
 	  socket.emit('eServerReturnsUserImage_'+ comparisonId, {iImageUrl: data.profile_image_url, iQueryNum: 1});
 	})
 
+
 	// Search tweets from twitter user #2's timeline.
-	T.get('statuses/user_timeline', { screen_name: item2, exclude_replies: true, include_rts: false, count: numberOfQueries }, function(err, data, response) {
+	function getQueries2(iQ) {
+		T.get('statuses/user_timeline', { screen_name: item2, exclude_replies: true, include_rts: false, count: iQ }, function(err, data, response) {
 			if (err) {
-				console.log("ERROR-  serverApp.js- search #2.");
+				console.log("ERROR- serverApp.js- search #2.");
 				console.error(err.stack);
+			} else if (data.length >= numberOfQueries) {
+						var dataSet2 = data.slice(0, numberOfQueries+1);
+						socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
+				} else {
+						var curSearch2 = iQ + numberOfQueries;
+						if (curSearch2 > numberOfQueries*5) {
+							var dataSet2 = data.slice(0, numberOfQueries+1);
+							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
+						} else {
+							getQueries2(curSearch2);
+						}
+				}
 			}
-			socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: data, iQueryNum: 2, iQueryString: item2});
-	});
+			
+		);
+	};
+	getQueries2(numberOfQueries);
+	
 	// Ger twitter user #2's image url.
 	T.get('users/show/:screen_name', { screen_name: item2 }, function (err, data, response) {
 	  console.log("USER IMAGE: ")

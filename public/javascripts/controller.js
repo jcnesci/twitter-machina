@@ -19,5 +19,7 @@ function queryBlockController(iQuery){
 
 	if (iQuery != "custom"){
 		cgApp.switchCurComparison(Number(iQuery));
+	} else {
+		cgApp.customComparison();
 	}
 }

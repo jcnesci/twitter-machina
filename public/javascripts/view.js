@@ -5,12 +5,12 @@ Contains the code relative to the View parts of the app (following an MVC approa
 
 // View for intro/1st state of a comparison.
 function introView(){
-	console.log("introView -- - - - - cgApp");
-	console.log(cgApp);
-	console.log("introView -- - - - - cgApp.curComparison");
-	console.log(cgApp.curComparison);
-	console.log("introView -- - - - - cgApp.curComparison.introHTML");
-	console.log(cgApp.curComparison.introHTML);
+	//console.log("introView -- - - - - cgApp");
+	//console.log(cgApp);
+	//console.log("introView -- - - - - cgApp.curComparison");
+	//console.log(cgApp.curComparison);
+	//console.log("introView -- - - - - cgApp.curComparison.introHTML");
+	//console.log(cgApp.curComparison.introHTML);
 
 	$("#state_title").html("state : intro");
 
@@ -35,139 +35,145 @@ function listView(){
 												"<div id='listContainer'>" +
 													"<h2>List 2</h2>" +
 													"<div id='list2' class='tweetlist'></div>");
-	
+	var s1tw = 0;
+	var s2tw = 0;
+	var wCount = 0
 	// Populate it.
 	$.each(cgApp.curComparison.sets, function(key, value) {
-		
-		if (key == 0) {		//if in set 1 place in div list1
-			$.each(value.tweets, function(jKey, jValue) {
-				$("#list1").append('<p>'+ jValue.fullTweet +' </p><br>');
-			});
-		} else if (key == 1) {	//if in set 2 place in div list2
-			$.each(value.tweets, function(jKey, jValue) {
-				$("#list2").append('<p>'+ jValue.fullTweet +' </p><br>');
-			});
+			if (key == 0) {		//if in set 1 place in div list1
+				$.each(value.tweets, function(jKey, jValue) {
+						var tweet = "";
+						// Split the tweet into spans for position tracking.
+						$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
 
-		} else { console.log("Error in listView")}; //If not a part of a set...
+							tweet = tweet + '<span id="tw'+ s1tw +'" class="tword">' + v + '</span>'; 
+
+							// Clean the split tweet word for comparison.  This is the same cleanTweet all the words went through.
+							var cleanW = v.cleanTweet();
+							// If a match is found in the words array.
+							if (value.comparison.words[wCount].value === cleanW) {
+								//Words array value is linked to it's tweet list brother.
+								value.comparison.words[wCount].linkedTweetWord = "#list1 #tw"+ s1tw;
+								wCount++; // move on to the next word in the word array.
+							}
+							s1tw++; // The tweet word progress on regardless of finding a match.
+											// This accounts for word/symbols that didn't make the words array.
+
+						});
+						$("#list1").append('<p>'+ tweet +' </p><br>');
+				});
+			} else if (key == 1) {	//if in set 2 place in div list2
+				$.each(value.tweets, function(jKey, jValue) {
+						var tweet = "";
+							$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
+							tweet = tweet + '<span id="tw'+ s2tw +'" class="tword2">' + v + '</span>';
+							//console.log(v);
+							var cleanW = v.cleanTweet();
+							//console.log(value.comparison.words);
+							if (value.comparison.words[wCount].value == cleanW) {
+								
+								value.comparison.words[wCount].linkedTweetWord = "#list2 #tw"+ s2tw;
+								wCount++;
+							}
+							s2tw++;
+						});
+						$("#list2").append('<p>'+ tweet +' </p><br>');
+				});
+
+			} else { console.log("Error in listView")}; //If not a part of a set...
 
 	});
-
+	//console.log(cgApp.curComparison.sets);
+	$.each(cgApp.curComparison.sets, function(key, value) {
+		if (key == 0) {
+			$.each(value.comparison.words, function(k, v) {
+				if (v.linkedTweetWord != null) {
+					v.startPosition = $(v.linkedTweetWord).position();
+				};
+				//console.log("Set 1 - " + k);
+				//console.log(v.startPosition);
+			});
+		} else if (key == 1) {
+			$.each(value.comparison.words, function(k, v) {
+				if (v.linkedTweetWord != null) {
+					v.startPosition = $(v.linkedTweetWord).position();
+				};
+				//console.log("Set 2 - " + k);
+				//console.log(v.startPosition);
+			});
+		}
+	});
+	//console.log(cgApp.curComparison.sets);
 }
 
 function initialTweetBubblesView() {
 	$("#state_title").html("state : initialTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("#content").html("<div id='bubbleContainer'>" +
+	$("<div id='bubbleContainer'>" +
 											"<div id='tweetBubble1' class='tweetBubble'></div>" +
 											"<div id='tweetBubble2' class='tweetBubble'></div>" +
-										"</div>");
+										"</div>").insertBefore("#listView");
 
 	//Bubble Area Count
 	var bA1 = 0,
 	    bA2 = 0;
-	
-	//Line Packing Variables
-	var lineWidth = 0,
-	    lineCount = 0,
-	    lineWidthSet2 = 0,
-	    lineCountSet2 = 0,
-	    canvasWidth = $('#container').width() - 15;
 
-	function linePack(id, setSpace) {
-		var span = $('#bubbleContainer #' + id),
-				width = span.width() + 3,
-				freeSpace = canvasWidth/3 - lineWidth,
-				newTop = 0,
-				newLeft = 0;
-				//console.log(width);
-
-		if (width - 3 <= freeSpace) {
-			newTop = lineCount * 20;
-			newLeft = lineWidth;
-			//console.log(newTop + ":" + newLeft);
-			lineWidth = lineWidth + width;
-		} else if (width - 3 > freeSpace) {
-			++lineCount;
-			lineWidth = 0;
-			newTop = lineCount * 20;
-			newLeft = lineWidth;
-			lineWidth = lineWidth + width;
-		}
-
-		span.animate({
-
-				top: newTop + 50,
-				left: newLeft + setSpace + 10
-
-			}, 1000, function() {
-
-			console.log("animation complete");
-
-			});
-		};
-
-	function linePack2(id, setSpace) {
-		var span = $('#bubbleContainer #' + id),
-				width = span.width() + 3,
-				freeSpace = canvasWidth/3 - lineWidthSet2,
-				newTop = 0,
-				newLeft = 0;
-				//console.log(width);
-
-		if (width - 3 <= freeSpace) {
-			newTop = lineCountSet2 * 20;
-			newLeft = lineWidthSet2;
-			//console.log(newTop + ":" + newLeft);
-			lineWidthSet2 = lineWidthSet2 + width;
-		} else if (width - 3 > freeSpace) {
-			++lineCountSet2;
-			lineWidthSet2 = 0;
-			newTop = lineCountSet2 * 20;
-			newLeft = lineWidthSet2;
-			lineWidthSet2 = lineWidthSet2 + width;
-		}
-
-		span.animate({
-
-				top: newTop + 50,
-				left: newLeft + setSpace + 10
-
-			}, 1000, function() {
-
-			console.log("animation complete");
-
-			});
-
-		};
-
-	console.log("1 :");
-	console.log(cgApp.curComparison);
-	console.log("2 :");
-	console.log(cgApp.curComparison.words);
-	console.log("3 :");
-	console.log(cgApp.curComparison.lookup);
+	//console.log("1 :");
+	//console.log(cgApp.curComparison);
+	//console.log("2 :");
+	//console.log(cgApp.curComparison.words);
+	//console.log("3 :");
+	//console.log(cgApp.curComparison.lookup);
 
 	// Populate it.
+	var canvasWidth = $('#container').width() - 15;
+	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; //For Line Pack
+	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; //For Line Pack
+	var delayCount = 0;
+	var delayCount2 = 0;
 	$.each(cgApp.curComparison.words, function(key, value){
 		var theWord = value.value;
 
 		if(value.linkedSets[0] == "set1") {
 
 		        if (value.visible == true) {
-		                bA1 = theWord.length + bA1; //Counting set1 visibile word lengths.
-										$("#tweetBubble1").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
-		                linePack(key, 0);
+		                				// Append words over tweet list yet invisible in the DOM.
+										$("#tweetBubble1").append('<span id="word'+key+'" class="show word" style="top: ' +
+											value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+
+											theWord +' </span>');
+										// Fade In the words.
+										$("#word" + key).fadeIn(800);
+
+						value.pixelWidth = $('#word'+key).width();
+						bA1 = value.pixelWidth + bA1; //Counting set1 visibile word lengths.
+
+										// Animate to Bubble View
+		                setCount1 = linePack(key, setCount1, delayCount);
+		                delayCount++;
 		        } else {
-										$("#tweetBubble1").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		        				// None Visisble words.
+										$("#tweetBubble1").append('<span id="word'+key+'" class="hide word" style="top: ' +
+											value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		        }
 		} else if(value.linkedSets[0] == "set2") {
 		        if (value.visible == true) {
-		                bA2 = theWord.length + bA2; //Counting set2 visibile word lengths.
-				            $("#tweetBubble2").append('<span id="'+key+'" class="show word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
-		                linePack2(key, 600);
+		                // Append words over tweet list yet invisible in the DOM.
+				            $("#tweetBubble2").append('<span id="word'+key+'" class="show word" style="top: ' +
+				            	value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px; display: none">'+
+				            	theWord +' </span>');
+				            // Fade In the words.
+		                $("#word" + key).fadeIn(800);
+
+		                value.pixelWidth = $('#word'+key).width();
+		                bA2 = value.pixelWidth + bA2; //Counting set2 visibile word lengths.
+		                // Animate to Bubble View
+		                setCount2 = linePack(key, setCount2, delayCount2);
+		                delayCount2++;
 		        } else {
-                    $("#tweetBubble2").append('<span id="'+key+'" class="hide word" style="top: ' + value.startPosition.top + ';left: ' + value.startPosition.left + '">'+ theWord +' </span>');
+		        				// None Visible words.
+                    $("#tweetBubble2").append('<span id="word'+key+'" class="hide word" style="top: ' +
+                    	value.startPosition.top + 'px;left: ' + value.startPosition.left + 'px">'+ theWord +' </span>');
 		        }
 
 		} else {
@@ -175,9 +181,19 @@ function initialTweetBubblesView() {
 		}
 	});
 
+	// FadeOut the Tweet List
+	$(".tword").each(function(i) {
+		$(this).delay(1*i).fadeTo( 500, 0);
+	});
+		$(".tword2").each(function(i) {
+		$(this).delay(1*i).fadeTo( 500, 0);
+	});
+	$("#content #listView").delay( 2000 ).fadeOut();
 	//And the word length count to the DOM.
-	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea'>" + bA1 + "</p>");
-	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea'>" + bA2 + "</p>");
+	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea style='display: none'>" + bA1 + "</p>");
+	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea' style='display: none'>" + bA2 + "</p>");
+	$('#bubbleArea1').fadeIn(1000);
+	$('#bubbleArea2').fadeIn(1000);
 }
 
 function unionTweetBubblesView(){
@@ -193,31 +209,51 @@ function unionTweetBubblesView(){
 			bA1 = Number($('#bubbleArea1').html()), //Pull Old Area Counts
 			bA2 = Number($('#bubbleArea2').html());
 
+	//Line Packing Variables
+	var canvasWidth = $('#container').width() - 15;
+	var setCount4 = {"lineWidth": 0, "lineCount": 0 , "setPos": 1*canvasWidth/3}; // For Duplicates to move before fading.
+	var setCount3 = {"lineWidth": 0, "lineCount": 0 , "setPos": 1*canvasWidth/3}; // Union Pack
+	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; // Right Bubble
+	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; 							// Left Bubble
+	var delayCount = 0;
+
 	for (var i = 0; i < cgApp.curComparison.words.length; i++) {
-    	
+    	var id = "#word"+i;
+
     	if (cgApp.curComparison.lookup[cgApp.curComparison.words[i].value].sets == "union") {
-    		var id = "#bubbleContainer #"+i;
 
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[i].value] == undefined) {
-		    	bA3 = cgApp.curComparison.words[i].value.length + bA3;  //Counting Length
+		    	bA3 = cgApp.curComparison.words[i].pixelWidth + bA3;  //Counting Length
 
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].pixelWidth;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].pixelWidth;
 
 		    	unionCount[cgApp.curComparison.words[i].value] = true;
 		    	$(id).addClass("union");
-		    	$uSpan = $(id).clone();
-		    	$(id).attr('class', 'hide union');
-		    	$('#tweetBubble3').append($uSpan); //Creating the union set
-		    	
+		    	if ($(id).hasClass('show')) {
+		    	setCount3 = linePack(i, setCount3, delayCount);
+		    	delayCount++
+		    	};
 	    	} else {
 	    		//Hide the Duplicates
-	    		$(id).attr('class', 'hide union');
-
-		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].value.length;
-					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].value.length;
+	    		$(id).fadeOut(1000);
+		    	if (cgApp.curComparison.words[i].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[i].pixelWidth;
+					if (cgApp.curComparison.words[i].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[i].pixelWidth;
     		}
+    	} else {
+    		if (cgApp.curComparison.words[i].linkedSets == "set1" && $(id).hasClass('show')) {
+    			if ($(id).hasClass('show')) {
+			    		setCount1 = linePack(i, setCount1, delayCount);
+			    		delayCount++;
+			    	};
+    		};
+    		if (cgApp.curComparison.words[i].linkedSets == "set2" && $(id).hasClass('show')) {
+    			if ($(id).hasClass('show')) {
+			    		setCount2 = linePack(i, setCount2, delayCount);
+			    		delayCount++;
+			    	};
+    		};
     	}		
 	}
 
@@ -238,13 +274,21 @@ function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 	if(iComparisonId == cgApp.curComparison.id){
 		curComparison = "selected";
 	}
+	console.log("*********************************");
+	console.log(cgApp.curComparison.id);
+	console.log("*********************************");
 	// Create query blocks containing the Twitter user images.
+	if (cgApp.curComparison.id != "custom") {
 	$("#menu > #query_block_container").prepend("<li id='"+ iComparisonId +"' class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
 											"<div class='comparisonTitle'>"+ iItem1 +"<br><span class='versus'>VS</span><br>"+ iItem2 +"</div>" +
 										"</li>");
-
+	} else {
+		$("#query_block_container #" + cgApp.curComparison.id).html("<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
+											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
+											"<div class='comparisonTitle'>"+ iItem1 +"<br><span class='versus'>VS</span><br>"+ iItem2 +"</div>");
+	}
 	// console.log("buildUserImageSet- curComparison : "+ curComparison);
 }
 
@@ -254,13 +298,74 @@ function updateView(){
 	$(".query_block").removeClass("selected");
 	var _this = this;
 	$(".query_block").each(function(){
-		console.log("* * * * attr id :"+ $(this).attr('id'));
-		console.log("^ ^ ^ : "+ cgApp.curComparison.id);
+		//console.log("* * * * attr id :"+ $(this).attr('id'));
+		//console.log("^ ^ ^ : "+ cgApp.curComparison.id);
 
 		if ($(this).attr('id') == cgApp.curComparison.id){
 			$(this).addClass("selected");
 		}
 	});
+}
+
+function searchView() {
+	$('#searchContainer').append('<div id="searchForm"><div>'+
+		'Person 1: <input id="input1" class="typeahead" type="text" name="person1" value="DalaiLama">'+
+		'Person 2: <input id="input2" class="typeahead" type="text" name="person2" value="PutinRF_Eng">'+
+		'<input type="submit" value="Submit" onclick="searchButton(); return false;"></div></div>');
+
+	var substringMatcher = function(strs) {
+	  return function findMatches(q, cb) {
+	    var matches, substringRegex;
+	 
+	    // an array that will be populated with substring matches
+	    matches = [];
+	 
+	    // regex used to determine if a string contains the substring `q`
+	    substrRegex = new RegExp(q, 'i');
+	 
+	    // iterate through the pool of strings and for any string that
+	    // contains the substring `q`, add it to the `matches` array
+	    $.each(strs, function(i, str) {
+	      if (substrRegex.test(str)) {
+	        // the typeahead jQuery plugin expects suggestions to a
+	        // JavaScript object, refer to typeahead docs for more info
+	        matches.push({ value: str });
+	      }
+	    });
+	 
+	    cb(matches);
+	  };
+	};
+	 
+	var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+	  'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+	  'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+	  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+	  'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+	  'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+	  'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+	  'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+	  'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+	];
+	 
+	$('#searchForm .typeahead').typeahead({
+	  hint: true,
+	  highlight: true,
+	  minLength: 1
+	},
+	{
+	  name: 'states',
+	  displayKey: 'value',
+	  source: substringMatcher(states)
+	});
+}
+
+function searchButton() {
+	var inputs = {
+		"input1": $("#input1").val(),
+		"input2": $("#input2").val()
+	};
+	cgApp.search(inputs);
 }
 
 // 
