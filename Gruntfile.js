@@ -11,20 +11,12 @@
         },
         js_frontend: {
           src: [
-            './bower_components/jquery/jquery.js',
+            './bower_components/jquery/dist/jquery.js',
             './bower_components/bootstrap/dist/js/bootstrap.js',
-            './app/assets/javascript/frontend.js'
+            './assets/javascript/frontend.js'
           ],
           dest: './public/assets/javascript/frontend.js',
-        },
-        js_backend: {
-          src: [
-            './bower_components/jquery/jquery.js',
-            './bower_components/bootstrap/dist/js/bootstrap.js',
-            './app/assets/javascript/backend.js'
-          ],
-          dest: './public/assets/javascript/backend.js',
-        },
+        }
       },
       less: {
         development: {
@@ -33,9 +25,7 @@
           },
           files: {
             //compiling frontend.less into frontend.css
-            "./public/assets/stylesheets/frontend.css":"./app/assets/stylesheets/frontend.less",
-            //compiling backend.less into backend.css
-            "./public/assets/stylesheets/backend.css":"./app/assets/stylesheets/backend.less"
+            "./public/assets/stylesheets/frontend.css":"./assets/stylesheets/frontend.less",
           }
         }
       },
@@ -47,40 +37,23 @@
           files: {
             './public/assets/javascript/frontend.js': './public/assets/javascript/frontend.js',
           }
-        },
-        backend: {
-          files: {
-            './public/assets/javascript/backend.js': './public/assets/javascript/backend.js',
-          }
-        },
+        }
       },
       watch: {
         js_frontend: {
           files: [
             //watched files
-            './bower_components/jquery/jquery.js',
+            './bower_components/jquery/dist/jquery.js',
             './bower_components/bootstrap/dist/js/bootstrap.js',
-            './app/assets/javascript/frontend.js'
+            './assets/javascript/frontend.js'
             ],   
           tasks: ['concat:js_frontend','uglify:frontend'],     //tasks to run
           options: {
             livereload: true                        //reloads the browser
           }
         },
-        js_backend: {
-          files: [
-            //watched files
-            './bower_components/jquery/jquery.js',
-            './bower_components/bootstrap/dist/js/bootstrap.js',
-            './app/assets/javascript/backend.js'
-          ],   
-          tasks: ['concat:js_backend','uglify:backend'],     //tasks to run
-          options: {
-            livereload: true                        //reloads the browser
-          }
-        },
         less: {
-          files: ['./app/assets/stylesheets/*.less'],  //watched files
+          files: ['./assets/stylesheets/*.less'],  //watched files
           tasks: ['less'],                          //tasks to run
           options: {
             livereload: true                        //reloads the browser
