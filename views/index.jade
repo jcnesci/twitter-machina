@@ -3,9 +3,9 @@ html(lang='en')
 	head
 		title #{title}
 		link(href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', rel='stylesheet', type='text/css')
-		link(rel='stylesheet', href='stylesheets/style.css')
+		link(rel='stylesheet', href='assets/stylesheets/frontend.css')
 		script(type='text/javascript', src="http://d3js.org/d3.v3.min.js")
-		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+		script(src='assets/javascript/frontend.js')
 		script(type='text/javascript', src='typeahead.jquery.js')
 		script(type='text/javascript', src='jquery.textillate.js')
 		script(type='text/javascript', src='assets/jquery.lettering.js')
@@ -25,32 +25,34 @@ html(lang='en')
 		script(type='text/javascript', src='javascripts/controller.js')
 
 	body 
-		header
-			h1 Common Ground prototype
-			//- h2 Search 1: #{twitterQuery_1_msg}
-		
-		div#container
-			//- div.test Bacon ipsum dolor sit amet landjaeger biltong porchetta rump, turducken corned beef fatback. Strip steak prosciutto drumstick meatball ribeye shank jerky shoulder shankle pork pork loin beef ribs biltong. Fatback boudin sirloin pork. Tenderloin ham pork chop sirloin t-bone andouille shank bresaola tongue meatball. Shoulder pork belly salami, tenderloin frankfurter kielbasa meatloaf spare ribs.
-
-			div#menu
-				div#query_block_container
-					//- Add the last query item to the menu: the choice to custom search.
-					li.query_block.custom(id='custom' onClick='queryBlockController("custom")')
-						img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
-						img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
-						div.comparisonTitle 
-							br
-							p custom search
-							br
-				div#searchContainer
+		div.container
+			div.page-header
+				h1 Common Ground prototype
+				p.lead comparing tweets
+				//- h2 Search 1: #{twitterQuery_1_msg}
 			
-			br
-			div#state_selector
-				span#next NEXT >
-			
-			h2#state_title
-			div#content
+			div#container
+				//- div.test Bacon ipsum dolor sit amet landjaeger biltong porchetta rump, turducken corned beef fatback. Strip steak prosciutto drumstick meatball ribeye shank jerky shoulder shankle pork pork loin beef ribs biltong. Fatback boudin sirloin pork. Tenderloin ham pork chop sirloin t-bone andouille shank bresaola tongue meatball. Shoulder pork belly salami, tenderloin frankfurter kielbasa meatloaf spare ribs.
+
+				div#menu
+					div#query_block_container
+						//- Add the last query item to the menu: the choice to custom search.
+						li.query_block.custom(id='custom' onClick='queryBlockController("custom")')
+							img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
+							img.twitterUserImage.custom(src="assets/CustomSearchIcon.png" alt="perform custom search")
+							div.comparisonTitle 
+								br
+								p custom search
+								br
+					div#searchContainer
+				
+				br
+				div#state_selector
+					span#next NEXT >
+				
+				h2#state_title
+				div#content
 
 
-		footer
-			//- p Sosofun.
+			footer
+				//- p Sosofun.

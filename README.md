@@ -39,7 +39,14 @@ App Setup
 	* SSH into the instance: `vagrant ssh`
 
 4. Install project dependencies 
-	* Navigate to workspace/twitter-machina/ and call: ```npm install```
+
+## Install libraries needed for canvas
+* ```$ sudo apt-get update ```
+* ```$ sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++```
+
+## Install project dependencies 
+	* Navigate to workspace/ and call:
+   * ```npm install```
 
 5. Run app by calling:
   * ```node serverApp.js```
@@ -47,4 +54,14 @@ App Setup
 6. See it work in your browser at:
   * http://localhost:3000/
 
-That's all folks.
+## Additional steps need to edit stylesheets
+* ```sudo apt-get install git```
+* ```sudo npm install -g grunt-cli```
+* ```sudo npm install -g bower```
+* ```bower install```
+
+Once that all passes through, you can then use grunt.
+```grunt watch```
+```grunt less```
+```grunt concat```
+```grunt uglify```
