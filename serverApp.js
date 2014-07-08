@@ -1,6 +1,5 @@
 var express = require('express')
 	, http = require('http')
-	, stylus = require('stylus')
 	, Twit = require('twit')
 	, _ = require('underscore')
 	, path = require("path");
@@ -18,15 +17,10 @@ var numberOfQueries = 20;
 // Setup stuff.
 app.configure(function(){
 	app.set('views', __dirname + '/views');
-	app.set('view engine', 'jade');
+	app.set('view engine', 'ejs');
+	// app.set("view options", {layout: false});
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
-	// NB: this must be before the static use call below, unless doesn't work... why?
-/*	app.use(stylus.middleware(
-		{ src: __dirname + '/public'
-		, compile: compile
-		}
-	));*/
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
@@ -34,44 +28,11 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-
-// - - - -
-/*
-lessMiddleware = require('less-middleware');
-
-var app = express();
-app.configure(function(){
-  var bootstrapPath = path.join(__dirname, 'node_modules', 'bootstrap');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use('/img', express.static(path.join(bootstrapPath, 'img')));
-  app.use(app.router);
-  app.use(lessMiddleware(path.join(__dirname, 'source', 'less'), {
-    dest: path.join(__dirname, 'public'),
-    parser: {
-      paths: [path.join(bootstrapPath, 'less')],
-    }
-  }));
-  app.use(express.static(path.join(__dirname, 'public')));
-});
-*/
-// - - - - - -
-
-
-
-
-function compile(str, path) {
-	return stylus(str).set('filename', path)
-}
-app.configure('development', function(){
-	app.use(express.errorHandler());
-});
-
 // Web pages & routes - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // Routes to the various pages.
 app.get('/', function (req, res) {
-		res.render('index.jade',
+		res.render('index',
 			{title: 'Twitter Machina - Prototype', twitterQuery_1_msg: twitterQuery_1, twitterQuery_2_msg: twitterQuery_2}
 		);
 });
