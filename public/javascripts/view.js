@@ -280,7 +280,7 @@ function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 	// Create query blocks containing the Twitter user images.
 	if (cgApp.curComparison.id != "custom") {
 		// NEW post-bootstrap
-		$("#query_menu").prepend("<div class='col-lg-2 query_block "+ curComparison +"' id='"+ iComparisonId +"' onClick='queryBlockController("+ iComparisonId +")')>" +
+		$("#query-menu").prepend("<div class='col-lg-2 query-block "+ curComparison +"' id='"+ iComparisonId +"' onClick='queryBlockController("+ iComparisonId +")')>" +
 			"<div class='row'>" +
 				"<div class='col-lg-6'>" +
 					"<img class='twitterUserImage custom pull-right' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
@@ -301,9 +301,9 @@ function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 function updateView(){
 
 	// Change the selected/hilited query block according to the newly selected comparison.
-	$(".query_block").removeClass("selected");
+	$(".query-block").removeClass("selected");
 	var _this = this;
-	$(".query_block").each(function(){
+	$(".query-block").each(function(){
 		//console.log("* * * * attr id :"+ $(this).attr('id'));
 		//console.log("^ ^ ^ : "+ cgApp.curComparison.id);
 
