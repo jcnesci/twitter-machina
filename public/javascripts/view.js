@@ -142,7 +142,7 @@ function initialTweetBubblesView() {
 	//console.log(cgApp.curComparison.lookup);
 
 	// Populate it.
-	var canvasWidth = $('#container').width() - 15;
+	var canvasWidth = $('#bubbleContainer').width() - 15;
 	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; //For Line Pack
 	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; //For Line Pack
 	var delayCount = 0;
