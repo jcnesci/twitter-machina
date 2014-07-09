@@ -13,7 +13,7 @@ $(function(){
 
 	// --- Setup
 
-	cgApp = new clientApp();
+	cgApp = new clientApp(false);				// DEV: run the app with static data (ie. 'false').
 	cgApp.start();
 	
 });

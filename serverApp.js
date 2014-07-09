@@ -103,7 +103,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 						var curSearch2 = iQ + numberOfQueries;
 						if (curSearch2 > numberOfQueries*5) {
 							var dataSet2 = data.slice(0, numberOfQueries+1);
-							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
+							socket.emit('ç'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
 						} else {
 							getQueries2(curSearch2);
 						}
@@ -136,7 +136,7 @@ var T = new Twit({
   , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
   , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
   , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
-})
+});
 // Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 

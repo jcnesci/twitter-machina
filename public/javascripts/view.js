@@ -267,7 +267,7 @@ function unionTweetBubblesView(){
 
 // Create menu items for each query, click one to display it. The custom search query is prepopulated in index.jade.
 function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
-	// console.log("buildUserImageSet- iComparisonId : "+ iComparisonId +" | cgApp.curComparison : "+ cgApp.curComparison);
+	console.log("buildUserImageSet- iComparisonId : "+ iComparisonId +" | cgApp.curComparison : "+ cgApp.curComparison);
 
 	// Set the selected class on the default query at start.
 	var curComparison = "";
