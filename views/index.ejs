@@ -53,14 +53,37 @@
       </div>
 		</nav>
 
+
+		<div id="query_menu" class="row">
+<!-- 			  <div class="col-lg-2">.col-lg-2</div>
+			  <div class="col-lg-2">.col-lg-2</div>
+			  <div class="col-lg-2">.col-lg-2</div>
+			  <div class="col-lg-2">.col-lg-2</div>
+			  <div class="col-lg-2">.col-lg-2</div> -->
+			  <div class="col-lg-2 query_block" id="custom" onClick='queryBlockController("custom")'>
+			  	<!-- //- Add the last query item to the menu: the choice to custom search. -->
+			  	<div class="row">
+			  		<div class="col-lg-6">
+			  			<img class='twitterUserImage custom pull-right' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+			  		</div>
+			  		<div class="col-lg-6">
+			  			<img class='twitterUserImage custom pull-left' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+			  		</div>
+			  	</div>
+			  </div>
+		</div>
+
+		<br>
+
 		<!-- OLD : pre-bootstrap -->
 
 			<div id='container'>
 
 				<div id='menu'>
+
 					<div id='query_block_container'>
 						<!-- //- Add the last query item to the menu: the choice to custom search. -->
-							<li class='query_block custom' id='custom' onClick='queryBlockController("custom")'>
+						<li class='query_block custom' id='custom' onClick='queryBlockController("custom")'>
 							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
 							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
 							<div class='comparisonTitle'>

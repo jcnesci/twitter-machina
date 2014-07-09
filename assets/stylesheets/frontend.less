@@ -1,6 +1,9 @@
+// --- WARNING: base.less not working!!!
 //@import 'base.less'; 
 //styles specific for the frontend 
 // ... 
+
+// --- NEW : bootstrap style overrides
 
 .container {
   padding-right: 15px;
@@ -9,6 +12,49 @@
   margin-left: auto;
   width: 1280px;
 }
+
+.page-header{
+  border-bottom: none;
+}
+
+// --- NEW : custom styles
+
+#query_menu {
+  background-color: #e6e6e6;
+  border-radius: 5px;
+}
+
+.query_block {
+  padding: 30px 0px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.query_block.selected {
+  background: #a1a1a1;
+}
+
+.query_block:hover {
+  background: #a1a1a1;
+}
+
+// --- NOT WORKING
+// To add '&' between 2 user images.
+// .query-block-amp{
+//   position: relative;
+//   display: inline-table;
+//   z-index: 0;
+// }
+
+.twitterUserImage {
+  border-radius: 5px;
+}
+
+.twitterUserImage.custom {
+  background: #fff;
+}
+
+// --- OLD : pre-bootstrap styles
 
 h2 {
   font-size: 1em;
@@ -110,31 +156,31 @@ h2 {
   display: table;
   margin: 0 auto;
 }
-.query_block {
-  float: left;
-  padding: 6px;
-  margin: 12px 6px;
-  background: #fff;
-  cursor: pointer;
-  cursor: hand;
-}
-.query_block.selected {
-  background: #a1a1a1;
-}
-.query_block:hover {
-  background: #a1a1a1;
-}
+// .query_block {
+//   float: left;
+//   padding: 6px;
+//   margin: 12px 6px;
+//   background: #fff;
+//   cursor: pointer;
+//   cursor: hand;
+// }
+// .query_block.selected {
+//   background: #a1a1a1;
+// }
+// .query_block:hover {
+//   background: #a1a1a1;
+// }
 #searchForm {
   float: right;
 }
-.twitterUserImage {
-  margin: 6px;
-  border-radius: 5px;
-  border: 1px solid #cfcfcf;
-}
-.twitterUserImage.custom {
-  background: #fff;
-}
+// .twitterUserImage {
+//   margin: 6px;
+//   border-radius: 5px;
+//   border: 1px solid #cfcfcf;
+// }
+// .twitterUserImage.custom {
+//   background: #fff;
+// }
 .comparisonTitle {
   font-size: 12px;
   text-align: center;
