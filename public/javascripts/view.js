@@ -28,6 +28,100 @@ function listView(){
 
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='listView'>" +
+												"<div class='row'>" +
+													"<div class='col-lg-5 col-md-offset-1'>" +
+														"<div id='listContainer'>" +
+															"<h2>List 1</h2>" +
+															"<div id='list1' class='tweetlist'></div>" +
+														"</div>" +
+													"</div>" +
+													"<div class='col-lg-5'>" +
+														"<div id='listContainer'>" +
+															"<h2>List 2</h2>" +
+															"<div id='list2' class='tweetlist'></div>" +
+														"</div>" +
+													"</div>" +
+												"</div>" +
+											"</div>");
+
+	var s1tw = 0;
+	var s2tw = 0;
+	var wCount = 0
+	// Populate it.
+	$.each(cgApp.curComparison.sets, function(key, value) {
+			if (key == 0) {		//if in set 1 place in div list1
+				$.each(value.tweets, function(jKey, jValue) {
+						var tweet = "";
+						// Split the tweet into spans for position tracking.
+						$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
+
+							tweet = tweet + '<span id="tw'+ s1tw +'" class="tword">' + v + '</span>'; 
+
+							// Clean the split tweet word for comparison.  This is the same cleanTweet all the words went through.
+							var cleanW = v.cleanTweet();
+							// If a match is found in the words array.
+							if (value.comparison.words[wCount].value === cleanW) {
+								//Words array value is linked to it's tweet list brother.
+								value.comparison.words[wCount].linkedTweetWord = "#list1 #tw"+ s1tw;
+								wCount++; // move on to the next word in the word array.
+							}
+							s1tw++; // The tweet word progress on regardless of finding a match.
+											// This accounts for word/symbols that didn't make the words array.
+
+						});
+						$("#list1").append('<p>'+ tweet +' </p><br>');
+				});
+			} else if (key == 1) {	//if in set 2 place in div list2
+				$.each(value.tweets, function(jKey, jValue) {
+						var tweet = "";
+							$.each(jValue.fullTweet.split(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g), function(k, v) {
+							tweet = tweet + '<span id="tw'+ s2tw +'" class="tword2">' + v + '</span>';
+							//console.log(v);
+							var cleanW = v.cleanTweet();
+							//console.log(value.comparison.words);
+							if (value.comparison.words[wCount].value == cleanW) {
+								
+								value.comparison.words[wCount].linkedTweetWord = "#list2 #tw"+ s2tw;
+								wCount++;
+							}
+							s2tw++;
+						});
+						$("#list2").append('<p>'+ tweet +' </p><br>');
+				});
+
+			} else { console.log("Error in listView")}; //If not a part of a set...
+
+	});
+	//console.log(cgApp.curComparison.sets);
+	$.each(cgApp.curComparison.sets, function(key, value) {
+		if (key == 0) {
+			$.each(value.comparison.words, function(k, v) {
+				if (v.linkedTweetWord != null) {
+					v.startPosition = $(v.linkedTweetWord).position();
+				};
+				//console.log("Set 1 - " + k);
+				//console.log(v.startPosition);
+			});
+		} else if (key == 1) {
+			$.each(value.comparison.words, function(k, v) {
+				if (v.linkedTweetWord != null) {
+					v.startPosition = $(v.linkedTweetWord).position();
+				};
+				//console.log("Set 2 - " + k);
+				//console.log(v.startPosition);
+			});
+		}
+	});
+	//console.log(cgApp.curComparison.sets);
+}
+
+/*
+// ORIGINAL
+function listView(){
+	$("#state_title").html("state : tweetList");
+
+	// Add the HTML structure to be populated.
+	$("#content").html("<div id='listView'>" +
 												"<div id='listContainer'>" +
 													"<h2>List 1</h2>" +
 													"<div id='list1' class='tweetlist'></div>" +
@@ -105,6 +199,7 @@ function listView(){
 	});
 	//console.log(cgApp.curComparison.sets);
 }
+*/
 
 function initialTweetBubblesView() {
 	$("#state_title").html("state : initialTweetBubbles");
