@@ -20,81 +20,26 @@
 				<img class='page-logo' src='assets/CommonGround-logo.png'/>
 			</div>
 
-			<nav class="navbar navbar-default" role="navigation">
-					<div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Bootstrap theme</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-		</nav>
+			<div id="query_menu" class="row">
+				  <div class="col-lg-2 query_block" id="custom" onClick='queryBlockController("custom")'>
+				  	<!-- //- Add the last query item to the menu: the choice to custom search. -->
+				  	<div class="row">
+				  		<div class="col-lg-6">
+				  			<img class='twitterUserImage custom pull-right' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+				  		</div>
+				  		<div class="col-lg-6">
+				  			<img class='twitterUserImage custom pull-left' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+				  		</div>
+				  	</div>
+				  </div>
+			</div>
+			<div id='searchContainer'></div>
 
+			<br>
 
-		<div id="query_menu" class="row">
-<!-- 			  <div class="col-lg-2">.col-lg-2</div>
-			  <div class="col-lg-2">.col-lg-2</div>
-			  <div class="col-lg-2">.col-lg-2</div>
-			  <div class="col-lg-2">.col-lg-2</div>
-			  <div class="col-lg-2">.col-lg-2</div> -->
-			  <div class="col-lg-2 query_block" id="custom" onClick='queryBlockController("custom")'>
-			  	<!-- //- Add the last query item to the menu: the choice to custom search. -->
-			  	<div class="row">
-			  		<div class="col-lg-6">
-			  			<img class='twitterUserImage custom pull-right' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
-			  		</div>
-			  		<div class="col-lg-6">
-			  			<img class='twitterUserImage custom pull-left' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
-			  		</div>
-			  	</div>
-			  </div>
-		</div>
-
-		<br>
-
-		<!-- OLD : pre-bootstrap -->
+			<!-- OLD : pre-bootstrap -->
 
 			<div id='container'>
-
-				<div id='menu'>
-
-					<div id='query_block_container'>
-						<!-- //- Add the last query item to the menu: the choice to custom search. -->
-						<li class='query_block custom' id='custom' onClick='queryBlockController("custom")'>
-							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
-							<img class='twitterUserImage custom' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
-							<div class='comparisonTitle'>
-								<br>
-								<p>custom search</p>
-								<br>
-							</div>
-						</li>
-					</div>
-					<div id='searchContainer'></div>
-				</div>
 
 				<br>
 				<div id='state_selector'>
