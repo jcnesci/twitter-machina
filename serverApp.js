@@ -123,15 +123,20 @@ function sendQueries(socket, comparisonId, item1, item2) {
 }
 
 // Twitter credentials.
-// Replace these with your own!
-// DEV: Using Alex's keys.
+// DEV: Alex's keys.
+// var T = new Twit({
+// 		consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
+// 	, consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
+// 	, access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
+// 	, access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
+// });
+// DEV: JC's keys.
 var T = new Twit({
-		consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
-	, consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
-	, access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
-	, access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
-});
-
+    consumer_key: 'kEwsveRmFIRibVAIq43NAIjCt'
+  , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
+  , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
+  , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
+})
 // Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
