@@ -5,6 +5,10 @@
 
 // --- NEW : bootstrap style overrides
 
+body{
+  background-color: #F5F8FA;
+}
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -90,7 +94,36 @@
 
 #listView{}
 
-#listContainer{}
+.listContainer{
+  margin: 30px 0px;
+}
+
+#state_selector{
+  margin-bottom: 300px;           // To create gap between this and the footer.
+}
+
+#state_selector > #query-stepper {
+  cursor: pointer;
+  cursor: hand;
+}
+
+#state_title{
+  color: #999999;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.listContainer .tweet{
+  background-color: #fff;
+  border-top: 1px solid #E6E6E6;
+  border-left: 1px solid #E6E6E6;
+  border-right: 1px solid #E6E6E6;
+  padding: 20px;
+}
+
+.listContainer .tweet:last-child{
+  border-bottom: 1px solid #E6E6E6;
+}
 
 // --- OLD : pre-bootstrap styles
 
@@ -142,10 +175,10 @@ h2 {
 #intro_view p {
   margin: 10px 0;
 }
-#state_selector > #next {
-  cursor: pointer;
-  cursor: hand;
-}
+// #state_selector > #next {
+//   cursor: pointer;
+//   cursor: hand;
+// }
 #menu {
   width: 900px;
   margin: 60px auto;

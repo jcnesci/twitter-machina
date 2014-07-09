@@ -8,7 +8,7 @@ Contains the code relative to the Controller parts of the app (following an MVC 
 function setupButtons(){
 
 	// Next btn to go between states within a Query.
-	$("#state_selector > #next").click(function() { 
+	$("#state_selector > #query-stepper").click(function() { 
 		cgApp.curComparison.nextState();
 	});
 }

@@ -30,14 +30,14 @@ function listView(){
 	$("#content").html("<div id='listView'>" +
 												"<div class='row'>" +
 													"<div class='col-lg-5 col-md-offset-1'>" +
-														"<div id='listContainer'>" +
-															"<h2>List 1</h2>" +
+														"<div class='listContainer'>" +
+															// "<h2>List 1</h2>" +
 															"<div id='list1' class='tweetlist'></div>" +
 														"</div>" +
 													"</div>" +
 													"<div class='col-lg-5'>" +
-														"<div id='listContainer'>" +
-															"<h2>List 2</h2>" +
+														"<div class='listContainer'>" +
+															// "<h2>List 2</h2>" +
 															"<div id='list2' class='tweetlist'></div>" +
 														"</div>" +
 													"</div>" +
@@ -69,7 +69,7 @@ function listView(){
 											// This accounts for word/symbols that didn't make the words array.
 
 						});
-						$("#list1").append('<p>'+ tweet +' </p><br>');
+						$("#list1").append("<div class='tweet'>"+ tweet +" </div>");
 				});
 			} else if (key == 1) {	//if in set 2 place in div list2
 				$.each(value.tweets, function(jKey, jValue) {
@@ -86,7 +86,7 @@ function listView(){
 							}
 							s2tw++;
 						});
-						$("#list2").append('<p>'+ tweet +' </p><br>');
+						$("#list2").append("<div class='tweet'>"+ tweet +" </div>");
 				});
 
 			} else { console.log("Error in listView")}; //If not a part of a set...

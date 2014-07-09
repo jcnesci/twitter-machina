@@ -58,21 +58,23 @@
 
 			<div id='container'>
 
-				<h2 id='state_title'></h2>
-
+				<!-- #content gets auto-populated at each state. -->
 				<div id='content'></div>
-				
-				<div id='state_selector'>
-					<span id='next'>NEXT ></span>
-					<div id="query-stepper">
-						<p class="text-center">
-							<span class="glyphicon glyphicon-circle-arrow-right"></span>
-						</p>
-					</div>
-				</div>
 
+			</div><!-- end #container -->
+
+			<!-- button to go between tweets, bubbles, etc. -->
+			<div id="state_selector" class="text-center">
+				<span id="query-stepper">
+					<!-- <p class="text-center"> -->
+						<span class="glyphicon glyphicon-circle-arrow-right"></span>
+					<!-- </p> -->
+				</span>
+				<!-- dev -->
+				<p id='state_title'></p>
 			</div>
 
+			<!-- footer bar -->
 			<div class="navbar navbar-inverse navbar-fixed-bottom">
 			  <div class="container">
 					<div id="footer" class="row">
