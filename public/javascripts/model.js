@@ -13,8 +13,8 @@ $(function(){
 
 	// --- Setup
 
-	// cgApp = new clientApp();
-	// cgApp.start();
+	cgApp = new clientApp();
+	cgApp.start();
 	
 });
 
