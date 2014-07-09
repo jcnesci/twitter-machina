@@ -31,7 +31,7 @@ function emptyModelItems(){
 //DEV: should this be in view.js?
 // Empties the tweet bubble divs.
 function emptyViewItems(){
-	console.log("model.js- EMPTY VIEW ITEMS");
+	// console.log("model.js- EMPTY VIEW ITEMS");
 	// Clear current content div.
 	$("#content").empty();
 	//

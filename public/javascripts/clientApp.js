@@ -33,12 +33,10 @@ function clientApp(iUseLiveData){
 	
 	// 
 	this.buildIntroHTML();
-	
-	// TODO: attach reloadCOntent when select new item in dropdown
 
 
-	console.log("clientApp- comparisons :");
-	console.log(this.comparisons);
+	// console.log("clientApp- comparisons :");
+	// console.log(this.comparisons);
 }
 clientApp.prototype = {
 	// Cutomize the intro text for each comparison. 

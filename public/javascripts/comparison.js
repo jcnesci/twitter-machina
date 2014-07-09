@@ -89,16 +89,16 @@ comparison.prototype = {
 		emptyModelItems();
 		// 1 --- Build user1 data.
 		$.getJSON("data_backup/"+ this.item1 +".json", function(json1) {
-	    console.log("data_backup/"+ _this.item1 +" ------------ ")
-	    console.log(json1);
+	    // console.log("data_backup/"+ _this.item1 +" ------------ ")
+	    // console.log(json1);
 
 	    _this.twitterDataItem1 = json1;
 	  	_this.sets.push(new Set(_this, _this.twitterDataItem1, "set1"));
 
 	  	// 1 --- Build user2 data.
   		$.getJSON("data_backup/"+ _this.item2 +".json", function(json2) {
-  	    console.log("data_backup/"+ _this.item2 +" ------------ ")
-  	    console.log(json2);
+  	    // console.log("data_backup/"+ _this.item2 +" ------------ ")
+  	    // console.log(json2);
 
   	    _this.twitterDataItem2 = json2;
   	  	_this.sets.push(new Set(_this, _this.twitterDataItem2, "set2"));
