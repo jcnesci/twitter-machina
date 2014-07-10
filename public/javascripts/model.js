@@ -97,6 +97,18 @@ String.prototype.cleanTweet = function() {
 	return tweet;
 }
 
+// Common function, to split a tweet of unwanted features.
+String.prototype.splitTweet = function() {		
+	var tweet = this;
+	// Matches punctuation. Leaves words, time ex. 2:20, p.m, 5.7, urls, and contractions.
+	var punctRegEx = new RegExp(/(?!\.\w{1,2})(?!\.\d{1,2})(?!\:\d{1,2})([^A-Za-z0-9#'\u2026]+|https?:\/\/\S+)/g);
+
+	tweet = tweet.split(punctRegEx); // remove punctuation.
+
+
+	return tweet;
+}
+
 // -- -- -- -- -- Animations -- -- -- -- --
 
 // Line Packing

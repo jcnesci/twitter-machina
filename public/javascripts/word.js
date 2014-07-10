@@ -2,10 +2,12 @@
 var exWordArray = ["the", "a", "if", "is", "on", "in", "to", "it", "of"];
 
 // Creates the individual word objects.
-function Word(theWord, refSet, vis) {
+function Word(theWord, refSet, vis, firstPairLoc, secondSetPairLoc) {
 	this.value = theWord;
 	this.linkedSets = [refSet];
-	this.linkedTweetWord = null;
+	this.firstPairLocation = firstPairLoc;
+	this.secondSetPairLocation = secondSetPairLoc;
+	//this.linkedTweetWord = null;
 	this.pixelWidth = 0;  // Established when the word first appears in the DOM.
 	//this.count = 1;
 
