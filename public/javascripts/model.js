@@ -103,7 +103,7 @@ function linePack(id, setCount, delayCount) {
 	var span = $('#word' + id),
 			width = span.width() + 3,
 			lineHeight = 15,
-			canvasWidth = $('#bubbleContainer').width() - 15,
+			canvasWidth = $('#bubbleSubcontainer').width() - 15,
 			freeSpace = canvasWidth/3 - setCount.lineWidth,
 			newTop = 0,
 			newLeft = 0;

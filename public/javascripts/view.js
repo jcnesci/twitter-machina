@@ -120,11 +120,15 @@ function initialTweetBubblesView() {
 	$("#state_title").html("state : initialTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("<div class='row'>" +
-			"<div class='col-lg-10 col-md-offset-1'>" +
-				"<div id='bubbleContainer'>" +
-					"<div id='tweetBubble1' class='tweetBubble'></div>" +
-					"<div id='tweetBubble2' class='tweetBubble'></div>" +
+	$("<div id='bubbleView'>" +
+			"<div class='row'>" +
+				"<div class='col-lg-10 col-md-offset-1'>" +
+					"<div id='bubbleContainer'>" +
+						"<div id='bubbleSubcontainer'>" +
+							"<div id='tweetBubble1' class='tweetBubble'></div>" +
+							"<div id='tweetBubble2' class='tweetBubble'></div>" +
+						"</div>" +
+					"</div>" +
 				"</div>" +
 			"</div>" +
 		"</div>")
@@ -142,7 +146,7 @@ function initialTweetBubblesView() {
 	//console.log(cgApp.curComparison.lookup);
 
 	// Populate it.
-	var canvasWidth = $('#bubbleContainer').width() - 15;
+	var canvasWidth = $('#bubbleSubcontainer').width() - 15;
 	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; //For Line Pack
 	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; //For Line Pack
 	var delayCount = 0;
@@ -196,6 +200,16 @@ function initialTweetBubblesView() {
 		}
 	});
 
+	// Set height of bubbleContainer to match tallest of listContainers
+	// var maxHeight = -1;
+ //   $('.features').each(function() {
+ //     maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
+ //   });
+	console.log("- - - - - - - - - listView.height : "+ $("#listView").height());
+	$("#bubbleContainer").height( $("#listView").height() );
+	// $("#bubbleView").hide();
+	// $("#bubbleView").fadeIn(1000);
+
 	// FadeOut the Tweet List
 	$(".tword").each(function(i) {
 		$(this).delay(1*i).fadeTo( 500, 0);
@@ -203,7 +217,11 @@ function initialTweetBubblesView() {
 		$(".tword2").each(function(i) {
 		$(this).delay(1*i).fadeTo( 500, 0);
 	});
-	$("#content #listView").delay( 2000 ).fadeOut();
+	
+	// FadeIn the bubbleContainer background.
+	// $("#bubbleContainer").height()
+
+	// $("#content #listView").delay( 2000 ).fadeOut();
 	//And the word length count to the DOM.
 	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea style='display: none'>" + bA1 + "</p>");
 	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea' style='display: none'>" + bA2 + "</p>");
@@ -215,7 +233,7 @@ function unionTweetBubblesView(){
 	$("#state_title").html("state : unionTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
+	$("#bubbleSubcontainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
 
