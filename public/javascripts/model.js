@@ -5,8 +5,9 @@ Contains the code relative to the Model parts of the app (following an MVC appro
 
 // Global variables - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-var socket = io.connect();						// connect to the socket server
-var cgApp;														// the main client-side app, which controls everything.
+var socket = io.connect();						// Connect to the socket server.
+var cgApp;														// The main client-side app, which controls everything.
+var circlePackinglineHeight = 15;									// Used for circle packing.
 
 // Main execution body - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 $(function(){
@@ -102,21 +103,20 @@ String.prototype.cleanTweet = function() {
 function linePack(id, setCount, delayCount) {
 	var span = $('#word' + id),
 			width = span.width() + 3,
-			lineHeight = 15,
 			canvasWidth = $('#bubbleSubcontainer').width() - 15,
 			freeSpace = canvasWidth/3 - setCount.lineWidth,
 			newTop = 0,
 			newLeft = 0;
 
 	if (width - 3 <= freeSpace) {
-		newTop = setCount.lineCount * lineHeight;
+		newTop = setCount.lineCount * circlePackinglineHeight;
 		newLeft = setCount.lineWidth;
 		//console.log(newTop + ":" + newLeft);
 		setCount.lineWidth = setCount.lineWidth + width;
 	} else if (width - 3 > freeSpace) {
 		++setCount.lineCount;
 		setCount.lineWidth = 0;
-		newTop = setCount.lineCount * lineHeight;
+		newTop = setCount.lineCount * circlePackinglineHeight;
 		newLeft = setCount.lineWidth;
 		setCount.lineWidth = setCount.lineWidth + width;
 	}

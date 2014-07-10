@@ -199,9 +199,28 @@ function initialTweetBubblesView() {
 		        console.log(" ********** Unaccounted Word! **********");
 		}
 	});
-
+	
+	// DEV - Colin
 	//console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
 	//packCircle(cgApp.curComparison.words, bA1*15/2, 200, 200);
+
+	// --- Setup
+	$("#bubbleView").hide();			// Hide it beofre we fade it in.
+
+	// FadeOut the listView
+	$(".tword").each(function(i) {
+		$(this).delay(1*i).fadeTo( 500, 0);
+	});
+		$(".tword2").each(function(i) {
+		$(this).delay(1*i).fadeTo( 500, 0);
+	});
+	$("#content #listView").delay( 2000 ).fadeOut();
+
+	//And the word length count to the DOM.
+	$('#tweetBubble1').append('<p id="bubbleArea1" class="bubbleArea" style="display: none">' + bA1 + '</p>');
+	$('#tweetBubble2').append('<p id="bubbleArea2" class="bubbleArea" style="display: none">' + bA2 + '</p>');
+
+	// Fade-in the bubbleView
 
 	// Set height of bubbleContainer to match tallest of listContainers
 	// var maxHeight = -1;
@@ -209,24 +228,15 @@ function initialTweetBubblesView() {
  //     maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
  //   });
 	console.log("- - - - - - - - - listView.height : "+ $("#listView").height());
-	$("#bubbleContainer").height( $("#listView").height() );
-	// $("#bubbleView").hide();
-	// $("#bubbleView").fadeIn(1000);
-	// FadeOut the Tweet List
-	$(".tword").each(function(i) {
-		$(this).delay(1*i).fadeTo( 500, 0);
-	});
-		$(".tword2").each(function(i) {
-		$(this).delay(1*i).fadeTo( 500, 0);
-	});
-	
-	// FadeIn the bubbleContainer background.
-	// $("#bubbleContainer").height()
+	console.log(" _ _ _ _ _ _ _ _ _ _ *");
+	console.log(setCount1.lineCount);
 
-	// $("#content #listView").delay( 2000 ).fadeOut();
-	//And the word length count to the DOM.
-	$('#tweetBubble1').append('<p id="bubbleArea1" class="bubbleArea" style="display: none">' + bA1 + '</p>');
-	$('#tweetBubble2').append('<p id="bubbleArea2" class="bubbleArea" style="display: none">' + bA2 + '</p>');
+	// Make the height of the bubbleView container equal the height of the largest bubble. Need to count the lines in the largest bubble and multiply that to the line height.
+	var linesInLargestBubble = (setCount1.lineCount+1) > (setCount2.lineCount+1) ? (setCount1.lineCount+1) : (setCount2.lineCount+1);
+	var heightOfLargestBubble = linesInLargestBubble * circlePackinglineHeight;
+	$("#bubbleContainer").height(heightOfLargestBubble);
+	$("#bubbleView").fadeIn();
+	
 	//$('#bubbleArea1').fadeIn(1000);
 	//$('#bubbleArea2').fadeIn(1000);
 }
