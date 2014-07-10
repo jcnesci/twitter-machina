@@ -13,7 +13,7 @@ $(function(){
 
 	// --- Setup
 
-	cgApp = new clientApp();
+	cgApp = new clientApp(false);				// DEV: run the app with static data (ie. 'false').
 	cgApp.start();
 	
 });
@@ -31,7 +31,7 @@ function emptyModelItems(){
 //DEV: should this be in view.js?
 // Empties the tweet bubble divs.
 function emptyViewItems(){
-	console.log("model.js- EMPTY VIEW ITEMS");
+	// console.log("model.js- EMPTY VIEW ITEMS");
 	// Clear current content div.
 	$("#content").empty();
 	//
@@ -103,7 +103,7 @@ function linePack(id, setCount, delayCount) {
 	var span = $('#word' + id),
 			width = span.width() + 3,
 			lineHeight = 15,
-			canvasWidth = $('#container').width() - 15,
+			canvasWidth = $('#bubbleSubcontainer').width() - 15,
 			freeSpace = canvasWidth/3 - setCount.lineWidth,
 			newTop = 0,
 			newLeft = 0;

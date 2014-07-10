@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset="utf-8">
+		<title> <%= title %> </title>
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+		<link rel='stylesheet' href='assets/stylesheets/bootstrap.min.css'>
+		<link rel='stylesheet' href='assets/stylesheets/frontend.css'>
+
+
+
+	</head>
+	<body>
+	
+		<div class='container'>
+			
+			<!-- NEW : bootstrap items -->
+
+			<div class='page-header'>
+				<img class='page-logo' src='assets/CommonGround-logo.png'/>
+			</div>
+
+			<div id="query-menu" class="row">
+				  <div class="col-lg-2 query-block" id="custom" onClick='queryBlockController("custom")'>
+				  	<!-- //- Add the last query item to the menu: the choice to custom search. -->
+				  	<div class="row">
+				  		<div class="col-lg-6">
+				  			<img class='twitterUserImage custom pull-right' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+				  		</div>
+				  		<div class="col-lg-6">
+				  			<img class='twitterUserImage custom pull-left' src="assets/CustomSearchIcon.png" alt="perform custom search"/>
+				  		</div>
+				  	</div>
+				  </div>
+			</div>
+			<div id='searchContainer'></div>
+
+			<br>
+
+			<div class="row">
+				<div class="col-lg-5 col-md-offset-1">
+					<div class="cur-user-header" id="user1">
+						<span class="name">Kim Kardashian</span>
+						<span class="screen_name">@KimKardashian</span>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="cur-user-header" id="user2">
+						<span class="name">KANYE WEST</span>
+						<span class="screen_name">@kanyewest</span>
+					</div>
+				</div>
+			</div>
+
+			<br>
+
+			<!-- OLD : pre-bootstrap -->
+
+			<div id='container'>
+
+				<!-- #content gets auto-populated at each state. -->
+				<div id='content'></div>
+
+			</div><!-- end #container -->
+
+			<!-- button to go between tweets, bubbles, etc. -->
+			<div id="state_selector" class="text-center">
+				<span id="query-stepper">
+					<!-- <p class="text-center"> -->
+						<span class="glyphicon glyphicon-circle-arrow-right"></span>
+					<!-- </p> -->
+				</span>
+				<!-- dev -->
+				<p id='state_title'></p>
+			</div>
+
+			<!-- footer bar -->
+			<div class="navbar navbar-inverse navbar-fixed-bottom">
+			  <div class="container">
+					<div id="footer" class="row">
+						<div class="col-lg-2">
+							<img src="assets/intel_logo-white-small.png" alt="INTEL"/>
+						</div>
+						<div class="col-lg-2">
+							<img src="assets/SosoLogo_Small-white-small.png" alt="Sosolimited"/>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- <footer>
+				<p>footer</p>
+			</footer> -->
+	</div>
+		<script type='text/javascript', src="http://d3js.org/d3.v3.min.js"></script>
+		<script type='text/javascript' src='assets/javascript/frontend.js'></script>
+		<script type='text/javascript' src='typeahead.jquery.js'></script>
+		<script type='text/javascript' src='jquery.textillate.js'></script>
+		<script type='text/javascript' src='assets/jquery.lettering.js'></script>
+		<script type='text/javascript' src='assets/jquery.fittext.js'></script>
+		<script type='text/css' src='assets/animate.css'></script>
+		<script type='text/javascript' src="/socket.io/socket.io.js"></script>
+		<script type='text/javascript' src='javascripts/view.js'></script>
+		<script type='text/javascript' src='javascripts/word.js'></script>
+		<script type='text/javascript' src='javascripts/tweet.js'></script>
+		<script type='text/javascript' src='javascripts/set.js'></script>
+		<script type='text/javascript' src='javascripts/sosoStateMachine.js'></script>
+		<script type='text/javascript' src='javascripts/sosoState.js'></script>
+		<script type='text/javascript' src='javascripts/sosoStateTransition.js'></script>
+		<script type='text/javascript' src='javascripts/comparison.js'></script>
+		<script type='text/javascript' src='javascripts/clientApp.js'></script>
+		<script type='text/javascript' src='javascripts/model.js'></script>
+		<script type='text/javascript' src='javascripts/controller.js'></script>
+</body>
+</html>

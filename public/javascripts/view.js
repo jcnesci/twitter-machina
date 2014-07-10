@@ -28,13 +28,22 @@ function listView(){
 
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='listView'>" +
-												"<div id='listContainer'>" +
-													"<h2>List 1</h2>" +
-													"<div id='list1' class='tweetlist'></div>" +
+												"<div class='row'>" +
+													"<div class='col-lg-5 col-md-offset-1'>" +
+														"<div class='listContainer'>" +
+															// "<h2>List 1</h2>" +
+															"<div id='list1' class='tweetlist'></div>" +
+														"</div>" +
+													"</div>" +
+													"<div class='col-lg-5'>" +
+														"<div class='listContainer'>" +
+															// "<h2>List 2</h2>" +
+															"<div id='list2' class='tweetlist'></div>" +
+														"</div>" +
+													"</div>" +
 												"</div>" +
-												"<div id='listContainer'>" +
-													"<h2>List 2</h2>" +
-													"<div id='list2' class='tweetlist'></div>");
+											"</div>");
+
 	var s1tw = 0;
 	var s2tw = 0;
 	var wCount = 0
@@ -60,7 +69,7 @@ function listView(){
 											// This accounts for word/symbols that didn't make the words array.
 
 						});
-						$("#list1").append('<p>'+ tweet +' </p><br>');
+						$("#list1").append("<div class='tweet'>"+ tweet +" </div>");
 				});
 			} else if (key == 1) {	//if in set 2 place in div list2
 				$.each(value.tweets, function(jKey, jValue) {
@@ -77,7 +86,7 @@ function listView(){
 							}
 							s2tw++;
 						});
-						$("#list2").append('<p>'+ tweet +' </p><br>');
+						$("#list2").append("<div class='tweet'>"+ tweet +" </div>");
 				});
 
 			} else { console.log("Error in listView")}; //If not a part of a set...
@@ -106,14 +115,24 @@ function listView(){
 	//console.log(cgApp.curComparison.sets);
 }
 
+// 
 function initialTweetBubblesView() {
 	$("#state_title").html("state : initialTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("<div id='bubbleContainer'>" +
-											"<div id='tweetBubble1' class='tweetBubble'></div>" +
-											"<div id='tweetBubble2' class='tweetBubble'></div>" +
-										"</div>").insertBefore("#listView");
+	$("<div id='bubbleView'>" +
+			"<div class='row'>" +
+				"<div class='col-lg-10 col-md-offset-1'>" +
+					"<div id='bubbleContainer'>" +
+						"<div id='bubbleSubcontainer'>" +
+							"<div id='tweetBubble1' class='tweetBubble'></div>" +
+							"<div id='tweetBubble2' class='tweetBubble'></div>" +
+						"</div>" +
+					"</div>" +
+				"</div>" +
+			"</div>" +
+		"</div>")
+		.insertBefore("#listView");
 
 	//Bubble Area Count
 	var bA1 = 0,
@@ -127,7 +146,7 @@ function initialTweetBubblesView() {
 	//console.log(cgApp.curComparison.lookup);
 
 	// Populate it.
-	var canvasWidth = $('#container').width() - 15;
+	var canvasWidth = $('#bubbleSubcontainer').width() - 15;
 	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; //For Line Pack
 	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; //For Line Pack
 	var delayCount = 0;
@@ -180,8 +199,19 @@ function initialTweetBubblesView() {
 		        console.log(" ********** Unaccounted Word! **********");
 		}
 	});
-	console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
-	packCircle(cgApp.curComparison.words, bA1*15/2, 200, 200);
+
+	//console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
+	//packCircle(cgApp.curComparison.words, bA1*15/2, 200, 200);
+
+	// Set height of bubbleContainer to match tallest of listContainers
+	// var maxHeight = -1;
+ //   $('.features').each(function() {
+ //     maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
+ //   });
+	console.log("- - - - - - - - - listView.height : "+ $("#listView").height());
+	$("#bubbleContainer").height( $("#listView").height() );
+	// $("#bubbleView").hide();
+	// $("#bubbleView").fadeIn(1000);
 	// FadeOut the Tweet List
 	$(".tword").each(function(i) {
 		$(this).delay(1*i).fadeTo( 500, 0);
@@ -189,7 +219,11 @@ function initialTweetBubblesView() {
 		$(".tword2").each(function(i) {
 		$(this).delay(1*i).fadeTo( 500, 0);
 	});
-	$("#content #listView").delay( 2000 ).fadeOut();
+	
+	// FadeIn the bubbleContainer background.
+	// $("#bubbleContainer").height()
+
+	// $("#content #listView").delay( 2000 ).fadeOut();
 	//And the word length count to the DOM.
 	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea style='display: none'>" + bA1 + "</p>");
 	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea' style='display: none'>" + bA2 + "</p>");
@@ -201,7 +235,7 @@ function unionTweetBubblesView(){
 	$("#state_title").html("state : unionTweetBubbles");
 
 	// Add the HTML structure to be populated.
-	$("#bubbleContainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
+	$("#bubbleSubcontainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
 
 	// Populate it.
 
@@ -275,16 +309,22 @@ function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 	if(iComparisonId == cgApp.curComparison.id){
 		curComparison = "selected";
 	}
-	console.log("*********************************");
-	console.log(cgApp.curComparison.id);
-	console.log("*********************************");
+	// console.log("*********************************");
+	// console.log(cgApp.curComparison.id);
+	// console.log("*********************************");
 	// Create query blocks containing the Twitter user images.
 	if (cgApp.curComparison.id != "custom") {
-	$("#menu > #query_block_container").prepend("<li id='"+ iComparisonId +"' class='query_block "+ curComparison +"' onClick='queryBlockController("+ iComparisonId +")')>" +
-											"<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
-											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
-											"<div class='comparisonTitle'>"+ iItem1 +"<br><span class='versus'>VS</span><br>"+ iItem2 +"</div>" +
-										"</li>");
+		// NEW post-bootstrap
+		$("#query-menu").prepend("<div class='col-lg-2 query-block "+ curComparison +"' id='"+ iComparisonId +"' onClick='queryBlockController("+ iComparisonId +")')>" +
+			"<div class='row'>" +
+				"<div class='col-lg-6'>" +
+					"<img class='twitterUserImage custom pull-right' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
+				"</div>" +
+				"<div class='col-lg-6'>" +
+					"<img class='twitterUserImage custom pull-left' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
+				"</div>" +
+			"</div>" +
+		"</div>");
 	} else {
 		$("#query_block_container #" + cgApp.curComparison.id).html("<img class='twitterUserImage' src='"+ iUrlItem1 +"' alt='@"+ iItem1 +"'>" +
 											"<img class='twitterUserImage' src='"+ iUrlItem2 +"' alt='@"+ iItem2 +"'>" +
@@ -296,9 +336,9 @@ function buildUserImageSet(iComparisonId, iItem1, iUrlItem1, iItem2, iUrlItem2){
 function updateView(){
 
 	// Change the selected/hilited query block according to the newly selected comparison.
-	$(".query_block").removeClass("selected");
+	$(".query-block").removeClass("selected");
 	var _this = this;
-	$(".query_block").each(function(){
+	$(".query-block").each(function(){
 		//console.log("* * * * attr id :"+ $(this).attr('id'));
 		//console.log("^ ^ ^ : "+ cgApp.curComparison.id);
 

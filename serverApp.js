@@ -1,6 +1,5 @@
 var express = require('express')
 	, http = require('http')
-	, stylus = require('stylus')
 	, Twit = require('twit')
 	, _ = require('underscore')
 	, path = require("path");
@@ -18,15 +17,9 @@ var numberOfQueries = 20;
 // Setup stuff.
 app.configure(function(){
 	app.set('views', __dirname + '/views');
-	app.set('view engine', 'jade');
+	app.set('view engine', 'ejs');
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
-	// NB: this must be before the static use call below, unless doesn't work... why?
-/*	app.use(stylus.middleware(
-		{ src: __dirname + '/public'
-		, compile: compile
-		}
-	));*/
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
@@ -34,44 +27,11 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-
-// - - - -
-/*
-lessMiddleware = require('less-middleware');
-
-var app = express();
-app.configure(function(){
-  var bootstrapPath = path.join(__dirname, 'node_modules', 'bootstrap');
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use('/img', express.static(path.join(bootstrapPath, 'img')));
-  app.use(app.router);
-  app.use(lessMiddleware(path.join(__dirname, 'source', 'less'), {
-    dest: path.join(__dirname, 'public'),
-    parser: {
-      paths: [path.join(bootstrapPath, 'less')],
-    }
-  }));
-  app.use(express.static(path.join(__dirname, 'public')));
-});
-*/
-// - - - - - -
-
-
-
-
-function compile(str, path) {
-	return stylus(str).set('filename', path)
-}
-app.configure('development', function(){
-	app.use(express.errorHandler());
-});
-
 // Web pages & routes - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 // Routes to the various pages.
 app.get('/', function (req, res) {
-		res.render('index.jade',
+		res.render('index',
 			{title: 'Twitter Machina - Prototype', twitterQuery_1_msg: twitterQuery_1, twitterQuery_2_msg: twitterQuery_2}
 		);
 });
@@ -143,7 +103,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 						var curSearch2 = iQ + numberOfQueries;
 						if (curSearch2 > numberOfQueries*1) { // Multiply for more
 							var dataSet2 = data.slice(0, numberOfQueries+1);
-							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
+							socket.emit('ç'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
 						} else {
 							getQueries2(curSearch2);
 						}
@@ -163,15 +123,20 @@ function sendQueries(socket, comparisonId, item1, item2) {
 }
 
 // Twitter credentials.
-// Replace these with your own!
-// DEV: Using Alex's keys.
+// DEV: Alex's keys.
+// var T = new Twit({
+// 		consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
+// 	, consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
+// 	, access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
+// 	, access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
+// });
+// DEV: JC's keys.
 var T = new Twit({
 		consumer_key: 'kEwsveRmFIRibVAIq43NAIjCt'
   , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
   , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
   , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
 });
-
 // Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 

@@ -30,7 +30,7 @@ function comparison(iId, iItem1, iItem2){
 
 }
 comparison.prototype = {
-	//
+	// Get live data from Twitter API for the provided user items.
 	setupServerCalls: function(){
 		// Send request for Twitter data.
 		socket.emit('eClientRequestsTwitterQuery', this.id, this.item1, this.item2);
@@ -80,6 +80,37 @@ comparison.prototype = {
 			
 		});
 
+	},
+	// Use static data instead of live data from Twitter API (useful for development).
+	setupStaticData: function(){
+		var _this = this;
+
+		this.allQueriesReceived = true;			// Currently unused.
+		emptyModelItems();
+		// 1 --- Build user1 data.
+		$.getJSON("data_backup/"+ this.item1 +".json", function(json1) {
+	    // console.log("data_backup/"+ _this.item1 +" ------------ ")
+	    // console.log(json1);
+
+	    _this.twitterDataItem1 = json1;
+	  	_this.sets.push(new Set(_this, _this.twitterDataItem1, "set1"));
+
+	  	// 1 --- Build user2 data.
+  		$.getJSON("data_backup/"+ _this.item2 +".json", function(json2) {
+  	    // console.log("data_backup/"+ _this.item2 +" ------------ ")
+  	    // console.log(json2);
+
+  	    _this.twitterDataItem2 = json2;
+  	  	_this.sets.push(new Set(_this, _this.twitterDataItem2, "set2"));
+
+  	  	// 2 --- Build user images.
+  	  	_this.imageUrlItem1 = "assets/user_logo_backup/"+ _this.item1 +".png";
+  	  	_this.imageUrlItem2 = "assets/user_logo_backup/"+ _this.item2 +".png";
+  	  	buildUserImageSet(_this.id, _this.item1, _this.imageUrlItem1, _this.item2, _this.imageUrlItem2);
+  		});
+	  		
+		});
+		
 	},
 	// Define the state machine transitions here.
 	buildStateMachine: function(){

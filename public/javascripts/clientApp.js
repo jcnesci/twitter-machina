@@ -1,5 +1,7 @@
 // Represents the entire Common Ground app. This object must be created to run the project.
-function clientApp(){
+// Params:
+// iUseLiveData: true = get data from Twitter API, false = use static data files (for development).
+function clientApp(iUseLiveData){
 
 	// --- Properties
 	this.comparisons = [];
@@ -18,19 +20,23 @@ function clientApp(){
 
 	// Generic button setup
 	setupButtons();
+	
 	// Comparison obj setup
 	for (var i = 0; i < this.comparisons.length; i++){
+		if (iUseLiveData){
 			// Initiating server calls (they are not done in the comparison constructor so the comparisons array gets its length quicker).
 			this.comparisons[i].setupServerCalls();
-	}
+		} else {
+			this.comparisons[i].setupStaticData();
+		}
+	}	
+	
 	// 
 	this.buildIntroHTML();
-	
-	// TODO: attach reloadCOntent when select new item in dropdown
 
 
-	console.log("clientApp- comparisons :");
-	console.log(this.comparisons);
+	// console.log("clientApp- comparisons :");
+	// console.log(this.comparisons);
 }
 clientApp.prototype = {
 	// Cutomize the intro text for each comparison. 
