@@ -166,10 +166,10 @@ function sendQueries(socket, comparisonId, item1, item2) {
 // Replace these with your own!
 // DEV: Using Alex's keys.
 var T = new Twit({
-		consumer_key: 'lG3ef2gaY5yeX0kVj7W3DFDG3'
-	, consumer_secret: 'HNcGrpUvd9mIAaE6qHhYfupdS49IEZ5Vgl7TwVYVtHCYq0dd2D'
-	, access_token: '48737760-s2s2jcYDNhKuiZFdCRchedjUTg4VuztWpCdQaJQNu'
-	, access_token_secret: 'DPgXfVNT2e4bqOcjl5rhur1tP5PRk6tu5MH2HeYTScaW3'
+		consumer_key: 'kEwsveRmFIRibVAIq43NAIjCt'
+  , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
+  , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
+  , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
 });
 
 // Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
