@@ -225,10 +225,10 @@ function initialTweetBubblesView() {
 
 	// $("#content #listView").delay( 2000 ).fadeOut();
 	//And the word length count to the DOM.
-	$('#tweetBubble1').append("<p id='bubbleArea1' class='bubbleArea style='display: none'>" + bA1 + "</p>");
-	$('#tweetBubble2').append("<p id='bubbleArea2' class='bubbleArea' style='display: none'>" + bA2 + "</p>");
-	$('#bubbleArea1').fadeIn(1000);
-	$('#bubbleArea2').fadeIn(1000);
+	$('#tweetBubble1').append('<p id="bubbleArea1" class="bubbleArea" style="display: none">' + bA1 + '</p>');
+	$('#tweetBubble2').append('<p id="bubbleArea2" class="bubbleArea" style="display: none">' + bA2 + '</p>');
+	//$('#bubbleArea1').fadeIn(1000);
+	//$('#bubbleArea2').fadeIn(1000);
 }
 
 function unionTweetBubblesView(){
