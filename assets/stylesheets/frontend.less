@@ -137,10 +137,20 @@ body{
 }
 
 #bubbleContainer {
-  background-color: #fff;
-  border: 1px solid #E6E6E6;
+  // background-color: #fff;
+  // border: 1px solid #E6E6E6;
   padding: 20px;
   color: #4D4D4D;
+  position: relative;
+  z-index: 1000;
+}
+
+// Displayed under bubbleContainer only to provide a background rectangle, so the content and bg can fade-in seperately.
+#bubbleContainerBg{
+  background-color: #fff;
+  border: 1px solid #E6E6E6;
+  position: relative;
+  z-index: -1;
 }
 
 // --- OLD : pre-bootstrap styles

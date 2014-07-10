@@ -123,12 +123,13 @@ function initialTweetBubblesView() {
 	$("<div id='bubbleView'>" +
 			"<div class='row'>" +
 				"<div class='col-lg-10 col-md-offset-1'>" +
-					"<div id='bubbleContainer'>" +
-						"<div id='bubbleSubcontainer'>" +
+					"<div id='bubbleContainer'>" +									// this is the full 10 columns wide
+						"<div id='bubbleSubcontainer'>" +							// this is a manual way to have a smaller div within bubbleContainer to simulate padding, which we can't do with absolutely positioned words like we have. Make this slightly smaller than bubbleContainer.
 							"<div id='tweetBubble1' class='tweetBubble'></div>" +
 							"<div id='tweetBubble2' class='tweetBubble'></div>" +
 						"</div>" +
 					"</div>" +
+					"<div id='bubbleContainerBg'></div>" +
 				"</div>" +
 			"</div>" +
 		"</div>")
@@ -205,7 +206,7 @@ function initialTweetBubblesView() {
 	//packCircle(cgApp.curComparison.words, bA1*15/2, 200, 200);
 
 	// --- Setup
-	$("#bubbleView").hide();			// Hide it beofre we fade it in.
+	$("#bubbleContainerBg").hide();
 
 	// FadeOut the listView
 	$(".tword").each(function(i) {
@@ -214,31 +215,28 @@ function initialTweetBubblesView() {
 		$(".tword2").each(function(i) {
 		$(this).delay(1*i).fadeTo( 500, 0);
 	});
-	$("#content #listView").delay( 2000 ).fadeOut();
+	$("#content #listView").delay( 2000 ).fadeOut(1000, function(){
+			console.log("showBubbleView- ENTER");
 
-	//And the word length count to the DOM.
-	$('#tweetBubble1').append('<p id="bubbleArea1" class="bubbleArea" style="display: none">' + bA1 + '</p>');
-	$('#tweetBubble2').append('<p id="bubbleArea2" class="bubbleArea" style="display: none">' + bA2 + '</p>');
+			//And the word length count to the DOM.
+			$('#tweetBubble1').append('<p id="bubbleArea1" class="bubbleArea" style="display: none">' + bA1 + '</p>');
+			$('#tweetBubble2').append('<p id="bubbleArea2" class="bubbleArea" style="display: none">' + bA2 + '</p>');
 
-	// Fade-in the bubbleView
+			// Fade-in the bubbleView
+			// Make the height of the bubbleView container equal the height of the largest bubble. Need to count the lines in the largest bubble and multiply that to the line height.
+			var linesInLargestBubble = (setCount1.lineCount+1) > (setCount2.lineCount+1) ? (setCount1.lineCount+1) : (setCount2.lineCount+1);
+			var padding = 60;
+			var heightOfLargestBubble = linesInLargestBubble * circlePackinglineHeight + padding;
+			$("#bubbleContainerBg").height(heightOfLargestBubble);
+			$("#bubbleContainerBg").fadeIn();
+			$("#bubbleContainerBg").css('top', -padding/2 + "px");			// center bg vertically
+			
+			$('#bubbleArea1').fadeIn(1000);
+			$('#bubbleArea2').fadeIn(1000);	
+		}
 
-	// Set height of bubbleContainer to match tallest of listContainers
-	// var maxHeight = -1;
- //   $('.features').each(function() {
- //     maxHeight = maxHeight > $(this).height() ? maxHeight : $(this).height();
- //   });
-	console.log("- - - - - - - - - listView.height : "+ $("#listView").height());
-	console.log(" _ _ _ _ _ _ _ _ _ _ *");
-	console.log(setCount1.lineCount);
-
-	// Make the height of the bubbleView container equal the height of the largest bubble. Need to count the lines in the largest bubble and multiply that to the line height.
-	var linesInLargestBubble = (setCount1.lineCount+1) > (setCount2.lineCount+1) ? (setCount1.lineCount+1) : (setCount2.lineCount+1);
-	var heightOfLargestBubble = linesInLargestBubble * circlePackinglineHeight;
-	$("#bubbleContainer").height(heightOfLargestBubble);
-	$("#bubbleView").fadeIn();
+	);
 	
-	//$('#bubbleArea1').fadeIn(1000);
-	//$('#bubbleArea2').fadeIn(1000);
 }
 
 function unionTweetBubblesView(){
