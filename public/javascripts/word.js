@@ -9,6 +9,7 @@ function Word(theWord, refSet, refTweet, vis, firstPairLoc, secondSetPairLoc) {
 	this.selfRef = 0;
 	this.firstPairLocation = firstPairLoc;
 	this.secondSetPairLocation = secondSetPairLoc;
+	this.union = false;
 	//this.linkedTweetWord = null;
 	this.pixelWidth = 0;  // Established when the word first appears in the DOM.
 	//this.count = 1;

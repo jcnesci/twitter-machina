@@ -15,11 +15,13 @@ function Tweet(iComparison, iSet, tweet, tweetNum) {
     allTweets.push(tweet);
 
   // NEW
-    for (var i = 0; i < tmpWords.length; i++) {  
-
+  for (var i = 0; i < tmpWords.length; i++) {  
     //NEW WORD
+    if (tmpWords[i].cleanTweet() == "") {
+      this.comparison.words.push(new Word(tmpWords[i], this.set.name, tweetNum, false, undefined, undefined));
+      this.comparison.lookup[tmpWords[i]] = { "count" : 0, "sets" : "junk", "firstWord": 0, "secondSet": 0};
     //Does the word exist yet? If not create it and add it to the lookup. Visibility true.
-    if (this.comparison.lookup[tmpWords[i]] == undefined) {
+    } else if (this.comparison.lookup[tmpWords[i]] == undefined) {
 
         this.comparison.lookup[tmpWords[i]] = { "count" : 1, "sets" : this.set.name, "firstWord": i, "secondSet": undefined};
       this.comparison.words.push(new Word(tmpWords[i], this.set.name, tweetNum, true, this.comparison.lookup[tmpWords[i]].firstWord, this.comparison.lookup[tmpWords[i]].secondSet));
@@ -48,6 +50,6 @@ function Tweet(iComparison, iSet, tweet, tweetNum) {
         this.comparison.words.push(new Word(tmpWords[i], this.set.name, tweetNum, true, this.comparison.lookup[tmpWords[i]].firstWord, this.comparison.lookup[tmpWords[i]].secondSet));
       }
     }       
-    }
+  }
 
 };

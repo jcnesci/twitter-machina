@@ -7,6 +7,7 @@ function Set(iComparison, iData, iName) {
 	this.comparison = iComparison;
 	this.name = iName;
 	this.tweets = [];
+	this.circleArea = 0;
 
 	for (var i = 0; i < iData.length; i++) {
 		var tweetText = iData[i].text;

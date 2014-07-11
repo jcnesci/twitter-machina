@@ -82,7 +82,7 @@ String.prototype.cleanTweet = function() {
 	var emojiRegEx = new RegExp(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g);
 
 	//tweet = tweet.replace(/@([a-zA-Z0-9]+)/g, "");	// remove user mentions.
-	tweet = tweet.replace(punctRegEx, " "); // remove punctuation.
+	tweet = tweet.replace(punctRegEx, ""); // remove punctuation.
 	tweet = tweet.replace(urlRegEx, "");	// remove http links.
 	tweet = tweet.replace(emojiRegEx, "EMOJI "); //Swap Most Emoji with EMOJI	
 	tweet = tweet.replace(/([\u2014])/g, '');	//em dash
@@ -115,6 +115,22 @@ function set1Filter(element) {
 
 function set2Filter(element) {
   return element.linkedSets == "set2" && element.visible == true;
+}
+
+function NonUnionSet1Filter(element) {
+  return element.linkedSets == "set1" && element.visible == true && element.union != true;
+}
+
+function NonUnionSet2Filter(element) {
+  return element.linkedSets == "set2" && element.visible == true && element.union != true;
+}
+
+function unionFilter(element) {
+  return element.union == true && element.visible == true;
+}
+
+function unionVizFilter(element) {
+  return element.union == true && element.visible == false;
 }
 
 function zeroVisFilter(element) {
@@ -316,9 +332,9 @@ function animateToDuplicate(iWord, iDelay, iPosition) {
 	    top: iPosition.top,
 			left: iPosition.left
 
-		}, 500, function() {
+		}, 50, function() {
 
-			$('#word'+iWord.selfRef).delay( 20*iDelay ).fadeOut();
+			$('#word'+iWord.selfRef).fadeOut();
 			//console.log("circle animation complete");
 
 	});
