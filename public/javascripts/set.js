@@ -10,7 +10,7 @@ function Set(iComparison, iData, iName) {
 
 	for (var i = 0; i < iData.length; i++) {
 		var tweetText = iData[i].text;
-		this.tweets.push(new Tweet(this.comparison, this, tweetText));
+		this.tweets.push(new Tweet(this.comparison, this, tweetText, i));
 			
 	}
 
