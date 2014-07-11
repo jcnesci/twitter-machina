@@ -109,13 +109,26 @@ String.prototype.splitTweet = function() {
 	return tweet;
 }
 
+function set1Filter(element) {
+  return element.linkedSets == "set1" && element.visible == true;
+}
+
+function set2Filter(element) {
+  return element.linkedSets == "set2" && element.visible == true;
+}
+
+function zeroVisFilter(element) {
+  return element.visible == false;
+}
+
+
 // -- -- -- -- -- Animations -- -- -- -- --
 
 // Line Packing
 function linePack(id, setCount, delayCount) {
 	var span = $('#word' + id),
 			width = span.width() + 3,
-			canvasWidth = $('#bubbleSubcontainer').width() - 15,
+			canvasWidth = 1200 - 15,
 			freeSpace = canvasWidth/3 - setCount.lineWidth,
 			newTop = 0,
 			newLeft = 0;
@@ -149,105 +162,167 @@ function linePack(id, setCount, delayCount) {
 }
 
 // Line Count for packing circles
-function lineCount(iArea) {
+function lineCounter(iArea, iLh) {
    
     var intArea = iArea, // Initial Area to reference back to.
-        lH = 15, // Line Height **Could make this a global variable for animations.
+        lH = iLh, // Line Height **Could make this a global variable for animations.
         radius = Math.sqrt(intArea / Math.PI), // initial radius of estimated circle.
         lC = Math.floor(2*radius / lH), // initial line count.
         sqAr = 0, // The square area of the circle based on the words square space.
         loopOn = 1,
+        sqRad = 0,
         pcErr = 1; // percent Error
 
    	// A for loop to get the square area as close to the initial area as possible (0.01)
    	// For better acuraccy this should be reworked to account for a greater area or negative difference.
      for (; loopOn != 0;) {
 
-        console.log(lC + 1);
+        //console.log(lC + 1);
 
         if (pcErr > 0.01) {
 	        sqAr = 0;  // As the loop cycles through this needs to be reset.
 
 	        // Calculate the area based on Line Height * Line Count for the circle.
-	        for (i = 0; i <= lC; i++) {
-	            if (i * lH < 2*radius) {
-	            	if (i%2 == 0) {
+	        for (i = 0; i <= lC/2; i++) {
+	            if (i * lH < radius) {
 		              var s = Math.sqrt(radius * radius - i * lH * i * lH);
 		              sqAr = 2 * s * 15 + sqAr; // both sides of the circle.
-		            } else {
-		            	var lineArea = sqAr - 30*Math.sqrt(radius * radius - (i-1) * lH * (i-1) * lH);
-		          		sqAr = sqAr + lineArea; // both sides of the circle.
-		          	}
-		          }
-	            console.log("line : " + (i + 1) + " : " + sqAr);
+                }
+	            //console.log("line : " + (i + 1) + " : " + sqAr);
 	        }
 
 	        var pcErr = 1 - sqAr / intArea; // Percent Error
-	        console.log(pcErr);
+	        //console.log(pcErr);
 
 	        // new area to shoot for...
 	        sqRad = Math.sqrt(sqAr / Math.PI);
 	        radius = 1 + radius;
 	        lC = Math.floor(radius / lH);
-	        console.log(radius);
-	        console.log(sqAr);
+	        //console.log(radius);
+	        //console.log(sqAr);
         } else {
           loopOn = 0;
         }
 
     };
-    console.log(lC + 1);
-    return {"radius": radius, "lineCount": 2*lC};
+    //console.log(lC + 1);
+    return {"radius": sqRad, "lineCount": lC+1};
 }
 
-// Packing Circle
-function packCircle(iWords, iArea, iX, iY) {
-	var wordsArray = iWords,
-			specs = lineCount(iArea),
-			lineTracker = [],
-			curLine = 0;
 
-	for (i = 0; i < specs.lineCount; i++) {
-		if (i%2 == 0) {
-		var space  = 2*Math.sqrt(specs.radius*specs.radius - i*15*i*15);
-		lineTracker.push({"line": i, "space": space});
-		} else {
-			lineTracker.push({"line": i, "space": lineTracker[i-1].space});
-		}
-	}
-	console.log(lineTracker);
+// - - - - - - - - - - - - 
+// Circle Pack
+// - - - - - - - - - - - - 
+function circlePack(iWords, iArea, iX, iY) {
 
+	var lC = lineCounter(iArea, circlePackinglineHeight),
+			radius = lC.radius,
+			lineCount = lC.lineCount,
+			count = 0,
+			aCount = 0,
+			bCount = 1,
+			boxSize = radius*2,
+			yPos = iY,
+			xPos = iX,
+			lineWidth = [],
+			spaceAvail = [];
 
+	console.log("lineCount:"+lineCount+" radius:"+radius);
 
+	for (i=0; i<lineCount/2; i++) {
+	    var widthEq = 2*Math.sqrt(Math.pow(radius, 2)-Math.pow(i*circlePackinglineHeight, 2))
+	   	spaceAvail.push({"line": count, "width": widthEq}); 
+	    lineWidth.push({"line": count++, "width": widthEq});
+	    spaceAvail.push({"line": count, "width": widthEq});
+	    lineWidth.push({"line": count++, "width": widthEq});
+	    
+	};
 
-/*	for (i = 0; i < wordsArray.length; i++) {
-		if (wordsArray[i].linkedSets[0] == "set1") {
-			if (curLine <= lineTracker.length) {
-				console.log(lineTracker[curLine]);
-				if (wordsArray[i].pixelWidth-3 > lineTracker[curLine].space) {
-					cgApp.curComparison.words[i].circlePosition.percent = (wordsArray[i].pixelWidth-3)/lineTracker[curLine].space;
-					cgApp.curComparison.words[i].circlePosition.line = curLine;
-				} else {
-					curLine++;
-				}
-			} else if (curLine2 <= lineTracker2.length) {
-				console.log(lineTracker2[curLine2]);
-				if (wordsArray[i].pixelWidth-3 > lineTracker2[curLine2].space) {
-					cgApp.curComparison.words[i].circlePosition.percent = (wordsArray[i].pixelWidth-3)/lineTracker2[curLine2].space;
-					cgApp.curComparison.words[i].circlePosition.line = curLine2;
-					} else {
-					curLine2++;
-				}
-			} else {
-				console.log("**not enough space**");
-			}
-		}
+	// reset count
+	count = 0;
 
-	}*/
+	$.each(iWords, function(key, value) {
+	    var left,
+	    		top;
 
+	    if (count < spaceAvail.length) {
+	        if (value.pixelWidth <= spaceAvail[count].width) {
+	            left  = xPos + (boxSize-lineWidth[count].width)/2 + lineWidth[count].width - spaceAvail[count].width;
+	            if (count%2 == 0) {
+	                top = yPos + count*circlePackinglineHeight-aCount*circlePackinglineHeight;                
+	            } else {
+	                top = yPos + count*-circlePackinglineHeight-bCount*-circlePackinglineHeight-2*circlePackinglineHeight;
+	            }
+	            spaceAvail[count].width -= value.pixelWidth+3; 
+	        } else {
+	            count++;
+	            if (count < spaceAvail.length) {
+	                left  = xPos + (boxSize-lineWidth[count].width)/2 + lineWidth[count].width - spaceAvail[count].width;
+	                if (count%2 == 0) {
+	                    aCount++;
+	                    top = yPos + count*circlePackinglineHeight-aCount*circlePackinglineHeight;
+	                } else {
+	                    bCount++;
+	                    top = yPos + count*-circlePackinglineHeight-bCount*-circlePackinglineHeight-2*circlePackinglineHeight;
+	                }
+	                spaceAvail[count].width -= value.pixelWidth+3;
+	            }
+	        }
+	    } else {
+	        console.log("Using Empty Space");
+	        var keepGoing = 1;
+	        $.each(spaceAvail, function (k, v) {
+	            if (keepGoing == 1) {
+	                if (value.pixelWidth < v.width) {
+	                    left = xPos + (boxSize-lineWidth[k].width)/2 + lineWidth[k].width - spaceAvail[k].width;
+	                    if (k%2 == 0) {
+	                        top = yPos + k*circlePackinglineHeight/2;                
+	                    } else {
+	                        top = yPos + k*-circlePackinglineHeight/2-circlePackinglineHeight/2;
+	                    }
+	                    spaceAvail[k].width -= value.pixelWidth+3;
+	                    keepGoing = 0;
+	                }
+	            }
+	        });
+	    }
+	    value.circlePosition.left = left;
+	    value.circlePosition.top = top;
+	});
 
+	$.each(iWords, function(key, value) {
+	    $('#word'+ value.selfRef).delay( 20*key ).animate({
 
+	      top: value.circlePosition.top,
+				left: value.circlePosition.left
+
+			}, 500, function() {
+
+				//console.log("circle animation complete");
+
+			});
+
+	});
 }
 
+// - - - - - - - - - - - - - - - - - - - - - - - -
+// Animate the extra words to their first instance.
+// - - - - - - - - - - - - - - - - - - - - - - - -
+
+function animateToDuplicate(iWord, iDelay, iPosition) {
+	//console.log("top:"+iTop+", left:"+iLeft);
+	$('#word'+ iWord.selfRef).delay( 20*iDelay ).animate({
+
+	    top: iPosition.top,
+			left: iPosition.left
+
+		}, 500, function() {
+
+			$('#word'+iWord.selfRef).delay( 20*iDelay ).fadeOut();
+			//console.log("circle animation complete");
+
+	});
+
+}
 
 //-- -- -- -- -- -- -- -- -- -- -- -- -- --

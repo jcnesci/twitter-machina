@@ -27,7 +27,7 @@ function listView(){
 	$("#state_title").html("state : tweetList");
 
 	// Add the HTML structure to be populated.
-	$("#content").html("<div id='listView'>" +
+	$("#content").html("<div id='canvasBg' style='display: none;'></div><div id='listView'>" +
 												"<div class='row'>" +
 													"<div class='col-lg-5 col-md-offset-1'>" +
 														"<div class='listContainer'>" +
@@ -60,9 +60,9 @@ function listView(){
 				$("#list2 #tweet" + this.linkedTweet).html($("#list2 #tweet" + this.linkedTweet).html() + '<span id="word'+ key +'" class="tword">' + value.value + '</span>');
 			}
 		}
-		value.startPosition = $("#word" + key).position();
-		value.pixelWidth = $('#word'+key).width();
+		
 	});
+
 
 }
 
@@ -70,6 +70,7 @@ function listView(){
 function initialTweetBubblesView() {
 	$("#state_title").html("state : initialTweetBubbles");
 
+/*
 	// Add the HTML structure to be populated.
 	$("<div id='bubbleView'>" +
 			"<div class='row'>" +
@@ -85,104 +86,91 @@ function initialTweetBubblesView() {
 			"</div>" +
 		"</div>")
 		.insertBefore("#listView");
+*/
+
+	
+
 
 	//Bubble Area Count
 	var bA1 = 0,
 	    bA2 = 0;
 
-	//console.log("1 :");
-	//console.log(cgApp.curComparison);
-	//console.log("2 :");
-	//console.log(cgApp.curComparison.words);
-	//console.log("3 :");
-	//console.log(cgApp.curComparison.lookup);
-
-	// Populate it.
-	var canvasWidth = $('#bubbleSubcontainer').width() - 15;
-	var setCount1 = {"lineWidth": 0, "lineCount": 0 , "setPos": 0}; //For Line Pack
-	var setCount2 = {"lineWidth": 0, "lineCount": 0 , "setPos": 2*canvasWidth/3}; //For Line Pack
-	var delayCount = 0;
-	var delayCount2 = 0;
-	$.each(cgApp.curComparison.words, function(key, value){
-		var theWord = value.value;
-
-		if(value.linkedSets == "set1") {
-
-		        if (value.visible == true) {
-		                // Append words over tweet list yet invisible in the DOM. 
-										$("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
-										// Fade In the words.
-										//$("#word" + key).fadeIn(800);
-
-						
-						bA1 = value.pixelWidth + bA1; //Counting set1 visibile word lengths.
-
-										// Animate to Bubble View
-		                setCount1 = linePack(key, setCount1, delayCount);
-		                delayCount++;
-		        } else {
-		        				// None Visisble words.
-		        				$("#word" + key).attr({class: "hide word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
-										
-		        }
-		} else if(value.linkedSets == "set2") {
-		        if (value.visible == true) {
-		                // Append words over tweet list yet invisible in the DOM.
-				            $("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
-				            // Fade In the words.
-		                //$("#word" + key).fadeIn(800);
-
-		                //value.pixelWidth = $('#word'+key).width();
-		                bA2 = value.pixelWidth + bA2; //Counting set2 visibile word lengths.
-		                // Animate to Bubble View
-		                setCount2 = linePack(key, setCount2, delayCount2);
-		                delayCount2++;
-		        } else {
-		        				// None Visible words.
-                    $("#word" + key).attr({class: "hide word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
-		        }
-
+	// Preperations fot absolute positioning.
+	$.each(cgApp.curComparison.words, function(key, value) {
+		value.startPosition = $("#word" + key).position();
+		value.pixelWidth = $('#word'+key).width();
+		value.selfRef = key;
+		if (value.linkedSets == "set1") {
+			if (cgApp.curComparison.sets[0].tweets[this.linkedTweet].height == 0) {
+				cgApp.curComparison.sets[0].tweets[this.linkedTweet].height = $("#list1 #tweet" + this.linkedTweet).innerHeight();
+				console.log("tweet-" + this.linkedTweet + " height=" + cgApp.curComparison.sets[0].tweets[this.linkedTweet].height);
+			}
+			$("#list1 #tweet" + this.linkedTweet).attr({style: "height: " +	cgApp.curComparison.sets[0].tweets[this.linkedTweet].height + "px"});
 		} else {
-		        console.log(" ********** Unaccounted Word! **********");
+			if (cgApp.curComparison.sets[1].tweets[this.linkedTweet].height == 0) {
+				cgApp.curComparison.sets[1].tweets[this.linkedTweet].height = $("#list2 #tweet" + this.linkedTweet).innerHeight();
+				console.log("tweet-" + this.linkedTweet + " height=" + cgApp.curComparison.sets[1].tweets[this.linkedTweet].height);
+			}
+			$("#list2 #tweet" + this.linkedTweet).attr({style: "height: " +	cgApp.curComparison.sets[1].tweets[this.linkedTweet].height + "px"});
 		}
 	});
 	
+	// Fade in the canvas background for word animation.
+	$("#canvasBg").fadeIn();
+
+	// Populate it.
+	$.each(cgApp.curComparison.words, function(key, value){
+		var theWord = value.value;
+		if (theWord.cleanTweet() == "") {
+			$("#word" + key).attr({class: "extra word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+		} else {
+			if(value.linkedSets == "set1") {
+
+			        if (value.visible == true) {
+											$("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+
+							bA1 = value.pixelWidth + 3 + bA1; //Counting set1 visibile word lengths.
+
+			        } else {
+			        				// None Visisble words. "extra" has replaced hide, which was already in bootstrap.
+			        				$("#word" + key).attr({class: "extra word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+											
+			        }
+			} else if(value.linkedSets == "set2") {
+			        if (value.visible == true) {
+					            $("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+
+			                bA2 = value.pixelWidth + bA2; //Counting set2 visibile word lengths.
+
+			        } else {
+			        				// None Visible words.  "extra" has replaced hide, which was already in bootstrap.
+	                    $("#word" + key).attr({class: "extra word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+			        }
+
+			} else {
+			        console.log(" ********** Unaccounted Word! **********");
+			}
+		}
+	});
+
+
 	// DEV - Colin
-	//console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
-	//packCircle(cgApp.curComparison.words, bA1*15/2, 200, 200);
+	console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
+	circlePack(cgApp.curComparison.words.filter(set1Filter), bA1*15, 50, 200);
+	circlePack(cgApp.curComparison.words.filter(set2Filter), bA2*15, 50, 200);
 
-	// --- Setup
-	$("#bubbleContainerBg").hide();
-
-	// FadeOut the listView
-	//$(".tword").each(function(i) {
-	//	$(this).delay(1*i).fadeTo( 500, 0);
-	//});
-	//	$(".tword2").each(function(i) {
-	//	$(this).delay(1*i).fadeTo( 500, 0);
-	//});
-/*
-	$("#content #listView").delay( 2000 ).fadeOut(1000, function(){
-			console.log("showBubbleView- ENTER");
-
-			//And the word length count to the DOM.
-			$('#tweetBubble1').append('<p id="bubbleArea1" class="bubbleArea" style="display: none">' + bA1 + '</p>');
-			$('#tweetBubble2').append('<p id="bubbleArea2" class="bubbleArea" style="display: none">' + bA2 + '</p>');
-
-			// Fade-in the bubbleView
-			// Make the height of the bubbleView container equal the height of the largest bubble. Need to count the lines in the largest bubble and multiply that to the line height.
-			var linesInLargestBubble = (setCount1.lineCount+1) > (setCount2.lineCount+1) ? (setCount1.lineCount+1) : (setCount2.lineCount+1);
-			var padding = 60;
-			var heightOfLargestBubble = linesInLargestBubble * circlePackinglineHeight + padding;
-			$("#bubbleContainerBg").height(heightOfLargestBubble);
-			$("#bubbleContainerBg").fadeIn();
-			$("#bubbleContainerBg").css('top', -padding/2 + "px");			// center bg vertically
-			
-			$('#bubbleArea1').fadeIn(1000);
-			$('#bubbleArea2').fadeIn(1000);	
+	$.each(cgApp.curComparison.words.filter(zeroVisFilter), function(key, value){
+		
+		if (value.secondSetPairLocation != undefined) {
+			animateToDuplicate(value, key, cgApp.curComparison.words[value.secondSetPairLocation].circlePosition);
+		} else {
+			animateToDuplicate(value, key, cgApp.curComparison.words[value.firstPairLocation].circlePosition);
 		}
 
-	);*/
+	});
+
+
+
 	
 }
 

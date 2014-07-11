@@ -1,13 +1,13 @@
 // var words = [];	// An array for the collection of all the words.             // DEV: moved locally inside tweet object belonging to a comparison
 var allTweets = [];	// An array to hold all the tweets.                          // DEV: keeping, in case we want to have an array of all tweets ever...?
 // var lookup = {};	// Used to count words and determine duplicates.             // DEV: moved locally inside tweet object belonging to a comparison
-
 // Creates the individual tweet objects.
 function Tweet(iComparison, iSet, tweet, tweetNum) {
 	this.comparison = iComparison;
     this.set = iSet;
     this.fullTweet = tweet;
     this.number = tweetNum;
+    this.height = 0;  // for retaining height once the words start floating.
 
   var tmpWords = tweet.splitTweet();
 	//var tmpWords = tweet.cleanTweet().split(" ");
