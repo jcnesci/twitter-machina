@@ -103,7 +103,7 @@ function sendQueries(socket, comparisonId, item1, item2) {
 						var curSearch2 = iQ + numberOfQueries;
 						if (curSearch2 > numberOfQueries*1) { // Multiply for more
 							var dataSet2 = data.slice(0, numberOfQueries+1);
-							socket.emit('ç'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
+							socket.emit('eServerReturnsTwitterResult_'+ comparisonId, {iData: dataSet2, iQueryNum: 2, iQueryString: item2});
 						} else {
 							getQueries2(curSearch2);
 						}

@@ -177,13 +177,86 @@ function linePack(id, setCount, delayCount) {
 
 }
 
+// Tweet List Line Packing
+function listPack(iWords) {
+	
+	var	width = 503 - 30,
+			usedSpace = 0,
+			lineCount = 0,
+			padding = 30,
+			currentTweet = 0,
+			oneOff = 0,
+			set = 0,
+			maxLineCount = [],
+			amountOfTweets = [];
+
+	$.each(iWords, function (key, value){
+		var span = $('#word' + key),
+				spanWidth = span.width(),
+				tweet = value.linkedTweet;
+
+		console.log(value.linkedSets);
+		if (value.linkedSets != "set1") {
+			set = 1;
+			if (oneOff == 0) {
+				oneOff = 1;
+			}
+		}
+
+		if (oneOff == 1) {
+			console.log("*******************- OneOFF -**********************");
+			amountOfTweets.push(currentTweet);
+			maxLineCount.push(lineCount);
+			lineCount = 0;
+			usedSpace = 0;
+			oneOff = 2;
+		}
+
+		if (value.linkedTweet != currentTweet) {
+			currentTweet = value.linkedTweet;
+			usedSpace = 0;
+		}
+
+		if (usedSpace + spanWidth > width) {
+			lineCount++;
+			usedSpace = 0;
+		}
+		value.startPosition.left =  503*set + padding*set/2 + padding + usedSpace;
+		value.startPosition.top = currentTweet*padding + padding + lineCount*circlePackinglineHeight;
+		if (spanWidth == 0) {
+			usedSpace += 3;
+		} else {
+			usedSpace += spanWidth;
+		}
+
+		span.attr({style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px; position: absolute;"});
+
+		//span.fadeIn(500);
+
+	});
+		amountOfTweets.push(currentTweet);
+		maxLineCount.push(lineCount);
+		console.log(maxLineCount);
+		console.log(amountOfTweets);
+		var maxHeight = Math.max.apply(null, maxLineCount) * circlePackinglineHeight + Math.max.apply(null, amountOfTweets) * padding;
+		$('#canvasBg').animate({
+			height: padding + maxHeight + padding
+		}, 1000, function() {
+
+				console.log("canvasBg Grow!");
+				console.log(padding + maxHeight + padding);
+
+			});
+
+}
+
 // Line Count for packing circles
 function lineCounter(iArea, iLh) {
    
     var intArea = iArea, // Initial Area to reference back to.
         lH = iLh, // Line Height **Could make this a global variable for animations.
         radius = Math.sqrt(intArea / Math.PI), // initial radius of estimated circle.
-        lC = Math.floor(2*radius / lH), // initial line count.
+        lC = (2*radius / lH), // initial line count.
         sqAr = 0, // The square area of the circle based on the words square space.
         loopOn = 1,
         sqRad = 0,
@@ -213,7 +286,7 @@ function lineCounter(iArea, iLh) {
 	        // new area to shoot for...
 	        sqRad = Math.sqrt(sqAr / Math.PI);
 	        radius = 1 + radius;
-	        lC = Math.floor(radius / lH);
+	        lC = (radius / lH);
 	        //console.log(radius);
 	        //console.log(sqAr);
         } else {
@@ -239,7 +312,7 @@ function circlePack(iWords, iArea, iX, iY) {
 			bCount = 1,
 			boxSize = radius*2,
 			yPos = iY,
-			xPos = iX,
+			xPos = iX - radius,
 			lineWidth = [],
 			spaceAvail = [];
 
@@ -327,12 +400,12 @@ function circlePack(iWords, iArea, iX, iY) {
 
 function animateToDuplicate(iWord, iDelay, iPosition) {
 	//console.log("top:"+iTop+", left:"+iLeft);
-	$('#word'+ iWord.selfRef).delay( 20*iDelay ).animate({
+	$('#word'+ iWord.selfRef).delay( 1000 ).animate({
 
 	    top: iPosition.top,
 			left: iPosition.left
 
-		}, 50, function() {
+		}, 500, function() {
 
 			$('#word'+iWord.selfRef).fadeOut();
 			//console.log("circle animation complete");

@@ -48,12 +48,14 @@ clientApp.prototype = {
 																			"</div>";
 
 			//console.log("INTRO HTML : "+ this.comparisons[i].introHTML);
+
 		}
 	},
 	start: function(){
 		// Display the first comparison.
 		emptyViewItems();
 		introView();
+
 	},
 	switchCurComparison: function(iComparisonNum){
 		console.log("switchCurComparison- iComparisonNum : "+ iComparisonNum);

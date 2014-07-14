@@ -15,7 +15,7 @@ function Word(theWord, refSet, refTweet, vis, firstPairLoc, secondSetPairLoc) {
 	//this.count = 1;
 
 	this.startPosition = {"left": 450, "top": 300}; // For tweet list.
-	this.circlePosition = {"top": 0, "left": 0}; 		// For circle packing.
+	this.circlePosition = {"top": 0, "left": 600}; 		// For circle packing.
 
 	//if word is in exclusion array or only one letter, set visibility to false.
 	if (exWordArray.indexOf(theWord) !== -1 || theWord.length < 2) {
