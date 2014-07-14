@@ -24,7 +24,7 @@ function introView(){
 
 // A list view of both sets of tweets. Un-cleaned.
 function listView(){
-	$("#state_title").html("state : tweetList");
+	$("#state_title").html("Let's compare the words that they each use");
 
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='listView'>" +
@@ -117,7 +117,7 @@ function listView(){
 
 // 
 function initialTweetBubblesView() {
-	$("#state_title").html("state : initialTweetBubbles");
+	$("#state_title").html("Finally, what words do both of them use?");
 
 	// Add the HTML structure to be populated.
 	$("<div id='bubbleView'>" +
@@ -240,7 +240,7 @@ function initialTweetBubblesView() {
 }
 
 function unionTweetBubblesView(){
-	$("#state_title").html("state : unionTweetBubbles");
+	$("#state_title").html("Start over or choose another pair of users");
 
 	// Add the HTML structure to be populated.
 	$("#bubbleSubcontainer > #tweetBubble1").after("<div id='tweetBubble3' class='tweetBubble'></div>");
