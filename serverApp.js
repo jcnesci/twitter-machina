@@ -7,7 +7,7 @@ var express = require('express')
 // Setup - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 var app = express();
-var server = app.listen(3000);
+var server = http.createServer(app);
 var io = require('socket.io').listen(server); // this tells socket.io to use our express server
 var stream_phrase = "bieber";
 var twitterQueries = [["BarackObama", "MichelleObama"],["WholeFoods","McDonalds"]];
@@ -16,6 +16,7 @@ var twitterQuery_2 = "MichelleObama";
 var numberOfQueries = 20;
 // Setup stuff.
 app.configure(function(){
+	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
 	app.use(express.favicon());
@@ -36,8 +37,11 @@ app.get('/', function (req, res) {
 		);
 });
 
-//
-console.log("Express server listening on port 3000");
+// Start Server
+server.listen(app.get('port'), function(){
+	// server started
+	console.log("Express server listening on port " + app.get('port'));
+});
 
 // Twitter API usage - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
