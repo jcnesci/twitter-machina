@@ -118,11 +118,11 @@ function set2Filter(element) {
 }
 
 function NonUnionSet1Filter(element) {
-  return element.linkedSets == "set1" && element.visible == true && element.union != true;
+  return element.linkedSets == "set1" && element.visible == true && element.union == false;
 }
 
 function NonUnionSet2Filter(element) {
-  return element.linkedSets == "set2" && element.visible == true && element.union != true;
+  return element.linkedSets == "set2" && element.visible == true && element.union == false;
 }
 
 function unionFilter(element) {
@@ -407,7 +407,7 @@ function animateToDuplicate(iWord, iDelay, iPosition) {
 
 		}, 500, function() {
 
-			$('#word'+iWord.selfRef).fadeOut();
+			$('#word'+iWord.selfRef).fadeOut(2000);
 			//console.log("circle animation complete");
 
 	});

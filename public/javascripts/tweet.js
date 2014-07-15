@@ -23,7 +23,7 @@ function Tweet(iComparison, iSet, tweet, tweetNum) {
     //Does the word exist yet? If not create it and add it to the lookup. Visibility true.
     } else if (this.comparison.lookup[tmpWords[i]] == undefined) {
 
-        this.comparison.lookup[tmpWords[i]] = { "count" : 1, "sets" : this.set.name, "firstWord": i, "secondSet": undefined};
+        this.comparison.lookup[tmpWords[i]] = { "count" : 1, "sets" : this.set.name, "firstWord": this.comparison.words.length, "secondSet": undefined};
       this.comparison.words.push(new Word(tmpWords[i], this.set.name, tweetNum, true, this.comparison.lookup[tmpWords[i]].firstWord, this.comparison.lookup[tmpWords[i]].secondSet));
 
     } else {
@@ -46,7 +46,7 @@ function Tweet(iComparison, iSet, tweet, tweetNum) {
       //By process of elimination an remaining words are initial union words.
       } else {
 
-        this.comparison.lookup[tmpWords[i]] = { "count" : 1 + this.comparison.lookup[tmpWords[i]].count, "sets" : "union", "firstWord": this.comparison.lookup[tmpWords[i]].firstWord, "secondSet": i};
+        this.comparison.lookup[tmpWords[i]] = { "count" : 1 + this.comparison.lookup[tmpWords[i]].count, "sets" : "union", "firstWord": this.comparison.lookup[tmpWords[i]].firstWord, "secondSet": this.comparison.words.length};
         this.comparison.words.push(new Word(tmpWords[i], this.set.name, tweetNum, true, this.comparison.lookup[tmpWords[i]].firstWord, this.comparison.lookup[tmpWords[i]].secondSet));
       }
     }       

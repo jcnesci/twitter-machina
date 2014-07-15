@@ -162,8 +162,8 @@ function initialTweetBubblesView() {
 	console.log("-*-*-*-*- Begin packCircle -*-*-*-*-");
 	var positioning = $('#canvasBg').width();
 	console.log(positioning);
-	circlePack(cgApp.curComparison.words.filter(set1Filter), bA1*15, positioning*.2, 200);
-	circlePack(cgApp.curComparison.words.filter(set2Filter), bA2*15, positioning*.8, 200);
+	circlePack(cgApp.curComparison.words.filter(set1Filter), bA1*16, positioning*.2, 200);
+	circlePack(cgApp.curComparison.words.filter(set2Filter), bA2*16, positioning*.8, 200);
 
 	$.each(cgApp.curComparison.words.filter(zeroVisFilter), function(key, value){
 		
@@ -178,7 +178,7 @@ function initialTweetBubblesView() {
 	});
 
 	$('#canvasBg').animate({
-			height: 15 + Math.max.apply([Math.sqrt(bA1*15/Math.PI)*2, Math.sqrt(bA2*15/Math.PI)*2]) + 15
+			height: 15 + Math.max.apply(null, [Math.sqrt(bA1*15/Math.PI)*2, Math.sqrt(bA2*15/Math.PI)*2]) + 30
 		}, 1000, function() {
 
 				console.log("canvasBg shrink!");
@@ -207,11 +207,11 @@ function unionTweetBubblesView(){
     	var id = "#word" + key;
 
     	if (cgApp.curComparison.lookup[cgApp.curComparison.words[key].value].sets == "union") {
-    		cgApp.curComparison.words[key].union = true;
+    		
     		//Union Count to check for duplicates.
 	    	if (unionCount[cgApp.curComparison.words[key].value] == undefined) {
 		    	bA3 = cgApp.curComparison.words[key].pixelWidth + bA3;  //Counting Length
-
+		    	cgApp.curComparison.words[key].union = true;
 		    	if (cgApp.curComparison.words[key].linkedSets == "set1") bA1 -= cgApp.curComparison.words[key].pixelWidth;
 					if (cgApp.curComparison.words[key].linkedSets == "set2") bA2 -= cgApp.curComparison.words[key].pixelWidth;
 
@@ -238,8 +238,20 @@ function unionTweetBubblesView(){
 
 	});
 	console.log(cgApp.curComparison.words.filter(NonUnionSet1Filter));
-	circlePack(cgApp.curComparison.words.filter(NonUnionSet1Filter), bA1*30, positioning*.2, 200);
-	circlePack(cgApp.curComparison.words.filter(NonUnionSet2Filter), bA2*30, positioning*.80, 200);
+	circlePack(cgApp.curComparison.words.filter(NonUnionSet1Filter), bA1*31, positioning*.2, 200);
+	circlePack(cgApp.curComparison.words.filter(NonUnionSet2Filter), bA2*35, positioning*.80, 200);
+
+/*	$.each(cgApp.curComparison.words.filter(zeroVisFilter), function(key, value){
+		
+		if (value.firstPairLocation == undefined) {
+			$("#word" + value.selfRef).fadeOut();
+		} else if (value.secondSetPairLocation != undefined) {
+			animateToDuplicate(value, key, cgApp.curComparison.words[value.secondSetPairLocation].circlePosition);
+		} else {
+			animateToDuplicate(value, key, cgApp.curComparison.words[value.firstPairLocation].circlePosition);
+		}
+
+	});*/
 
 }
 
