@@ -385,8 +385,8 @@ function animateToDuplicate(iWord, iDelay, iPosition) {
 
 		}, 500, function() {
 
-			$('#word'+iWord.selfRef).removeClass("show");
 			$('#word'+iWord.selfRef).fadeOut(2000);
+			$('#word'+iWord.selfRef).addClass("extra");
 			//console.log("circle animation complete");
 
 	});

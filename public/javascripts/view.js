@@ -144,7 +144,7 @@ function initialTweetBubblesView() {
 			if(value.linkedSets == "set1") {
 
 			        if (value.visible == true) {
-											$("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+											$("#word" + key).attr({class: "word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
 
 							bA1 = value.pixelWidth + bA1; //Counting set1 visible word lengths.
 
@@ -155,7 +155,7 @@ function initialTweetBubblesView() {
 			        }
 			} else if(value.linkedSets == "set2") {
 			        if (value.visible == true) {
-					            $("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
+					            $("#word" + key).attr({class: "word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
 
 			                bA2 = value.pixelWidth + bA2; //Counting set2 visible word lengths.
 
@@ -247,12 +247,10 @@ function unionTweetBubblesView(){
 	console.log(positioning);
 	circlePack(cgApp.curComparison.words.filter(unionFilter), bA3*15, positioning*.5, 200);
 
-	console.log(cgApp.curComparison.words.filter(unionVizFilter));
 	$.each(cgApp.curComparison.words.filter(unionVizFilter), function(key, value){
-			console.log("********Animate to Duplicate**********");
 			animateToDuplicate(value, key, cgApp.curComparison.words[value.firstPairLocation].circlePosition);
-
 	});
+	
 	console.log(cgApp.curComparison.words.filter(NonUnionSet1Filter));
 	circlePack(cgApp.curComparison.words.filter(NonUnionSet1Filter), bA1*31, positioning*.2, 200);
 	circlePack(cgApp.curComparison.words.filter(NonUnionSet2Filter), bA2*35, positioning*.80, 200);
