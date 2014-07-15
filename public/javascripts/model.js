@@ -44,6 +44,9 @@ function emptyViewItems(){
 	$("#list2").empty();
 	//
 	$("#searchContainer").empty();
+
+	$('#user1').fadeOut(500);
+	$('#user2').fadeOut(500);
 }
 
 //DEV: should this be in view.js?
@@ -178,76 +181,51 @@ function linePack(id, setCount, delayCount) {
 }
 
 // Tweet List Line Packing
-function listPack(iWords) {
-	
-	var	width = 503 - 30,
-			usedSpace = 0,
-			lineCount = 0,
+function listPack(iWord, iWidth, iSet, iKey) {
+
+	var	width = iWidth,
+			set = iSet,
 			padding = 30,
-			currentTweet = 0,
-			oneOff = 0,
-			set = 0,
-			maxLineCount = [],
-			amountOfTweets = [];
+			usedSpace = cgApp.curComparison.sets[set].listPack.usedSpace,
+			lineCount = cgApp.curComparison.sets[set].listPack.lineCount,
+			currentTweet = cgApp.curComparison.sets[set].listPack.currentTweet;
 
-	$.each(iWords, function (key, value){
-		var span = $('#word' + key),
-				spanWidth = span.width(),
-				tweet = value.linkedTweet;
+		var span = $('#word' + iKey),
+				spanWidth = iWord.pixelWidth,
+				tweet = iWord.linkedTweet;
 
-		console.log(value.linkedSets);
-		if (value.linkedSets != "set1") {
-			set = 1;
-			if (oneOff == 0) {
-				oneOff = 1;
-			}
-		}
 
-		if (oneOff == 1) {
-			console.log("*******************- OneOFF -**********************");
-			amountOfTweets.push(currentTweet);
-			maxLineCount.push(lineCount);
-			lineCount = 0;
+		if (tweet != currentTweet) {
+			currentTweet = tweet;
+			cgApp.curComparison.sets[set].listPack.currentTweet = tweet;
+			lineCount++;
+			cgApp.curComparison.sets[set].listPack.lineCount++;
 			usedSpace = 0;
-			oneOff = 2;
-		}
-
-		if (value.linkedTweet != currentTweet) {
-			currentTweet = value.linkedTweet;
-			usedSpace = 0;
+			cgApp.curComparison.sets[set].listPack.usedSpace = 0;
 		}
 
 		if (usedSpace + spanWidth > width) {
+			console.log("used space");
 			lineCount++;
+			cgApp.curComparison.sets[set].listPack.lineCount++;
+			console.log(cgApp.curComparison.sets[set].listPack.lineCount);
 			usedSpace = 0;
+			cgApp.curComparison.sets[set].listPack.usedSpace = 0;
 		}
-		value.startPosition.left =  503*set + padding*set/2 + padding + usedSpace;
-		value.startPosition.top = currentTweet*padding + padding + lineCount*circlePackinglineHeight;
+
+		iWord.startPosition.left =  503*set + padding*set/2 + padding + usedSpace;
+		iWord.startPosition.top = currentTweet*padding + padding + lineCount*circlePackinglineHeight;
 		if (spanWidth == 0) {
 			usedSpace += 3;
+			cgApp.curComparison.sets[set].listPack.usedSpace += 3;
 		} else {
 			usedSpace += spanWidth;
+			cgApp.curComparison.sets[set].listPack.usedSpace += spanWidth;
 		}
 
-		span.attr({style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px; position: absolute;"});
+		span.attr({style: "top: " +	iWord.startPosition.top + "px;left: " + iWord.startPosition.left + "px; position: absolute; display: none;"});
 
-		//span.fadeIn(500);
-
-	});
-		amountOfTweets.push(currentTweet);
-		maxLineCount.push(lineCount);
-		console.log(maxLineCount);
-		console.log(amountOfTweets);
-		var maxHeight = Math.max.apply(null, maxLineCount) * circlePackinglineHeight + Math.max.apply(null, amountOfTweets) * padding;
-		$('#canvasBg').animate({
-			height: padding + maxHeight + padding
-		}, 1000, function() {
-
-				console.log("canvasBg Grow!");
-				console.log(padding + maxHeight + padding);
-
-			});
-
+		span.delay( currentTweet * 50 ).fadeIn(1000);
 }
 
 // Line Count for packing circles

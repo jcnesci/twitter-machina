@@ -28,44 +28,58 @@ function introView(){
 function listView(){
 	$("#state_title").html("state : tweetList");
 
+
+
 	var sets = cgApp.curComparison.sets;
 	$('#user1').html('<span class="name">' + sets[0].fullName + '</span><span class="screen_name">@' + sets[0].screenName + '</span>');
 	$('#user2').html('<span class="name">' + sets[1].fullName + '</span><span class="screen_name">@' + sets[1].screenName + '</span>');
-
+	$('#user1').fadeIn(1000);
+	$('#user2').fadeIn(1000);
 
 	// Add the HTML structure to be populated.
 	$("#content").html("<div id='canvasBg' class='col-md-10 col-md-offset-1'></div><div id='listView'>");
-
-
-	/*// Populate it.
-	$.each(cgApp.curComparison.words, function(key, value) {
-		if (value.linkedSets == "set1") {
-			if ($("#list1 #tweet" + this.linkedTweet).html() == undefined) {
-				$("#list1").append('<div id="tweet' + this.linkedTweet + '" class="tweet"><span id="word'+ key +'" class="tword">' + value.value + '</span></div>');
-			} else {
-				$("#list1 #tweet" + this.linkedTweet).html($("#list1 #tweet" + this.linkedTweet).html() + '<span id="word'+ key +'" class="tword">' + value.value + '</span>');
-			}
-		} else if (value.linkedSets == "set2") {
-			if ($("#list2 #tweet" + this.linkedTweet).html() == undefined) {
-				$("#list2").append('<div id="tweet' + this.linkedTweet + '" class="tweet"><span id="word'+ key +'" class="tword">' + value.value + '</span></div>');
-			} else {
-				$("#list2 #tweet" + this.linkedTweet).html($("#list2 #tweet" + this.linkedTweet).html() + '<span id="word'+ key +'" class="tword">' + value.value + '</span>');
-			}
-		}
-		
-	});*/
 
 	// Populate it.
 	$.each(cgApp.curComparison.words, function(key, value) {
 		if (value.linkedSets == "set1") {
 				$("#canvasBg").append('<span id="word'+ key +'" class="tword" style="display: none;">' + value.value + '</span>');
+				value.pixelWidth = $('#word' + key).width();
+				// send word to listPack for positioning. (wordObj, width, set, word's key)
+				listPack(value, 503 - 30, 0, key);
 		} else if (value.linkedSets == "set2") {
 				$("#canvasBg").append('<span id="word'+ key +'" class="tword" style="display: none;">' + value.value + '</span>');
+				value.pixelWidth = $('#word' + key).width();
+				// send word to listPack for positioning. (wordObj, width, set, word's key)
+				listPack(value, 503 - 30, 1, key);
 		}
 	});
 
-	listPack(cgApp.curComparison.words);
+	// Make an array of each sets lineCount and tweetCount.
+	var aLc = [cgApp.curComparison.sets[0].listPack.lineCount, cgApp.curComparison.sets[1].listPack.lineCount];
+	var aTc = [cgApp.curComparison.sets[0].listPack.currentTweet, cgApp.curComparison.sets[1].listPack.currentTweet];
 
+	// Take the largest lineCount and tweetCount and calculate the canvas height, then animate.
+	var maxHeight = Math.max.apply(null, aLc) * circlePackinglineHeight + Math.max.apply(null, aTc) * 30;
+	$('#canvasBg').animate({
+		height: 30 + maxHeight + 30
+	}, 1000, function() {
+
+			console.log("canvasBg Grow!");
+			console.log(30 + maxHeight + 30);
+
+	});
+
+	// reset set's listPacking values for future packing.
+	cgApp.curComparison.sets[0].listPack = {
+		"usedSpace": 0,
+		"lineCount": 0,
+		"currentTweet": 0,
+	};
+	cgApp.curComparison.sets[1].listPack = {
+		"usedSpace": 0,
+		"lineCount": 0,
+		"currentTweet": 0,
+	};
 
 }
 
@@ -177,7 +191,7 @@ function initialTweetBubblesView() {
 
 	});
 
-	$('#canvasBg').animate({
+	$('#canvasBg').delay( 3000 ).animate({
 			height: 15 + Math.max.apply(null, [Math.sqrt(bA1*15/Math.PI)*2, Math.sqrt(bA2*15/Math.PI)*2]) + 30
 		}, 1000, function() {
 
@@ -305,10 +319,12 @@ function updateView(){
 }
 
 function searchView() {
-	$('#searchContainer').append('<div id="searchForm"><div>'+
-		'Person 1: <input id="input1" class="typeahead" type="text" name="person1" value="DalaiLama">'+
-		'Person 2: <input id="input2" class="typeahead" type="text" name="person2" value="PutinRF_Eng">'+
-		'<input type="submit" value="Submit" onclick="searchButton(); return false;"></div></div>');
+	$('#user1').html('<span class="name">Person 1: </span><span class="screen_name">@<input id="input1" class="typeahead" type="text" name="person1" value="DalaiLama"></span>');
+	$('#user2').html('<span class="name">Person 2: </span><span class="screen_name">@<input id="input2" class="typeahead" type="text" name="person2" value="PutinRF_Eng"></span>' +
+		'<input id="submit1" type="submit" value="Submit" onclick="searchButton(); return false;">');
+
+	$('#user1').fadeIn(1000);
+	$('#user2').fadeIn(1000);
 
 	var substringMatcher = function(strs) {
 	  return function findMatches(q, cb) {

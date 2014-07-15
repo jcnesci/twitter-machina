@@ -11,6 +11,12 @@ function Set(iComparison, iData, iName) {
 	this.fullName = iData[0].user.name;
 	this.screenName = iData[0].user.screen_name;
 
+	this.listPack = {
+		"usedSpace": 0,
+		"lineCount": 0,
+		"currentTweet": 0,
+	};
+
 	for (var i = 0; i < iData.length; i++) {
 		var tweetText = iData[i].text;
 		this.tweets.push(new Tweet(this.comparison, this, tweetText, i));
