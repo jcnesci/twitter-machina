@@ -146,7 +146,7 @@ function initialTweetBubblesView() {
 			        if (value.visible == true) {
 											$("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
 
-							bA1 = value.pixelWidth + bA1; //Counting set1 visibile word lengths.
+							bA1 = value.pixelWidth + bA1; //Counting set1 visible word lengths.
 
 			        } else {
 			        				// None Visisble words. "extra" has replaced hide, which was already in bootstrap.
@@ -157,7 +157,7 @@ function initialTweetBubblesView() {
 			        if (value.visible == true) {
 					            $("#word" + key).attr({class: "show word", style: "top: " +	value.startPosition.top + "px;left: " + value.startPosition.left + "px"});
 
-			                bA2 = value.pixelWidth + bA2; //Counting set2 visibile word lengths.
+			                bA2 = value.pixelWidth + bA2; //Counting set2 visible word lengths.
 
 			        } else {
 			        				// None Visible words.  "extra" has replaced hide, which was already in bootstrap.
@@ -234,7 +234,8 @@ function unionTweetBubblesView(){
 
 	    	} else {
 	    		//Hide the Duplicates
-	    		value.visibile = false;
+	    		value.visible = false;
+	    		cgApp.curComparison.words[key].union = true;
 		    	if (cgApp.curComparison.words[key].linkedSets == "set1") bA1 = bA1 - cgApp.curComparison.words[key].pixelWidth;
 					if (cgApp.curComparison.words[key].linkedSets == "set2") bA2 = bA2 - cgApp.curComparison.words[key].pixelWidth;
     		}
@@ -246,26 +247,15 @@ function unionTweetBubblesView(){
 	console.log(positioning);
 	circlePack(cgApp.curComparison.words.filter(unionFilter), bA3*15, positioning*.5, 200);
 
+	console.log(cgApp.curComparison.words.filter(unionVizFilter));
 	$.each(cgApp.curComparison.words.filter(unionVizFilter), function(key, value){
-
+			console.log("********Animate to Duplicate**********");
 			animateToDuplicate(value, key, cgApp.curComparison.words[value.firstPairLocation].circlePosition);
 
 	});
 	console.log(cgApp.curComparison.words.filter(NonUnionSet1Filter));
 	circlePack(cgApp.curComparison.words.filter(NonUnionSet1Filter), bA1*31, positioning*.2, 200);
 	circlePack(cgApp.curComparison.words.filter(NonUnionSet2Filter), bA2*35, positioning*.80, 200);
-
-/*	$.each(cgApp.curComparison.words.filter(zeroVisFilter), function(key, value){
-		
-		if (value.firstPairLocation == undefined) {
-			$("#word" + value.selfRef).fadeOut();
-		} else if (value.secondSetPairLocation != undefined) {
-			animateToDuplicate(value, key, cgApp.curComparison.words[value.secondSetPairLocation].circlePosition);
-		} else {
-			animateToDuplicate(value, key, cgApp.curComparison.words[value.firstPairLocation].circlePosition);
-		}
-
-	});*/
 
 }
 

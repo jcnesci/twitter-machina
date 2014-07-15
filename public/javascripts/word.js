@@ -2,11 +2,11 @@
 var exWordArray = ["the", "a", "if", "is", "on", "in", "to", "it", "of"];
 var wordCount = 0;
 // Creates the individual word objects.
-function Word(theWord, refSet, refTweet, vis, firstPairLoc, secondSetPairLoc) {
+function Word(theWord, refSet, refTweet, vis, firstPairLoc, secondSetPairLoc, selfRef) {
 	this.value = theWord;
 	this.linkedSets = refSet;
 	this.linkedTweet = refTweet;
-	this.selfRef = 0;
+	this.selfRef = selfRef;
 	this.firstPairLocation = firstPairLoc;
 	this.secondSetPairLocation = secondSetPairLoc;
 	this.union = false;
