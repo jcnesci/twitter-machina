@@ -30,8 +30,13 @@ app.configure(function(){
 
 // Web pages & routes - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// Routes to the various pages.
+// --- Routes to the various pages.
+// At the root of the site, send to the splash page.
 app.get('/', function (req, res) {
+		res.render('splash');
+});
+// When a link points to index.html (which is the actual app page) send to the index page.
+app.get('/index.html', function (req, res) {
 		res.render('index',
 			{title: 'Twitter Machina - Prototype', twitterQuery_1_msg: twitterQuery_1, twitterQuery_2_msg: twitterQuery_2}
 		);

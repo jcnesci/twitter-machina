@@ -171,7 +171,84 @@ body{
   margin-bottom: 8%;
 }
 
-// --- OLD : pre-bootstrap styles
+.splash-outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.splash-outer.content{
+  z-index: 10;
+}
+.splash-outer.bg{
+  z-index: 0;
+}
+
+.splash-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.content .splash-inner{
+  width: 470px;
+}
+
+.bg .splash-inner{
+  width: 1330px;
+}
+
+.splash-inner {
+  margin-left: auto;
+  margin-right: auto; 
+  // width: 470px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  text-align: justify;
+}
+
+.logo-img-splash{
+  width: 201px;
+  height: 62px;
+}
+
+.bg-img-splash {
+  width: 1330px;
+  height: 1000px;
+  opacity: 0.5;
+}
+
+.hairline-splash{
+  width: 470px;
+  margin-top: 75px;
+  border-bottom: 1px solid #CCCCCC;
+  margin-bottom: 75px;
+}
+
+.splash-inner p {
+  font-size: 1.2em;
+  font-weight: 300;
+}
+
+.splash-inner p.serif {
+  font-family: 'Roboto Slab', serif;
+}
+
+.splash-inner p.callout {
+  font-weight: 700;
+  color: #8C12B2;    //#808080;
+  font-size: 1.8em;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.login-splash{
+  width: 158px;
+  height: 28px;
+  margin-top: 75px;
+}
+
+// --------------------------- OLD : pre-bootstrap styles
 
 h2 {
   font-size: 1em;
