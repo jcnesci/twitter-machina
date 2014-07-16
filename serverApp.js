@@ -47,6 +47,10 @@ passport.use(new TwitterStrategy({
     createTwitObject(token, tokenSecret);
     // Send user profile info to success route (ie. app.ejs).
     var user = profile;
+    // console.log("Twitter user logged in ----------");
+    // console.log("username : "+ user.username);
+    // console.log("displayName : "+ user.displayName);
+    // console.log("id : "+ user.id);
     return done(null, user);
   }
 ));
