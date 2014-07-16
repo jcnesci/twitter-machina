@@ -15,7 +15,10 @@
     "socket.io": "*",
     "stylus": "*",
     "twit": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "passport" : "*",
+    "passport-twitter" : "*",
+    "connect-ensure-login": "*"
   },
   "engines": {
     "node": ">=0.6.0"
