@@ -10,6 +10,10 @@ var express = require('express')
   , Twit = require('twit')
   , _ = require('underscore');
 
+// Our Twitter app's consumer keys, from https://dev.twitter.com/
+var TWITTER_CONSUMER_KEY = "9slhnkupvcsG5aMmp39e4M9Lo"
+  , TWITTER_CONSUMER_SECRET = "A5ocaqFb2N4RYGjapb7NU3gXGNvuKrIn5PmlhICiwBzq0dkMF5";
+
 // Setup for Passport/Twitter authentication.
 app.use(express.static(__dirname + '/public'));
 app.use(express.cookieParser());
@@ -33,13 +37,15 @@ app.use(express.static(path.join(__dirname, 'public')));      // DEV: necessary?
 
 // Secondary setup for Passport/Twitter authentication.
 passport.use(new TwitterStrategy({
-    consumerKey: "9slhnkupvcsG5aMmp39e4M9Lo",
-    consumerSecret: "A5ocaqFb2N4RYGjapb7NU3gXGNvuKrIn5PmlhICiwBzq0dkMF5",
+    consumerKey: TWITTER_CONSUMER_KEY,
+    consumerSecret: TWITTER_CONSUMER_SECRET,
     callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
   },
   function(token, tokenSecret, profile, done) {
-    // NOTE: You'll probably want to associate the Twitter profile with a
-    //       user record in your application's DB.
+    
+    // Use user credentials for accessing Twitter API.
+    createTwitObject(token, tokenSecret);
+    // Send user profile info to success route (ie. app.ejs).
     var user = profile;
     return done(null, user);
   }
@@ -50,8 +56,8 @@ app.get('/', function (req, res) {
     res.render('splash.ejs');
 });
 app.get('/app', ensureLoggedIn('/'), function (req, res) {
-    console.log('* * * * * *');
-    console.log(req.user);
+    // console.log('* * * * * *');
+    // console.log(req.user);
 
     res.render('app.ejs', {
       title: 'Sosolimited - Common Ground',
@@ -67,13 +73,49 @@ server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
+// DEV: necessary?
+// Handle uncaughtException errors, to prevent app from crashing when one happens.
+process.on('uncaughtException', function(err) {
+  console.error("ERROR- uncaughtException- "+ err.stack);
+});
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Twitter API usage
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
+var T;                          // Twitter API request object.
 var numberOfQueries = 20;
+
+// Takes logged-in user's access tokens to access the Twitter API.
+function createTwitObject(token, tokenSecret){
+  console.log("createTwitObject - - - ENTER");
+  console.log("token : "+ token);
+  console.log("tokenSecret : "+ tokenSecret);
+
+  T = new Twit({
+      consumer_key: TWITTER_CONSUMER_KEY
+    , consumer_secret: TWITTER_CONSUMER_SECRET
+    , access_token: token
+    , access_token_secret: tokenSecret
+  });
+
+  // DEV: JC's keys.
+  // T = new Twit({
+  //     consumer_key: 'kEwsveRmFIRibVAIq43NAIjCt'
+  //   , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
+  //   , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
+  //   , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
+  // });
+
+  // DEV: Alex's keys.
+  // var T = new Twit({
+  //    consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
+  //  , consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
+  //  , access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
+  //  , access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
+  // });
+}
 
 // Open a socket to stream results continuously to our webpage.
 io.sockets.on('connection', function (socket) {
@@ -155,25 +197,4 @@ function sendQueries(socket, comparisonId, item1, item2) {
   })
 }
 
-// Twitter credentials.
-// DEV: Alex's keys.
-// var T = new Twit({
-//    consumer_key: 'P8EYI0gloJoDTOu8596QcUn1c'
-//  , consumer_secret: 'Ya8PmkQxm7FLdQ6coftOi65hSedUNevFVil0kApw45YEI22mMd'
-//  , access_token: '234878749-OlktDQaRgvr6hkBoQ4kI94y7sxI1EfpOlH17rwTG'
-//  , access_token_secret: 'nKpgBcCd20RFXeASCLwACtA80PnEmvBJ6kJcaeA4oSO4a'
-// });
-// DEV: JC's keys.
-var T = new Twit({
-    consumer_key: 'kEwsveRmFIRibVAIq43NAIjCt'
-  , consumer_secret: 'VNgTmvWXyW7j8nJdIEQowmdhmutu3iB9Ee7WcgWzWSPjMNGJbF'
-  , access_token: '40685218-xsWo4c9s23Tr6UEXQbE5VjUeWEH2hUpaKW0vOCBS0'
-  , access_token_secret: '2nAecFy6Y9rRyUQflekTumONqYFzYSrGr4n1cgifareuQ'
-});
-// Extras - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-
-// Handle uncaughtException errors, to prevent app from crashing when one happens.
-process.on('uncaughtException', function(err) {
-  console.error("ERROR- uncaughtException- "+ err.stack);
-});
