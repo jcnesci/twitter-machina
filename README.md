@@ -65,3 +65,11 @@ Once that all passes through, you can then use grunt.
 ```grunt less```
 ```grunt concat```
 ```grunt uglify```
+
+
+
+Dev Notes
+-----
+
+* App is read only on User’s data. We can’t post on behalf of user. We can only pull tweets.
+* When we go live, need to change app’s callback url in dev.twitter.com and in serverApp.js
