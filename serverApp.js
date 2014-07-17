@@ -11,8 +11,8 @@ var express = require('express')
   , _ = require('underscore');
 
 // Our Twitter app's consumer keys, from https://dev.twitter.com/
-var TWITTER_CONSUMER_KEY = "9slhnkupvcsG5aMmp39e4M9Lo"
-  , TWITTER_CONSUMER_SECRET = "A5ocaqFb2N4RYGjapb7NU3gXGNvuKrIn5PmlhICiwBzq0dkMF5";
+var TWITTER_CONSUMER_KEY = "lG3ef2gaY5yeX0kVj7W3DFDG3"
+  , TWITTER_CONSUMER_SECRET = "HNcGrpUvd9mIAaE6qHhYfupdS49IEZ5Vgl7TwVYVtHCYq0dd2D";
 
 // Setup for Passport/Twitter authentication.
 app.use(express.static(__dirname + '/public'));
