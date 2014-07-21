@@ -83,6 +83,10 @@ How to update the code on the linode:
 * you know the password
 * `cd /var/www/commonground/Intel-CommonGround/`
 * create new branch from dev branch, pull latest from dev branch
-* if not already there, copy `/node_modules/socket.io/node_modules/socket.io-client/socket.io.js` into `/public/javascripts/`
-* if not already done, update the script include in `app.ejs` to link to that new path in `/javascripts/`
+* in `serverApp.js`:
+	* change the twitter consumer key and secret to those for our Live App (find keys at https://apps.twitter.com/app/).
+	* change passport's `callbackURL` to the one for the Live app (also on apps.twitter.com): `http://commonground.sosolimited.com/auth/twitter/callback`
+* if not already done:
+	* copy `/node_modules/socket.io/node_modules/socket.io-client/socket.io.js` into `/public/javascripts/`
+	* update the script include in `app.ejs` to link to that new path in `/javascripts/`
 * should work!
