@@ -91,3 +91,8 @@ How to update the code on the linode:
 	* update the script include in `app.ejs` to link to that new path in `/javascripts/`
 * start-up the app using `forever` in `/Intel-CommonGround/` (important to do this in project root, not at linode root) with: `forever start serverApp.js`
 * should work!
+	* ERRORS:
+		* if you get an error like this: `ERROR- uncaughtException- Error: listen EADDRINUSE`
+			* make sure `forever` isn't alreay running on the linode root. Go to root (`cd .`) and see if a process is running (`forever list`). If there is one, do `forever stopall`.
+			* then run the app or `forever` in the project root instead. Always run it in the project root. Do `forever start serverApp.js`.
+
