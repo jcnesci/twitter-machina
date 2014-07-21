@@ -90,7 +90,7 @@ How to update the code on the linode:
 	* copy `/node_modules/socket.io/node_modules/socket.io-client/socket.io.js` into `/public/javascripts/`
 	* update the script include in `app.ejs` to link to that new path in `/javascripts/`
 * start-up the app using `forever` in `/Intel-CommonGround/` (important to do this in project root, not at linode root) with: `forever start serverApp.js`
-* should work!
+* should work at: `http://commonground.sosolimited.com/`
 	* ERRORS:
 		* if you get an error like this: `ERROR- uncaughtException- Error: listen EADDRINUSE`
 			* make sure `forever` isn't alreay running on the linode root. Go to root (`cd .`) and see if a process is running (`forever list`). If there is one, do `forever stopall`.
