@@ -73,3 +73,16 @@ Dev Notes
 
 * App is read only on User’s data. We can’t post on behalf of user. We can only pull tweets.
 * When we go live, need to change app’s callback url in dev.twitter.com and in serverApp.js
+
+
+Linode Notes
+-----
+
+How to update the code on the linode:
+* in terminal: `ssh sosolimited@173.255.235.56`
+* you know the password
+* `cd /var/www/commonground/Intel-CommonGround/`
+* create new branch from dev branch, pull latest from dev branch
+* if not already there, copy `/node_modules/socket.io/node_modules/socket.io-client/socket.io.js` into `/public/javascripts/`
+* if not already done, update the script include in `app.ejs` to link to that new path in `/javascripts/`
+* should work!
