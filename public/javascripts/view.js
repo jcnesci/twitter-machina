@@ -3,6 +3,11 @@ View.js
 Contains the code relative to the View parts of the app (following an MVC approach).
 */
 
+// dev_jn
+function introViewApp(){
+	$("#content").html(cgApp.introHTML);
+}
+
 // View for intro/1st state of a comparison.
 function introView(){
 	//console.log("introView -- - - - - cgApp");

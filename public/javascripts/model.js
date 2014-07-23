@@ -15,13 +15,13 @@ $(function(){
 	// --- Setup
 
 	cgApp = new clientApp(false);				// DEV: run the app with static data (ie. 'false').
-	cgApp.start();
+	cgApp.startAtFirstState();
 	// cgApp.gotoState("intro");
 	// -> in comparison, when crunching complete
 	// 	-> dataReady = true
-	//		-> curComparison.gotoState (but dont call listView() to show it)
+	//		-> curComparison.gotoState("tweetView") (but dont call listView() to show it)
 	// -> click button in intro state -> cgApp.gotoState("main")
-	//	-> listView() to show
+	//	-> listView() to show stuff
 	
 });
 

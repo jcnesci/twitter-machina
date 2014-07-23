@@ -6,10 +6,12 @@ function clientApp(iUseLiveData){
 	// --- Properties
 	this.comparisons = [];
 	this.curComparison = null;
+	this.introHTML = "<div id='intro_view'>" +
+										"<p>Choose a pair to start comparing their Common Ground</p>" +
+									"</div>";
 
 	// --- States : dev_jn
 	this.buildStateMachine();
-	this.stateMachine.gotoState("intro");
 	
 	// --- Behavior
 	// Comparison objects
@@ -36,11 +38,12 @@ function clientApp(iUseLiveData){
 	}	
 	
 	// 
-	this.buildIntroHTML();
+	// this.buildIntroHTML();			//dev_jn : unnec
 
 
 	// console.log("clientApp- comparisons :");
 	// console.log(this.comparisons);
+
 }
 clientApp.prototype = {
 	// Cutomize the intro text for each comparison. 
@@ -55,13 +58,22 @@ clientApp.prototype = {
 
 		}
 	},
-	start: function(){
+	startAtFirstState: function(){
 		// Display the first comparison.
 		emptyViewItems();
-		// introView();		//dev_jn
-		listView();
-
+		
+		// Force the starting state and view.
+		this.stateMachine.gotoState("intro");
+		introViewApp();
 	},
+	//dev_jn : old
+	// start: function(){
+	// 	// Display the first comparison.
+	// 	emptyViewItems();
+	// 	// introView();		//dev_jn
+	// 	listView();
+
+	// },
 	// Define the state machine transitions here.
 	buildStateMachine: function(){
 		this.stateMachine = new sosoStateMachine();
