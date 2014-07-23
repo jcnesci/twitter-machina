@@ -62,7 +62,7 @@ clientApp.prototype = {
 		// Display the first comparison.
 		emptyViewItems();
 		
-		// Force the starting state and view.
+		// Force the starting state, manually set the view. Otherwise, the view is chosen based on the current state when something is clicked.
 		this.stateMachine.gotoState("intro");
 		introViewApp();
 	},

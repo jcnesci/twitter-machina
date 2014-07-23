@@ -124,7 +124,7 @@ comparison.prototype = {
 	// TODO: instead of using IF statemtn for each step, make this automatically know what the enxt state is.
 	nextState: function(){
 
-		//dev_jn
+		//dev_jn : old
 
 		// if (this.stateMachine.curState == this.stateMachine.getState("intro")){
 
@@ -145,25 +145,28 @@ comparison.prototype = {
 		// 		initialTweetBubblesView();
 		// 	}
 		// }
-		if (this.stateMachine.curState == this.stateMachine.getState("tweetList")){
+		
+		// NEW : dev_jn
 
-			var stateChangeSuccess = this.stateMachine.gotoState("initialTweetBubbles");
-			// If the transition is valid, do stuff.
-			if (stateChangeSuccess) {
+		// if (this.stateMachine.curState == this.stateMachine.getState("tweetList")){
 
-				//emptyViewItems();
-				initialTweetBubblesView();
-			}
-		} else if (this.stateMachine.curState == this.stateMachine.getState("initialTweetBubbles")){
+		// 	var stateChangeSuccess = this.stateMachine.gotoState("initialTweetBubbles");
+		// 	// If the transition is valid, do stuff.
+		// 	if (stateChangeSuccess) {
 
-			var stateChangeSuccess = this.stateMachine.gotoState("unionTweetBubbles");
-			// If the transition is valid, do stuff.
-			if (stateChangeSuccess) {
+		// 		//emptyViewItems();
+		// 		initialTweetBubblesView();
+		// 	}
+		// } else if (this.stateMachine.curState == this.stateMachine.getState("initialTweetBubbles")){
 
-				// Don't want to empty things when coming into here, want to keep the initialTweetBubbles, and just add another bubble for Union.
-				unionTweetBubblesView();
-			}
-		}
+		// 	var stateChangeSuccess = this.stateMachine.gotoState("unionTweetBubbles");
+		// 	// If the transition is valid, do stuff.
+		// 	if (stateChangeSuccess) {
+
+		// 		// Don't want to empty things when coming into here, want to keep the initialTweetBubbles, and just add another bubble for Union.
+		// 		unionTweetBubblesView();
+		// 	}
+		// }
 
 	}
 }

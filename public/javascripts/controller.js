@@ -9,7 +9,36 @@ function setupButtons(){
 
 	// Next btn to go between states within a Query.
 	$("#state_selector > #query-stepper").click(function() { 
-		cgApp.curComparison.nextState();
+
+		console.log("* * * * * * * * * * * curState : "+ cgApp.stateMachine.curState);
+
+		if (cgApp.stateMachine.curState == cgApp.stateMachine.getState("intro")){
+			console.log("* * * * * * * * * * * in INTRO");
+
+			var stateChangeSuccess = cgApp.stateMachine.gotoState("main");
+			if (stateChangeSuccess) {
+				emptyViewItems();
+				listView();
+			}
+
+		} else if (cgApp.stateMachine.curState == cgApp.stateMachine.getState("main")){
+			console.log("* * * * * * * * * * * in MAIN");
+
+			if (cgApp.curComparison.stateMachine.curState == cgApp.curComparison.stateMachine.getState("tweetList")){
+				var stateChangeSuccess = cgApp.curComparison.stateMachine.gotoState("initialTweetBubbles");
+				if (stateChangeSuccess) {
+					initialTweetBubblesView();
+				}
+			} else if (cgApp.curComparison.stateMachine.curState == cgApp.curComparison.stateMachine.getState("initialTweetBubbles")){
+				var stateChangeSuccess = cgApp.curComparison.stateMachine.gotoState("unionTweetBubbles");
+				if (stateChangeSuccess) {
+					unionTweetBubblesView();
+				}
+			}
+			
+		}
+
+		// cgApp.curComparison.nextState();		//dev_jn: old
 	});
 }
 
