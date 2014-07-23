@@ -117,56 +117,8 @@ comparison.prototype = {
 	buildStateMachine: function(){
 		this.stateMachine = new sosoStateMachine();
 
-		// this.stateMachine.addTransition("intro", "tweetList");			//dev_jn
 		this.stateMachine.addTransition("tweetList", "initialTweetBubbles");
 		this.stateMachine.addTransition("initialTweetBubbles", "unionTweetBubbles");
-	},
-	// TODO: instead of using IF statemtn for each step, make this automatically know what the enxt state is.
-	nextState: function(){
-
-		//dev_jn : old
-
-		// if (this.stateMachine.curState == this.stateMachine.getState("intro")){
-
-		// 	var stateChangeSuccess = this.stateMachine.gotoState("tweetList");
-		// 	// If the transition is valid, do stuff.
-		// 	if (stateChangeSuccess) {
-
-		// 		emptyViewItems();
-		// 		listView();													// Fill content div with tweetList content.
-		// 	}
-		// } else if (this.stateMachine.curState == this.stateMachine.getState("tweetList")){
-
-		// 	var stateChangeSuccess = this.stateMachine.gotoState("initialTweetBubbles");
-		// 	// If the transition is valid, do stuff.
-		// 	if (stateChangeSuccess) {
-
-		// 		//emptyViewItems();
-		// 		initialTweetBubblesView();
-		// 	}
-		// }
-		
-		// NEW : dev_jn
-
-		// if (this.stateMachine.curState == this.stateMachine.getState("tweetList")){
-
-		// 	var stateChangeSuccess = this.stateMachine.gotoState("initialTweetBubbles");
-		// 	// If the transition is valid, do stuff.
-		// 	if (stateChangeSuccess) {
-
-		// 		//emptyViewItems();
-		// 		initialTweetBubblesView();
-		// 	}
-		// } else if (this.stateMachine.curState == this.stateMachine.getState("initialTweetBubbles")){
-
-		// 	var stateChangeSuccess = this.stateMachine.gotoState("unionTweetBubbles");
-		// 	// If the transition is valid, do stuff.
-		// 	if (stateChangeSuccess) {
-
-		// 		// Don't want to empty things when coming into here, want to keep the initialTweetBubbles, and just add another bubble for Union.
-		// 		unionTweetBubblesView();
-		// 	}
-		// }
-
+		this.stateMachine.addTransition("unionTweetBubbles", "outro");
 	}
 }

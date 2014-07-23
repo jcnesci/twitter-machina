@@ -64,7 +64,7 @@ clientApp.prototype = {
 		
 		// Force the starting state, manually set the view. Otherwise, the view is chosen based on the current state when something is clicked.
 		this.stateMachine.gotoState("intro");
-		introViewApp();
+		appIntroView();
 	},
 	//dev_jn : old
 	// start: function(){

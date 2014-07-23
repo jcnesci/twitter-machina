@@ -17,8 +17,7 @@ function setupButtons(){
 
 			var stateChangeSuccess = cgApp.stateMachine.gotoState("main");
 			if (stateChangeSuccess) {
-				emptyViewItems();
-				listView();
+				comparisonListView();
 			}
 
 		} else if (cgApp.stateMachine.curState == cgApp.stateMachine.getState("main")){
@@ -27,18 +26,22 @@ function setupButtons(){
 			if (cgApp.curComparison.stateMachine.curState == cgApp.curComparison.stateMachine.getState("tweetList")){
 				var stateChangeSuccess = cgApp.curComparison.stateMachine.gotoState("initialTweetBubbles");
 				if (stateChangeSuccess) {
-					initialTweetBubblesView();
+					comparisonInitialVennView();
 				}
 			} else if (cgApp.curComparison.stateMachine.curState == cgApp.curComparison.stateMachine.getState("initialTweetBubbles")){
 				var stateChangeSuccess = cgApp.curComparison.stateMachine.gotoState("unionTweetBubbles");
 				if (stateChangeSuccess) {
-					unionTweetBubblesView();
+					comparisonUnionVennView();
+				}
+			} else if (cgApp.curComparison.stateMachine.curState == cgApp.curComparison.stateMachine.getState("unionTweetBubbles")){
+				var stateChangeSuccess = cgApp.curComparison.stateMachine.gotoState("outro");
+				if (stateChangeSuccess) {
+					comparisonOutroView();
 				}
 			}
-			
+
 		}
 
-		// cgApp.curComparison.nextState();		//dev_jn: old
 	});
 }
 
