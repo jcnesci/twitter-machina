@@ -85,7 +85,7 @@ sosoStateMachine.prototype = {
 			// If the curState is null, just set it to 'state'.
 			if (this.curState == null){
 				this.curState = state;
-				// console.log("sosoStateMachine- gotoState- state initiated at : "+ state.name);
+				console.log("sosoStateMachine- gotoState- state initiated at : "+ state.name);
 				return true;
 			} else {
 				// TODO: add transitionBlocking here, if necessary.
@@ -96,14 +96,14 @@ sosoStateMachine.prototype = {
 					this.startTransition(transition);
 					return true;
 				} else {
-					// console.log("sosoStateMachine- gotoState- ERROR: transition does not exist.");
+					console.log("sosoStateMachine- gotoState- ERROR: transition does not exist.");
 					return false;
 				}
 
 			}
 
 		} else {
-			// console.log("sosoStateMachine- gotoState- ERROR: state does not exist.");
+			console.log("sosoStateMachine- gotoState- ERROR: state does not exist.");
 			return false;
 		}
 	},

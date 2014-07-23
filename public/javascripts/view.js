@@ -26,9 +26,9 @@ function introView(){
 
 // A list view of both sets of tweets. Un-cleaned.
 function listView(){
+	console.log("listView - - - - - ENTER");
+
 	$("#state_title").html("Let's compare the words that they each use");
-
-
 
 	var sets = cgApp.curComparison.sets;
 	$('#user1').html('<span class="name">' + sets[0].fullName + '</span><span class="screen_name">@' + sets[0].screenName + '</span>');

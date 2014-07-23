@@ -6,6 +6,10 @@ function clientApp(iUseLiveData){
 	// --- Properties
 	this.comparisons = [];
 	this.curComparison = null;
+
+	// --- States : dev_jn
+	this.buildStateMachine();
+	this.stateMachine.gotoState("intro");
 	
 	// --- Behavior
 	// Comparison objects
@@ -54,14 +58,23 @@ clientApp.prototype = {
 	start: function(){
 		// Display the first comparison.
 		emptyViewItems();
-		introView();
+		// introView();		//dev_jn
+		listView();
 
+	},
+	// Define the state machine transitions here.
+	buildStateMachine: function(){
+		this.stateMachine = new sosoStateMachine();
+
+		this.stateMachine.addTransition("intro", "main");
 	},
 	switchCurComparison: function(iComparisonNum){
 		console.log("switchCurComparison- iComparisonNum : "+ iComparisonNum);
 
 		// Reset the old comparison to its initial state.
-		this.curComparison.stateMachine.forceState("intro");
+		// this.curComparison.stateMachine.forceState("intro");
+		//dev_jn
+		this.curComparison.stateMachine.forceState("tweetList");
 
 		// Get the comparison with the specified id.
 		var newComparison = $.grep(this.comparisons, function(c, i){
