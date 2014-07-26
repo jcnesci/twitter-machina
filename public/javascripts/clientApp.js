@@ -93,7 +93,8 @@ clientApp.prototype = {
 			return (c.id == iComparisonNum);
 		});
 		this.curComparison = newComparison[0];
-		this.start();
+		// this.start();
+		this.startAtFirstState();
 
 		// Update the view to reflect the current comparison.
 		updateView();
