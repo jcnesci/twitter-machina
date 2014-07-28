@@ -76,7 +76,8 @@ sosoStateMachine.prototype = {
 
 	},
 	gotoState: function(iStateName){
-		
+		console.log("sosoStateMachine- gotoState- iStateName: "+ iStateName);
+
 		// See if state exists.
 		var state = this.getState(iStateName);
 
@@ -119,6 +120,7 @@ sosoStateMachine.prototype = {
 			this.curState = state;
 			this.curTransition = null;
 			console.log("sosoStateMachine- forceState- curState: "+ this.curState);
+			console.log("sosoStateMachine- forceState- iStateName: "+ iStateName);
 		}
 	}
 }

@@ -84,8 +84,6 @@ clientApp.prototype = {
 		console.log("switchCurComparison- iComparisonNum : "+ iComparisonNum);
 
 		// Reset the old comparison to its initial state.
-		// this.curComparison.stateMachine.forceState("intro");
-		//dev_jn
 		this.curComparison.stateMachine.forceState("tweetList");
 
 		// Get the comparison with the specified id.
@@ -93,11 +91,13 @@ clientApp.prototype = {
 			return (c.id == iComparisonNum);
 		});
 		this.curComparison = newComparison[0];
-		// this.start();
-		this.startAtFirstState();
-
+		
 		// Update the view to reflect the current comparison.
 		updateView();
+
+		// Start the new comparison it it's first state.
+		comparisonListView();
+
 	},
 	customComparison: function(iComparisonNum){
 		console.log("-customComparison-");

@@ -49,8 +49,25 @@ function setupButtons(){
 function queryBlockController(iQuery){
 	console.log("queryBlockController- iQuery : "+ iQuery);
 
+	// If not selecting the custom search button...
 	if (iQuery != "custom"){
-		cgApp.switchCurComparison(Number(iQuery));
+
+		// If we are in app's intro state, we need to go to app's main state before starting the comparison.
+		if (cgApp.stateMachine.curState == cgApp.stateMachine.getState("intro")){
+			console.log("* * * * * * * * * * * in INTRO");
+
+			var stateChangeSuccess = cgApp.stateMachine.gotoState("main");
+			if (stateChangeSuccess) {
+				cgApp.switchCurComparison(Number(iQuery));
+			}
+		} 
+		// If we're already in app's main state, it means we have done a comparison already, and all we need to do is switch comparisons.
+		else if (cgApp.stateMachine.curState == cgApp.stateMachine.getState("main")){
+			console.log("* * * * * * * * * * * in MAIN");
+
+			cgApp.switchCurComparison(Number(iQuery));
+		}
+		
 	} else {
 		cgApp.customComparison();
 	}
