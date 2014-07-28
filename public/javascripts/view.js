@@ -11,6 +11,7 @@ function appIntroView(){
 
 function comparisonOutroView(){
 	emptyViewItems();
+	showComparisonStateStepper(false);						// Hide the comparison stepper button when in the compairon's outro state.
 	$("#state_title").html("");
 	$("#content").html("<div id='comparison-outro' class='center-block'><p class='text-center'>Select another pair<br/> of people to compare.</p></div>");
 }
@@ -19,6 +20,8 @@ function comparisonOutroView(){
 // A list view of both sets of tweets. Un-cleaned.
 function comparisonListView(){
 	console.log("listView - - - - - ENTER");
+
+	showComparisonStateStepper(true);						// Show the comparison stepper button when switching to a new comparison and going to the app's main state/comparison's list state.
 
 	$("#state_title").html("Let's compare the words that they each use");
 
@@ -382,4 +385,10 @@ function emptySearchView(){
 	console.log("model.js- EMPTY SEARCH VIEW");
 	// Clear current content div.
 	
+}
+
+// Show/hide the button to step thru a comparison's states.
+function showComparisonStateStepper(iVisible){
+	if (iVisible) { $('#state_selector').show(); }
+	else { $('#state_selector').hide(); }
 }

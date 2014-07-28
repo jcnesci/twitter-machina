@@ -24,10 +24,10 @@ function clientApp(iUseLiveData){
 	this.comparisons.push(new comparison(5, "kanyewest", "KimKardashian"));
 	this.curComparison = this.comparisons[0];
 
-	// Generic button setup
+	// Generic button setup run once at start of the app.
 	setupButtons();
 	
-	// Comparison obj setup
+	// Comparison object setup.
 	for (var i = 0; i < this.comparisons.length; i++){
 		if (iUseLiveData){
 			// Initiating server calls (they are not done in the comparison constructor so the comparisons array gets its length quicker).

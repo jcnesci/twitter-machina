@@ -7,7 +7,10 @@ Contains the code relative to the Controller parts of the app (following an MVC 
 // General function to assign button actions @start.
 function setupButtons(){
 
-	// Next btn to go between states within a Query.
+	// Hide the comparison state-stepper button at intro state of app.
+	showComparisonStateStepper(false);
+
+	// Setup the comparison state-stepper button (to go forward in the states of a comparison).
 	$("#state_selector > #query-stepper").click(function() { 
 
 		console.log("* * * * * * * * * * * curState : "+ cgApp.stateMachine.curState);
@@ -58,13 +61,14 @@ function queryBlockController(iQuery){
 
 			var stateChangeSuccess = cgApp.stateMachine.gotoState("main");
 			if (stateChangeSuccess) {
+				// showComparisonStateStepper(true);						// Show the comparison stepper button when switching to a new comparison and going to the app's main state.
 				cgApp.switchCurComparison(Number(iQuery));
 			}
 		} 
 		// If we're already in app's main state, it means we have done a comparison already, and all we need to do is switch comparisons.
 		else if (cgApp.stateMachine.curState == cgApp.stateMachine.getState("main")){
 			console.log("* * * * * * * * * * * in MAIN");
-
+			// showComparisonStateStepper(true);						// Show the comparison stepper button when switching to a new comparison and going to the app's main state.
 			cgApp.switchCurComparison(Number(iQuery));
 		}
 		
