@@ -12,7 +12,7 @@ function appIntroView(){
 function comparisonOutroView(){
 	emptyViewItems();
 	$("#state_title").html("");
-	$("#content").html("<div id='comparison-outro' class='center-block'><p class='text-center'><em>Select another pair of users to compare</em></p></div>");
+	$("#content").html("<div id='comparison-outro' class='center-block'><p class='text-center'>Select another pair<br/> of people to compare.</p></div>");
 }
 
 
