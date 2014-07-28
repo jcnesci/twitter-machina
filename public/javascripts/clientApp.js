@@ -66,14 +66,6 @@ clientApp.prototype = {
 		this.stateMachine.gotoState("intro");
 		appIntroView();
 	},
-	//dev_jn : old
-	// start: function(){
-	// 	// Display the first comparison.
-	// 	emptyViewItems();
-	// 	// introView();		//dev_jn
-	// 	listView();
-
-	// },
 	// Define the state machine transitions here.
 	buildStateMachine: function(){
 		this.stateMachine = new sosoStateMachine();
@@ -103,10 +95,8 @@ clientApp.prototype = {
 		console.log("-customComparison-");
 
 		// Reset the old comparison to its initial state.
-		this.curComparison.stateMachine.forceState("intro");
+		this.curComparison.stateMachine.forceState("tweetList");
 		emptyViewItems();
-		//emptySearchView();
-		introView();
 		searchView();
 	},
 	search: function(iComparionObj) {
@@ -121,17 +111,23 @@ clientApp.prototype = {
 		this.comparisons.push(new comparison("custom", iComparionObj.input1, iComparionObj.input2));
 		this.comparisons[5].setupServerCalls();
 
-		this.comparisons[5].introHTML = "<div id='intro_view'>" +
-																				"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
-																				"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
-																			"</div>";
 
+		// 
+		switchCurComparison(5);
+
+		// this.comparisons[5].introHTML = "<div id='intro_view'>" +
+		// 																		"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
+		// 																		"<p>People who talk similarly are said to be likely matches for friends. Let’s see who deep-down, should be getting along, and who might be better off staying far away from each other.</p>" +
+		// 																	"</div>";
+
+		/*
 		this.curComparison = this.comparisons[5];
 		console.log(this.comparisons);
 		// Reset the old comparison to its initial state.
 		this.curComparison.stateMachine.forceState("intro");
 		this.start();
 		updateView();
+		*/
 	}
 }
 

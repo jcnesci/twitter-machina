@@ -379,14 +379,6 @@ function emptyViewItems(){
 	$('#user2').fadeOut(500);
 }
 
-//DEV: should this be in view.js?
-// Empties the tweet bubble divs.
-function emptySearchView(){
-	console.log("model.js- EMPTY SEARCH VIEW");
-	// Clear current content div.
-	
-}
-
 // Show/hide the button to step thru a comparison's states.
 function showComparisonStateStepper(iVisible){
 	if (iVisible) { $('#state_selector').show(); }
