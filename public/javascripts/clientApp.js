@@ -7,7 +7,7 @@ function clientApp(iUseLiveData){
 	this.comparisons = [];
 	this.curComparison = null;
 	this.introHTML = "<div id='app-intro' class='center-block'>" +
-										"<p class='text-center'>Choose a pair<br/> to start comparing<br/> their common ground.</p></div>" +
+										"<p class='text-center'>Above are a few interesting pairs of people.<br> Choose one to compare their common ground.</p></div>" +
 									"</div>";
 
 	// --- States : dev_jn
