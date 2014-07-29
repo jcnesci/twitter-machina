@@ -131,6 +131,10 @@ io.sockets.on('connection', function (socket) {
     sendQueries(socket, comparisonId, item1, item2);
   });
 
+  socket.on('eClientReadyToSwitchComparison', function (comparisonId) {
+    socket.emit('eServerReturnsComparisonToSwtichTo', comparisonId);
+  });
+
 });
 
 // Sends 2 queries to Twitter for a Comparison object.

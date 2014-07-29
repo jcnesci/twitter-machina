@@ -32,7 +32,7 @@ function comparison(iId, iItem1, iItem2){
 }
 comparison.prototype = {
 	// Get live data from Twitter API for the provided user items.
-	setupServerCalls: function(){
+	setupServerCalls: function(iSwitchtoThisComparisonWhenReady){
 		// Send request for Twitter data.
 		socket.emit('eClientRequestsTwitterQuery', this.id, this.item1, this.item2);
 		// Receive Twitter data.
@@ -80,6 +80,13 @@ comparison.prototype = {
 			}
 			
 		});
+
+		// Optional: send message to switch this comparison now it is done loading.
+		if (iSwitchtoThisComparisonWhenReady){
+			console.log("1 socket - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - : ");
+				console.log(socket);
+			socket.emit('eClientReadyToSwitchComparison', 5);
+		}
 
 	},
 	// Use static data instead of live data from Twitter API (useful for development).

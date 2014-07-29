@@ -104,16 +104,33 @@ clientApp.prototype = {
 		console.log(iComparionObj.input1);
 		console.log(iComparionObj.input2);
 		//console.log(this);
+
+
+// TODO: goto loading state
+
+// console.log("2 socket - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - : ");
+// 			console.log(socket);
+	socket.on('eServerReturnsComparisonToSwtichTo', function (iResponse) {
+			console.log("TEST - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - : ");
+			console.log(iResponse);
+
+			// TODO: exit loading state, goto main state.
+
+		});
+		
+
+
 		if (this.comparisons[5] != undefined) {
 			console.log("conditional true");
 			this.comparisons.pop();
 		};
 		this.comparisons.push(new comparison("custom", iComparionObj.input1, iComparionObj.input2));
-		this.comparisons[5].setupServerCalls();
+		this.comparisons[5].setupServerCalls(true);
 
 
 		// 
-		switchCurComparison(5);
+		this.switchCurComparison(5);
+
 
 		// this.comparisons[5].introHTML = "<div id='intro_view'>" +
 		// 																		"<p>There is a lot of strife out there in the world. And that discord reaches online with arguments, name-calling, and all out twitter warfare. But aren’t we all humans, born of the same stuff? Can’t we find some Common Ground?</p>" +
